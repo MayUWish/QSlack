@@ -18,5 +18,7 @@ socketio = SocketIO(cors_allowed_origins=origins)
 # handle chat messages
 @socketio.on("chat")
 def handle_chat(data):
+    # a dictionary with key/value pair sent from frontend by using
+    # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
     print('!!!!!data>>>>>', data)
     emit("chat", data, broadcast=True)
