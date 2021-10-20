@@ -5,6 +5,7 @@ import LogoutButton from '.././auth/LogoutButton';
 import LoginFormModal from '.././auth/LoginFormModal';
 import SignUpFormModal from '.././auth/SignUpFormModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
+import DemoButton from '.././auth/DemoButton'
 import './NavBar.css';
 
 const NavBar = () => {
@@ -20,6 +21,7 @@ const NavBar = () => {
           </NavLink>
         </div>
         {!user && <div className='loginSignupWrapper'>
+          <DemoButton />
           <LoginFormModal />
           <SignUpFormModal />
           {/* <NavLink to='/login' exact={true} activeClassName='active' 
