@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import LogoutButton from '.././auth/LogoutButton';
 import LoginFormModal from '.././auth/LoginFormModal';
+import SignUpFormModal from '.././auth/SignUpFormModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import './NavBar.css';
 
@@ -19,15 +20,16 @@ const NavBar = () => {
           </NavLink>
         </div>
         {!user && <div className='loginSignupWrapper'>
+          <LoginFormModal />
+          <SignUpFormModal />
           {/* <NavLink to='/login' exact={true} activeClassName='active' 
            style={{ display: 'block', textDecoration: 'none'}}>
             Login
           </NavLink> */}
-          <LoginFormModal />
-        <NavLink to='/sign-up' exact={true} activeClassName='active' 
+          {/* <NavLink to='/sign-up' exact={true} activeClassName='active' 
           style={{ display: 'block', textDecoration: 'none' }}>
             Signup
-          </NavLink>
+          </NavLink> */}
         </div>}
         {user && <div>
           <NavLink to='/users' exact={true} activeClassName='active'
