@@ -3,21 +3,14 @@ from flask_login import login_required
 from app.models import User, Group
 
 
-user_routes = Blueprint('users', __name__)
+group_routes = Blueprint('groups', __name__)
 
 
-@user_routes.route('/')
+@group_routes.route('/<int:id>')
 @login_required
-def users():
-    users = User.query.all()
-    return {'users': [user.to_dict() for user in users]}
-
-
-@user_routes.route('/<int:id>')
-@login_required
-def user(id):
+def groups(id):
     user = User.query.get(id)
-    groups = Group.query.join(User).filter(User.id == id).all()
+    groups = Group.query.filter(Group.members.id == id).all()
     groupsDic = [g.to_dict() for g in groups]
     print('groups!!!', groupsDic)
     userDic = user.to_dict()

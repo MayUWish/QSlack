@@ -11,6 +11,7 @@ from app.api.test_websocket import socketio
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.group_routes import group_routes
 
 from .seeds import seed_commands
 
@@ -34,6 +35,7 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(auth_routes, url_prefix='/api/groups')
 db.init_app(app)
 Migrate(app, db)
 
@@ -44,6 +46,7 @@ socketio.init_app(app)
 # Application Security
 CORS(app)
 
+print('here!!!!>>>', os.environ.get('FLASK_ENV'))
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.

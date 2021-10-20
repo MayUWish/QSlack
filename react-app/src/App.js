@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux';
 import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
-import User from './components/User';
+// import User from './components/User';
+import Entry from './components/Entry';
 import { authenticate } from './store/session';
 
 import Chat from './components/TestChat';
@@ -40,7 +41,7 @@ function App() {
           <UsersList/>
         </ProtectedRoute>
         <ProtectedRoute path='/clients/:clientName' exact={true} >
-          <User />
+          <Entry />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
