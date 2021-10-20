@@ -1,0 +1,22 @@
+.topNavWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin:2%;
+    font-size: larger;
+
+}
+
+.loginSignupWrapper{
+    display: flex;
+    gap: 20%;
+
+}
+
+
+/* .btn{
+    background-color: none;
+    padding: 1%;
+    border:none;
+    
+} */

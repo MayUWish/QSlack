@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../../store/session';
+import { login } from '../../../store/session';
+// import { Modal } from '../../../context/Modal';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -9,6 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+
 
   const onLogin = async (e) => {
     e.preventDefault();
