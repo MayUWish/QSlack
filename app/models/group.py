@@ -22,10 +22,10 @@ class Group(db.Model):
     # many groups to many users through memberships
     members = db.relationship(
         "User", back_populates="groupsJoined", secondary=memberships)
-    
+  
     # one to many messages
     messages = db.relationship(
-        'Group', back_populates='group', cascade="all, delete")
+        'Message', back_populates='group', cascade="all, delete")
 
     def to_dict(self):
         return {
