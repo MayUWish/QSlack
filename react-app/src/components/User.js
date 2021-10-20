@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 function User() {
   const [user, setUser] = useState({});
-  const { userId }  = useParams();
+  // const { userId }  = useParams();
+  const currentUser = useSelector((state) => state.session?.user);
+  const userId = currentUser.id
 
   useEffect(() => {
     if (!userId) {

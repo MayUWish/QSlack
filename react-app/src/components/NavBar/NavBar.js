@@ -39,12 +39,21 @@ const NavBar = () => {
             Users
           </NavLink>
         </div>}
+
         {user && <div>
         <img alt='profilePic' 
           src={user.ProfilePic ? user.ProfilePic : defaultProfilePic } 
           style={{width:'60px',height:'50px'}}
           onClick={e=>setShow(show=>!show)}/>
-          {show && <LogoutButton />}
+          {show && 
+            <>
+              <NavLink to={`/clients/${user.username}`} exact={true} activeClassName='active'
+                style={{ textDecoration: 'none' }}>
+                Launch QSlack
+               </NavLink>
+              <LogoutButton />
+            </>         
+          }
         </div>}
     </nav>
   );
