@@ -23,6 +23,8 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data)
       }
+    } else{
+      setErrors(['Password Confirmation: Password Confirmation does not match Password.'])
     }
   };
 
@@ -83,13 +85,13 @@ const SignUpForm = () => {
           ></input>
         </div>
         <div>
-          <label>Repeat Password</label>
+          <label>Password Confirmation</label>
           <input
             type='password'
             name='repeat_password'
             onChange={updateRepeatPassword}
             value={repeatPassword}
-            required={true}
+            // required={true}
           ></input>
         </div>
         <button type='submit'>Sign Up</button>

@@ -1,6 +1,18 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
+
+memberships = db.Table(
+    "memberships",
+    db.Column("userId", db.Integer, db.ForeignKey(
+        "users.id"), primary_key=True),
+    db.Column("groupId", db.Integer, db.ForeignKey(
+        "groups.id"), primary_key=True),
+    db.Column("createdAt", db.DateTime, nullable=False,
+              default=datetime.now()),
+    db.Column("updatedAt", db.DateTime, nullable=False, default=datetime.now())
+)
 
 
 class User(db.Model, UserMixin):
@@ -10,6 +22,22 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    biography = db.Column(db.Text, nullable=True)
+    profilePic = db.Column(db.String, nullable=True)
+    createdAt = db.Column(db.DateTime, nullable=False,
+                          default=datetime.now())
+    updatedAt = db.Column(db.DateTime, nullable=False,
+                          default=datetime.now())
+
+    # on to many groups created by the user
+    groupsOwned = db.relationship(
+        'Group', back_populates='admin', cascade="all, delete")
+    # many users to many groups through memberships
+    groupsJoined = db.relationship(
+        "Group", back_populates="members", secondary=memberships)
+    # one to many messages created by the user
+    messages = db.relationship(
+        'Message', back_populates='user', cascade="all, delete")
 
     @property
     def password(self):
@@ -26,5 +54,12 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'biography': self.biography,
+            'profilePic': self.profilePic,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt,
+            # "groupsOwned": [group.to_dict() for group in self.groupsOwned],
+            # "groupsJoined": [group.to_dict() for group in self.groupsJoined],
+            "messages": [m.to_dict() for m in self.messages],
         }
