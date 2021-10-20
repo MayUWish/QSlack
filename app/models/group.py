@@ -36,7 +36,10 @@ class Group(db.Model):
             'createdAt': self.createdAt,
             "updatedAt": self.updatedAt,
             "adminId": self.adminId,
-            "admin": self.admin,
-            "members": [member.to_dict() for member in self.members],
+            # "admin": self.admin,
+            # using user.to_dict_for_Group method (no groups) to prevent
+            # infinitely association between user and groups,
+            # because user.to_dict() using groups as well.
+            "members": [member.to_dict_for_Group for member in self.members],
             "messages": [m.to_dict() for m in self.messages],
         }
