@@ -1,3 +1,4 @@
+# from werkzeug.debug import DebuggedApplication
 import os
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
@@ -19,6 +20,9 @@ from .config import Config
 
 app = Flask(__name__)
 
+# app.debug = True
+# app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True)
+
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
@@ -35,7 +39,7 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
-app.register_blueprint(auth_routes, url_prefix='/api/groups')
+app.register_blueprint(group_routes, url_prefix='/api/groups')
 db.init_app(app)
 Migrate(app, db)
 
@@ -45,8 +49,6 @@ socketio.init_app(app)
 
 # Application Security
 CORS(app)
-
-print('here!!!!>>>', os.environ.get('FLASK_ENV'))
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.

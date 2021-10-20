@@ -36,7 +36,9 @@ class Group(db.Model):
             'createdAt': self.createdAt,
             "updatedAt": self.updatedAt,
             "adminId": self.adminId,
-            # "admin": self.admin,
+            # cannot have "admin": self.admin, which will cause an error=>
+            # Object of type User is not JSON serializable
+
             # using user.to_dict_for_Group method (no groups) to prevent
             # infinitely association between user and groups,
             # because user.to_dict() using groups as well.

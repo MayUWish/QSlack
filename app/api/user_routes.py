@@ -20,8 +20,7 @@ def user(id):
     # groups = Group.query.join(User).filter(User.id == id).all()
     # groupsDic = [g.to_dict() for g in groups]
     # print('groups!!!', groupsDic)
-    userDic = user.to_dict()
     # userDic['groups'] = groupsDic
-    print('change??')
+    # print('5555333332222!!!!')
 
-    return userDic
+    return user.to_dict()
