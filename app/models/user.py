@@ -59,18 +59,9 @@ class User(db.Model, UserMixin):
             'profilePic': self.profilePic,
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt,
-            "groupsOwned": [group.to_dict() for group in self.groupsOwned],
-            "groupsJoined": [group.to_dict() for group in self.groupsJoined],
+            # "groupsOwned": [group.to_dict() for group in self.groupsOwned],
+            # "groupsJoined": [group.to_dict() for group in self.groupsJoined],
             "messages": [m.to_dict() for m in self.messages],
         }
 
-    def to_dict_for_Group(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
-            'biography': self.biography,
-            'profilePic': self.profilePic,
-            'createdAt': self.createdAt,
-            'updatedAt': self.updatedAt,
-        }
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/session';
-import { NavLink, useHistory } from 'react-router-dom';
+import {useHistory } from 'react-router-dom';
 
 const DemoButton = () => {
     const dispatch = useDispatch()

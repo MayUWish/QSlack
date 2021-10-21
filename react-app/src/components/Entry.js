@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 
 function User() {
-    const [user, setUser] = useState({});
+    const [groupJoined, setGroupJoined] = useState({});
     // const { userId }  = useParams();
     const currentUser = useSelector((state) => state.session?.user);
     const userId = currentUser.id
@@ -13,27 +13,21 @@ function User() {
             return;
         }
         (async () => {
-            const response = await fetch(`/api/users/${userId}`);
-            const user = await response.json();
-            setUser(user);
+            const response = await fetch(`/api/groups/`);
+            const groups = await response.json();
+            console.log('groups!!', groups)
+            setGroupJoined(groups);
+          
         })();
     }, [userId]);
 
-    if (!user) {
+    if (!userId) {
         return null;
     }
 
     return (
         <ul>
-            <li>
-                <strong>User Id</strong> {userId}
-            </li>
-            <li>
-                <strong>Username</strong> {user.username}
-            </li>
-            <li>
-                <strong>Email</strong> {user.email}
-            </li>
+            {Object.keys(groupJoined).map(key => <li>{groupJoined[key]?.id}</li>)}
         </ul>
     );
 }

@@ -22,7 +22,7 @@ class Group(db.Model):
     # many groups to many users through memberships
     members = db.relationship(
         "User", back_populates="groupsJoined", secondary=memberships)
-  
+
     # one to many messages
     messages = db.relationship(
         'Message', back_populates='group', cascade="all, delete")
@@ -38,10 +38,7 @@ class Group(db.Model):
             "adminId": self.adminId,
             # cannot have "admin": self.admin, which will cause an error=>
             # Object of type User is not JSON serializable
-
-            # using user.to_dict_for_Group method (no groups) to prevent
-            # infinitely association between user and groups,
-            # because user.to_dict() using groups as well.
-            "members": [member.to_dict_for_Group for member in self.members],
+            "members": {member.id: {'id': member.id, 'name': member.username}
+                        for member in self.members},
             "messages": [m.to_dict() for m in self.messages],
         }

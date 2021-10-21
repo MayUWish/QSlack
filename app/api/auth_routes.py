@@ -41,6 +41,13 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
+
+        # userDic = user.to_dict()
+        # groupsJoined = user.groupsJoined
+        # groupsOwned = user.groupsOwned
+        # userDic['groupsJoined'] = [g.to_dict() for g in groupsJoined]
+        # userDic['groupsOwned'] = [g.to_dict() for g in groupsOwned]
+        # print('final userDic', userDic)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

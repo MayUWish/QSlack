@@ -17,10 +17,4 @@ def users():
 @login_required
 def user(id):
     user = User.query.get(id)
-    # groups = Group.query.join(User).filter(User.id == id).all()
-    # groupsDic = [g.to_dict() for g in groups]
-    # print('groups!!!', groupsDic)
-    # userDic['groups'] = groupsDic
-    # print('5555333332222!!!!')
-
     return user.to_dict()
