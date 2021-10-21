@@ -9,10 +9,11 @@ import './MainContent.css';
 function MainContent({groupId}) {
     const chatGroups = useSelector((state) => state.chatGroups);
     const dmChannels = useSelector((state) => state.dmChannels);
-    const currentGroupName = chatGroups[groupId] ? chatGroups[groupId].name : dmChannels[groupId].name
-    const currentGroupId = chatGroups[groupId] ? chatGroups[groupId].id : dmChannels[groupId].id
-    const messagesArr = chatGroups[groupId] ? chatGroups[groupId].messages : dmChannels[groupId].messages
-    const membersObject = chatGroups[groupId] ? chatGroups[groupId].members : dmChannels[groupId].members
+    const currentGroup = chatGroups[groupId] ? chatGroups[groupId] : dmChannels[groupId]
+    const currentGroupName = chatGroups[groupId] ? chatGroups[groupId]?.name : dmChannels[groupId]?.name
+    const currentGroupId = chatGroups[groupId] ? chatGroups[groupId]?.id : dmChannels[groupId]?.id
+    const messagesArr = chatGroups[groupId] ? chatGroups[groupId]?.messages : dmChannels[groupId]?.messages
+    const membersObject = chatGroups[groupId] ? chatGroups[groupId]?.members : dmChannels[groupId]?.members
     
 
     console.log('!!!messagesArr>>>', messagesArr)
@@ -20,7 +21,7 @@ function MainContent({groupId}) {
 
     return (
         <>  
-            <div className='chatHeaderWrapper'>
+            {currentGroup && <div className='chatHeaderWrapper'>
                 <div className='chatHeaderEl'>
                     <h3 style={{ display: 'inline' }}>{currentGroupName}</h3>
                 </div>
@@ -33,12 +34,12 @@ function MainContent({groupId}) {
                         <i className="fas fa-users" style={{paddingRight: '5px'}}/>
                         {Object.keys(membersObject).length}
                     </div> */}
-                    <MembersModal membersObject={membersObject} currentGroupName={currentGroupName}/>
+                    {currentGroup && <MembersModal membersObject={membersObject} currentGroupName={currentGroupName}/>}
                     
                     {/* <div className='chatHeaderEl'>
                         <i className="fas fa-user-plus" />
                     </div> */}
-                    <AddMemberModal membersObject={membersObject} currentGroupName={currentGroupName} currentGroupId={currentGroupId}/>
+                    {currentGroup && <AddMemberModal membersObject={membersObject} currentGroupName={currentGroupName} currentGroupId={currentGroupId}/>}
 
                     <div className='chatHeaderEl'>
                         <i className="fas fa-info-circle" />
@@ -48,13 +49,13 @@ function MainContent({groupId}) {
                         <i className="fas fa-trash-alt" />
                     </div> */}
 
-                    <DeleteGroupModal currentGroupName={currentGroupName} currentGroupId={currentGroupId} />
+                    {currentGroup && <DeleteGroupModal currentGroupName={currentGroupName} currentGroupId={currentGroupId} currentGroup={currentGroup} />}
 
                 </div>
                 
-            </div>
+            </div>}
             
-            {messagesArr.map((message,i)=>(
+            {currentGroup && messagesArr.map((message,i)=>(
                 <div className="eachChatWrapper" key={`message${i}`}>
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>{membersObject[String(message.userId)].username}: {message.message}
                 </div>

@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { createChatGroupsThunk } from "../../store/chatGroups";
+import { deleteChatGroupsThunk } from "../../store/chatGroups";
+
+// import { useHistory } from 'react-router-dom';
 
 
 
-
-const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName  }) => {
+const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, currentGroup  }) => {
     const [errors, setErrors] = useState([]);
+    // const history = useHistory()
    
 
     const user = useSelector(state => state.session.user);
-    const isAdmin = +user.id === + currentGroupId
+    const isAdmin = +user.id === + currentGroup.adminId
     const dispatch = useDispatch();
 
 
     const onDelete = async (e) => {
         e.preventDefault();
 
-        const data = await dispatch();
+        const data = await dispatch(deleteChatGroupsThunk(currentGroupId));
         if (data && data.errors) {
             setErrors(data.errors)
-        } else {
-            setShowModal(false)
-        }
+        } 
+        // do not use setShowModal(false), otherwise =>>>  Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+        // else {
+        //     setShowModal(false)          
+        // }
     }
 
 
@@ -35,7 +39,7 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName  }) =>
             </div>
            
             <div>
-                {isAdmin ? `Are you sure to delete the chat group, ${currentGroupName}?` : `Are you sure to leave the, ${currentGroupName}?`}
+                {isAdmin ? `Are you sure to delete the chat group, ${currentGroupName}?` : `Are you sure to leave the chat group, ${currentGroupName}?`}
             </div>
             <button type='submit'>{isAdmin ?'Delete':'Leave'}</button>
         </form>
