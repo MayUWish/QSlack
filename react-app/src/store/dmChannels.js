@@ -29,13 +29,13 @@ export const getDMChannelsThunk = () => async (dispatch) => {
 }
 
 
-export const createDMChannelsThunk = ({ username, isDM}) => async (dispatch) => {
+export const createDMChannelsThunk = ({ name, isDM}) => async (dispatch) => {
     const response = await fetch(`/api/groups/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, isDM}),
+        body: JSON.stringify({ name, isDM}),
     });
     const data = await response.json();
     if (response.ok) {

@@ -22,9 +22,10 @@ def get_groups():
 @group_routes.route('/', methods=['POST'])
 @login_required
 def create_group():
-    if request.form['isDM']:
-        form = CreateGroupForm()
-        form['csrf_token'].data = request.cookies['csrf_token']
+    print('request.form!!!', request.form) 
+    form = CreateGroupForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if not form.data['isDM']:
         # print('!!!form before', form.data)
         if form.validate_on_submit():
             # print('!!!form after', form.data)
@@ -39,26 +40,25 @@ def create_group():
             return group.to_dict()
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
     else:
-        if not request.form['username']:
-            return {'errors': ['username: input an username to start direct message.']}, 401
-        else:
+        if form.validate_on_submit():
             # username is unique in db
             theOtherUser = User.query.filter(
-                User.username == request.form['username']).first()
+                User.username == form.data['name']).first()
             if not theOtherUser:
-                return {'errors': ['username: user cannot be found.']}, 401
+                return {'errors': ['name: user cannot be found.']}, 401
             # name the DM channel with name userId_userId to avoid duplication
             dmGroupName = f'{current_user.id}_{theOtherUser.id}_UniqueDM'
-            isDMExisted = Group.query.filter(Group.name == dmGroupName,
-                                             Group.isDM is True)
-            if isDMExisted:
-                return {'dmChannelId': isDMExisted.id} 
+            isDMExisted = Group.query.filter(Group.name == dmGroupName).first()
+            if isDMExisted and isDMExisted.isDM:
+                # return {'errors': ['Already exist!']}, 401
+                return {'dmChannelId': isDMExisted.id}
             group = Group(name=dmGroupName,
                           adminId=current_user.id,
                           isDM=True)
             db.session.add(group)
             db.session.commit()
             return group.to_dict()
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @group_routes.route('/<int:id>', methods=['DELETE'])

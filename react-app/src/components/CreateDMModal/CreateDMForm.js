@@ -16,7 +16,7 @@ const CreateDMForm = ({setShowModal }) => {
     const onAdd = async (e) => {
         e.preventDefault();
         const newDMChannel = {
-            username,
+            name:username,
             isDM:true,
             
         }
