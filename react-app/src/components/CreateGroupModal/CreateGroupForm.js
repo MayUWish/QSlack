@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createChatGroupsThunk } from "../../store/chatGroups";
+
 
 
 
@@ -18,10 +19,10 @@ const CreateGroupForm = () => {
         const newChatGroup ={
             name,
             description,
-            adminId:user.id,
-            isDM:false,
+            // adminId:user.id,
+            // isDM:false,
         }
-        const data = await dispatch();
+        const data = await dispatch(createChatGroupsThunk(newChatGroup));
         if (data) {
                 setErrors(data)
             }

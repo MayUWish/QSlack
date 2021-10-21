@@ -31,6 +31,7 @@ def create_group():
                       description=form.data['description'],
                       adminId=current_user.id,
                       isDM=False)
+        db.session.add(group)
         db.session.commit()
         return group.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
