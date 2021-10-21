@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createChatGroupsThunk } from "../../store/chatGroups";
 
 
@@ -10,11 +10,11 @@ const CreateGroupForm = ({ setShowModal }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     
-    const user = useSelector(state => state.session.user);
+    // const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
    
 
-    const onSignUp = async (e) => {
+    const onCreate = async (e) => {
         e.preventDefault();
         const newChatGroup ={
             name,
@@ -43,7 +43,7 @@ const CreateGroupForm = ({ setShowModal }) => {
 
 
     return (
-        <form onSubmit={onSignUp}>
+        <form onSubmit={onCreate}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector} from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
-import MembersModal from './MembersModal';
-import AddMemberModal from './AddMemberModal';
+import MembersModal from '../MembersModal';
+import AddMemberModal from '../AddMemberModal';
+import DeleteGroupModal from '../DeleteGroupModal';
 import './MainContent.css';
 
 function MainContent({groupId}) {
@@ -43,9 +44,11 @@ function MainContent({groupId}) {
                         <i className="fas fa-info-circle" />
                     </div>
 
-                    <div className='chatHeaderEl'>
+                    {/* <div className='chatHeaderEl'>
                         <i className="fas fa-trash-alt" />
-                    </div>
+                    </div> */}
+
+                    <DeleteGroupModal currentGroupName={currentGroupName} currentGroupId={currentGroupId} />
 
                 </div>
                 

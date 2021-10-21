@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import defaultProfilePic from '../../../static/images/defaultProfilePic.png';
+import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { useSelector, useDispatch } from 'react-redux'
-import { addMemberThunk } from "../../../store/chatGroups";
+import { addMemberThunk } from "../../store/chatGroups";
 
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultProfilePic from '../../../static/images/defaultProfilePic.png';
+import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 
 
 
