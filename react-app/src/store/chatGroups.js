@@ -138,9 +138,9 @@ export default function reducer(state = initialState, action) {
 
             
         case DELETE_CHATGROUPS:
-            !action.payload.userId && delete updatedState[action.payload.deletedGroupId]
-            console.log('!!!!updatedState', updatedState)
-            action.payload.userId && delete updatedState[action.payload.deletedGroupId].members[action.payload.userId]
+            delete updatedState[action.payload.deletedGroupId]
+            // The following is used to delete member in a chat group, but we should use above to delete chat group from redux store, for deleting a group or leave a group.
+            // action.payload.userId && delete updatedState[action.payload.deletedGroupId].members[action.payload.userId]
             return { ...updatedState }
             
         default:

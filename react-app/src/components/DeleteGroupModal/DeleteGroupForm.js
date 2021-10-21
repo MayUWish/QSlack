@@ -13,6 +13,7 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
 
     const user = useSelector(state => state.session.user);
     const isAdmin = +user.id === + currentGroup.adminId
+    console.log('isAdmin>>>>', isAdmin, user.id, currentGroup.adminId)
     const dispatch = useDispatch();
 
 
@@ -41,7 +42,7 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
             <div>
                 {isAdmin ? `Are you sure to delete the chat group, ${currentGroupName}?` : `Are you sure to leave the chat group, ${currentGroupName}?`}
             </div>
-            <button type='submit'>{isAdmin ?'Delete':'Leave'}</button>
+            <button type='submit'>{isAdmin ? 'Delete':'Leave' }</button>
         </form>
     )
 
