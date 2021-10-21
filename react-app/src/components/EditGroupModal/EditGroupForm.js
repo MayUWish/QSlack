@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createChatGroupsThunk } from "../../store/chatGroups";
+import { editChatGroupsThunk } from "../../store/chatGroups";
 
 
 
@@ -16,13 +16,14 @@ const EditGroupForm = ({ setShowEditModal, currentGroup, setShowModal }) => {
 
     const onCreate = async (e) => {
         e.preventDefault();
-        const newChatGroup = {
+        const editChatGroup = {
             name,
             description,
+            groupId: + currentGroup.id,
             // adminId:user.id,
             // isDM:false,
         }
-        const data = await dispatch(createChatGroupsThunk(newChatGroup));
+        const data = await dispatch(editChatGroupsThunk(editChatGroup));
         if (data && data.errors) {
             setErrors(data.errors)
         } else {

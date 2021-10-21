@@ -65,7 +65,7 @@ def delete_group(id):
 
 @group_routes.route('/<int:id>', methods=['PATCH'])
 @login_required
-def create_group(id):
+def edit_group(id):
     form = CreateGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     print('!!!form before', form.data)
