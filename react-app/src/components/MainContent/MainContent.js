@@ -4,6 +4,7 @@ import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import MembersModal from '../MembersModal';
 import AddMemberModal from '../AddMemberModal';
 import DeleteGroupModal from '../DeleteGroupModal';
+import EditGroupModal from '../EditGroupModal';
 import './MainContent.css';
 
 function MainContent({groupId}) {
@@ -41,9 +42,10 @@ function MainContent({groupId}) {
                     </div> */}
                     {currentGroup && <AddMemberModal membersObject={membersObject} currentGroupName={currentGroupName} currentGroupId={currentGroupId}/>}
 
-                    <div className='chatHeaderEl'>
+                    {/* <div className='chatHeaderEl'>
                         <i className="fas fa-info-circle" />
-                    </div>
+                    </div> */}
+                    {currentGroup && <EditGroupModal currentGroup={currentGroup}/>}
 
                     {/* <div className='chatHeaderEl'>
                         <i className="fas fa-trash-alt" />
