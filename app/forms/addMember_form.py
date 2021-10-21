@@ -8,6 +8,9 @@ def user_exists(form, field):
     # Checking if user exists
     username = field.data
     user = User.query.filter(User.username == username).first()
+    if not user:
+        raise ValidationError('User is not founded.')
+
     groupId = form.data['groupId']
     userId = user.id
     groupsJoined = list(filter(lambda group: group.id ==
