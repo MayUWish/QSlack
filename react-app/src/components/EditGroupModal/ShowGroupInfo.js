@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector} from "react-redux";
 import { Modal } from '../../context/Modal';
 import EditGroupForm from './EditGroupForm';
 
@@ -7,6 +8,8 @@ import EditGroupForm from './EditGroupForm';
 
 const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
     const [showEditModal, setShowEditModal] = useState(false);
+    const currentUser = useSelector((state) => state.session?.user);
+    const isAdmin = +currentUser.id === +currentGroup.adminId
  
     return (
         <div>
@@ -19,7 +22,7 @@ const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
             <div>
                 Created on {new Date(currentGroup.createdAt).toLocaleDateString()}
             </div>
-            <div>
+            {isAdmin && <div>
                 <button onClick={() => {
                     // setShowModal(false)
                     setShowEditModal(true)
@@ -32,7 +35,7 @@ const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
                         <EditGroupForm setShowEditModal={setShowEditModal} setShowModal={setShowModal} currentGroup={currentGroup}/>
                     </Modal>
                 )}
-            </div>
+            </div>}
                      
         </div>
     )
