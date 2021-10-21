@@ -63,5 +63,3 @@ class User(db.Model, UserMixin):
             # "groupsJoined": [group.to_dict() for group in self.groupsJoined],
             "messages": [m.to_dict() for m in self.messages],
         }
-
-

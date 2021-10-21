@@ -1,0 +1,11 @@
+.leftBarWrapper{
+    /* background-color: #edeaff; */
+    width: 25%
+}
+.groupsWrapper{
+    margin:3%;
+    color:darkslategray
+}
+.groupEl{
+    margin:2% 0 1% 3%;
+}
