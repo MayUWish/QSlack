@@ -3,16 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { getChatGroupsThunk } from "../../store/chatGroups";
 import { getDMChannelsThunk } from "../../store/dmChannels";
-
+import MainContent from '../MainContent/MainContent';
 import './LeftBar.css';
 
 function LeftBar() {
     const dispatch = useDispatch();
-    // const [dmChannel, setDmChannel] = useState({});
-    // const [chatGroups, setChatGroups] = useState({}); 
     const [showChatGroups, setShowChatGroups] = useState(true);
     const [showDM, setShowDM] = useState(true);
     const [showMoments, setShowMoments] = useState(true);
+    const [groupId, setGroupId] = useState(null);
+
     const currentUser = useSelector((state) => state.session?.user);
     const chatGroups = useSelector((state) => state.chatGroups);
     const dmChannels = useSelector((state) => state.dmChannels);
@@ -25,16 +25,13 @@ function LeftBar() {
         (async () => {
             await dispatch(getChatGroupsThunk())
             await dispatch(getDMChannelsThunk())
-            // const response = await fetch(`/api/groups/`);
-            // const groups = await response.json();
-            // console.log('groups!!', groups)
-            // setDmChannel(groups.dmChannel);
-            // setChatGroups(groups.chatGroups);
           
         })();
     }, [dispatch, userId]);
 
     const loadGroupChats = (e) =>{
+        setGroupId(e.target.value)
+        // console.log('???? !!!!!!', e.target.value)
 
     }
 
@@ -43,28 +40,38 @@ function LeftBar() {
     }
 
     return (
-        <div className='leftBarWrapper'>
-            <h3 style={{ display: 'inline' }}>Cheerful welcome, {currentUser.username}</h3>
-            <div className='groupsWrapper'>
-                <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e => setShowChatGroups(showChatGroups=>!showChatGroups)}/> <h4 style={{display:'inline'}}>Group chats</h4>
-                {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
-                    <div className='groupEl' key={`chatGroups${i}`} onClick={loadGroupChats}><i className="fas fa-envelope" /> {chatGroups[groupId]?.name}</div>
-                )}
-                
+        <div className='Wrapper'>
+            <div className='leftBarWrapper'>
+                <h3 style={{ display: 'inline' }}>Cheerful welcome, {currentUser.username}</h3>
+                <div className='groupsWrapper'>
+                    <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e   => setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
+                    <h4 style={{display:'inline'}}>Group chats</h4>
+                    <i className="fas fa-plus" style={{ marginLeft: '10%' }}/>
+                    {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
+                        <button className='groupEl' key={`chatGroups${i}`} value={groupId} onClick={loadGroupChats}><i className="fas fa-envelope" /> {chatGroups[groupId]?.name}</button>
+                    )}
+
+                </div>
+                <div className='groupsWrapper'>
+                    <i className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e =>    setShowDM(showDM=>!showDM)} /> 
+                    <h4 style={{ display: 'inline' }}>Direct messages</h4>
+                    <i className="fas fa-plus" style={{ marginLeft: '10%' }} />
+                    {showDM && Object.keys(dmChannels).map((groupId, i) =>
+                        <button className='groupEl' key={`dmChannel${i}`} value={groupId} onClick={loadGroupChats}><i className="fas fa-comment" style={{ marginRight:'5px' }}/>
+                        {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel     will only have 2 members, currentUser vs the other user whose name is displayed */}
+                            {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}</button>
+                    )}
+
+                </div>
+                <div className='groupsWrapper'>
+                    <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e =>   setShowMoments(showMoments => !showMoments)} /> <h4 style={{ display: 'inline'}} >Moments</h4>
+                </div>
+                    
             </div>
-            <div className='groupsWrapper'>
-                <i className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e => setShowDM(showDM=>!showDM)} /> <h4 style={{ display: 'inline' }}>Direct messages</h4>
-                {showDM && Object.keys(dmChannels).map((groupId, i) =>
-                    <div className='groupEl' key={`dmChannel${i}`}><i className="fas fa-comment" />
-                    {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel will only have 2 members, currentUser vs the other user whose name is displayed */}
-                     {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}</div>
-                )}
-                
+            <div className='mainContentWrapper'>
+                {groupId && <MainContent groupId={groupId} />}
             </div>
-            <div className='groupsWrapper'>
-                <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e => setShowMoments(showMoments => !showMoments)} /> <h4 style={{ display: 'inline' }}>Moments</h4>
-            </div>
-                   
+            
         </div>
     );
 }

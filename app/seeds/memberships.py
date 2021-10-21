@@ -13,7 +13,11 @@ def seed_memberships():
             userId=adminUser.id, groupId=group.id, message=randomMessage))
         # ramdom select nonAdminUsers to add to memberships
         nonAdminUsers = User.query.filter(User.id != group.adminId).all()
-        randomNum = random.randint(1, len(nonAdminUsers))
+        if group.isDM:
+            randomNum = 1
+        else:
+            randomNum = random.randint(1, len(nonAdminUsers))
+
         for randomUser in random.sample(nonAdminUsers, randomNum):
             group.members.append(randomUser)
             randomMessage = f'Hi, this is {randomUser.username} saying hello in # {group.id}'
