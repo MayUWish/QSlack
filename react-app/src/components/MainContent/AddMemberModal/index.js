@@ -17,7 +17,7 @@ function AddMemberModal({ membersObject, currentGroupName, currentGroupId }) {
 
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <AddMemberForm currentGroupName={currentGroupName} membersObject={membersObject} currentGroupId={currentGroupId} />
+                    <AddMemberForm currentGroupName={currentGroupName} membersObject={membersObject} currentGroupId={currentGroupId} setShowModal={setShowModal}/>
                 </Modal>
             )}
         </div>

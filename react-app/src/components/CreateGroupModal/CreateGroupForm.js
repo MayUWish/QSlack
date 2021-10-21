@@ -5,7 +5,7 @@ import { createChatGroupsThunk } from "../../store/chatGroups";
 
 
 
-const CreateGroupForm = () => {
+const CreateGroupForm = ({ setShowModal }) => {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -25,6 +25,8 @@ const CreateGroupForm = () => {
         const data = await dispatch(createChatGroupsThunk(newChatGroup));
         if (data && data.errors) {
             setErrors(data.errors)
+            }else{
+                setShowModal(false)
             }
         } 
     

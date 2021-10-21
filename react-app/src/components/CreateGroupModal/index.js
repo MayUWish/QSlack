@@ -13,7 +13,7 @@ function CreateGroupFormModal() {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <CreateGroupForm />
+                    <CreateGroupForm setShowModal={setShowModal}/>
                 </Modal>
             )}
         </div>

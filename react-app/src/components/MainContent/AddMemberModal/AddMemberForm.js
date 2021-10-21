@@ -5,7 +5,7 @@ import { addMemberThunk } from "../../../store/chatGroups";
 
 
 
-const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId }) => {
+const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setShowModal }) => {
     const [errors, setErrors] = useState([]);
     const [username, setUsername] = useState('');
 
@@ -23,6 +23,7 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId }) => {
             setErrors(data.errors)
         } else{
             setErrors([])
+            setShowModal(false)
         }
 
     };
