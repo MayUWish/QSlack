@@ -3,7 +3,7 @@ import { Modal } from '../../../context/Modal';
 import AddMemberForm from './AddMemberForm';
 
 
-function AddMemberModal({ membersObject, currentGroupName }) {
+function AddMemberModal({ membersObject, currentGroupName, currentGroupId }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -17,7 +17,7 @@ function AddMemberModal({ membersObject, currentGroupName }) {
 
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <AddMemberForm currentGroupName={currentGroupName} membersObject={membersObject} />
+                    <AddMemberForm currentGroupName={currentGroupName} membersObject={membersObject} currentGroupId={currentGroupId} />
                 </Modal>
             )}
         </div>

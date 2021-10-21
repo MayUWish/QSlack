@@ -9,6 +9,7 @@ function MainContent({groupId}) {
     const chatGroups = useSelector((state) => state.chatGroups);
     const dmChannels = useSelector((state) => state.dmChannels);
     const currentGroupName = chatGroups[groupId] ? chatGroups[groupId].name : dmChannels[groupId].name
+    const currentGroupId = chatGroups[groupId] ? chatGroups[groupId].id : dmChannels[groupId].id
     const messagesArr = chatGroups[groupId] ? chatGroups[groupId].messages : dmChannels[groupId].messages
     const membersObject = chatGroups[groupId] ? chatGroups[groupId].members : dmChannels[groupId].members
     
@@ -36,7 +37,7 @@ function MainContent({groupId}) {
                     {/* <div className='chatHeaderEl'>
                         <i className="fas fa-user-plus" />
                     </div> */}
-                    <AddMemberModal membersObject={membersObject} currentGroupName={currentGroupName} />
+                    <AddMemberModal membersObject={membersObject} currentGroupName={currentGroupName} currentGroupId={currentGroupId}/>
 
                     <div className='chatHeaderEl'>
                         <i className="fas fa-info-circle" />

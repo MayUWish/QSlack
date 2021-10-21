@@ -6,8 +6,8 @@ from app.models import User, Group
 
 def user_exists(form, field):
     # Checking if user exists
-    id = field.data
-    user = User.query.filter(User.id == int(id)).first()
+    username = field.data
+    user = User.query.filter(User.username == username).first()
     if user:
         raise ValidationError('User is already in the chat groups.')
 
@@ -21,6 +21,7 @@ def dm_channel(form, field):
 
 
 class AddMemberForm(FlaskForm):
-    userId = IntegerField('userId', validators=[DataRequired(), user_exists])
+    username = StringField('username', validators=[
+                            DataRequired()])
     groupId = IntegerField('groupId', validators=[
-                           DataRequired(), dm_channel])
+                           DataRequired()])

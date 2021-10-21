@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import defaultProfilePic from '../../../static/images/defaultProfilePic.png';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { addMemberThunk } from "../../../store/chatGroups";
 
 
 
-const AddMemberForm = ({ membersObject, currentGroupName }) => {
+const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId }) => {
     const [errors, setErrors] = useState([]);
     const [username, setUsername] = useState('');
 
@@ -16,10 +16,11 @@ const AddMemberForm = ({ membersObject, currentGroupName }) => {
 
     const onAdd = async (e) => {
         e.preventDefault();
-   
-        const data = await dispatch();
-        if (data) {
-            setErrors(data)
+        console.log('currentGroupId', currentGroupId)
+        console.log('username', username)
+        const data = await dispatch(addMemberThunk({ 'groupId': currentGroupId, username}));
+        if (data && data.errors) {
+            setErrors(data.errors)
         }
 
     };
