@@ -8,8 +8,15 @@ def user_exists(form, field):
     # Checking if user exists
     username = field.data
     user = User.query.filter(User.username == username).first()
-    if user:
-        raise ValidationError('User is already in the chat groups.')
+    groupId = form.data['groupId']
+    userId = user.id
+    groupsJoined = list(filter(lambda group: group.id ==
+                        groupId, user.groupsJoined))
+    # print('groupsJoined!!!', groupsJoined, groupsJoined[0].id)
+    if groupsJoined and groupsJoined[0].id:
+        # print('ValidationError', ValidationError(
+        #     'User is already in the chat groups.'))
+        raise ValidationError('User is already in the chat group.')
 
 
 def dm_channel(form, field):
@@ -22,6 +29,6 @@ def dm_channel(form, field):
 
 class AddMemberForm(FlaskForm):
     username = StringField('username', validators=[
-                            DataRequired()])
+        DataRequired(), user_exists])
     groupId = IntegerField('groupId', validators=[
-                           DataRequired()])
+                           DataRequired(), dm_channel])

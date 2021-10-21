@@ -21,6 +21,8 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId }) => {
         const data = await dispatch(addMemberThunk({ 'groupId': currentGroupId, username}));
         if (data && data.errors) {
             setErrors(data.errors)
+        } else{
+            setErrors([])
         }
 
     };

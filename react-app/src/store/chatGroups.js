@@ -40,21 +40,23 @@ export const addMemberThunk = ({username,groupId}) => async (dispatch) => {
             groupId,
         }),
     });
+    const data = await response.json();
     if (response.ok) {
-        const data = await response.json();
+        
         console.log('data???',data)
-        if (data.errors) {
-
-            return data;
-        }
         dispatch(addMemberAction(data));
-    } 
-    // else{
-    //     return { 'errors': ['Please try again later.'] }
-    // }
+    } else if (response.status < 500) {
+        console.log('data???has error', data)
+        if (data.errors){
+            return data;
+
+        }
+        
+    }
+    else{
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
 }
-
-
 
 
 const initialState = {}
