@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { getChatGroupsThunk } from "../../store/chatGroups";
 import { getDMChannelsThunk } from "../../store/dmChannels";
-import MainContent from '../MainContent/MainContent';
+import MainContent from '../MainContentChatGroups/MainContent';
+import MainContentDM from '../MainContentDM/MainContentDM';
 import CreateGroupFormModal from '../CreateGroupModal';
 import './LeftBar.css';
 
@@ -30,7 +31,7 @@ function LeftBar() {
         })();
     }, [dispatch, userId]);
 
-    const loadGroupChats = (e) =>{
+    const loadMain = (e) =>{
         setGroupId(e.target.value)
         // console.log('???? !!!!!!', e.target.value)
 
@@ -50,7 +51,7 @@ function LeftBar() {
                     {/* <i className="fas fa-plus" style={{ marginLeft: '10%' }}/> */}
                     <CreateGroupFormModal />
                     {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
-                        <button className='groupEl' key={`chatGroups${i}`} value={groupId} onClick={loadGroupChats}><i className="fas fa-envelope" /> {chatGroups[groupId]?.name}</button>
+                        <button className='groupEl' key={`chatGroups${i}`} value={`ChatGroups_${groupId}`} onClick={loadMain}><i className="fas fa-envelope" /> {chatGroups[groupId]?.name}</button>
                     )}
 
                 </div>
@@ -59,7 +60,7 @@ function LeftBar() {
                     <h4 style={{ display: 'inline' }}>Direct messages</h4>
                     <i className="fas fa-plus" style={{ marginLeft: '10%' }} />
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>
-                        <button className='groupEl' key={`dmChannel${i}`} value={groupId} onClick={loadGroupChats}><i className="fas fa-comment" style={{ marginRight:'5px' }}/>
+                        <button className='groupEl' key={`dmChannel${i}`} value={`DM_${groupId}`} onClick={loadMain}><i className="fas fa-comment" style={{ marginRight:'5px' }}/>
                         {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel     will only have 2 members, currentUser vs the other user whose name is displayed */}
                             {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}</button>
                     )}
@@ -71,7 +72,8 @@ function LeftBar() {
                     
             </div>
             <div className='mainContentWrapper'>
-                {groupId && <MainContent groupId={groupId} />}
+                {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} />}
+                {groupId && groupId.startsWith('DM_') && <MainContentDM groupId={groupId.split('_')[1]} />}
             </div>
             
         </div>
