@@ -37,3 +37,27 @@ def create_group():
         db.session.commit()
         return group.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@group_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_group(id):
+    userId = current_user.id
+    group = Group.query.get(id)
+    isAdmin = userId == group.adminId
+
+    if isAdmin:
+        deletedGroupID = group.id
+        db.session.delete(group)
+        db.session.commit()
+        return {'deletedGroupId': int(id)}
+    else:
+        currentUserInMemberships = list(filter(lambda member: member.id == userId,
+                                        group.members))[0]
+
+        currentUserInMemberships = group.members.pop(
+            group.members.index(currentUserInMemberships))
+        db.session.commit()
+        return {'deletedGroupId': int(id), 'userId': userId}
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
