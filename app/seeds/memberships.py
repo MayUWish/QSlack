@@ -1,15 +1,25 @@
-from app.models import db, User, Group
+from app.models import db, User, Group, Message
 import random
 
 
 def seed_memberships():
     groups = Group.query.all()
-    users = User.query.all()
-    numberOfUsers = len(users)
     for group in groups:
-        randomNum = random.randint(2, len(users))
-        for randomUser in random.sample(users, randomNum):
+        # user created/as admin should always be in the chat groups
+        adminUser = User.query.filter(User.id == group.adminId).first()
+        group.members.append(adminUser)
+        randomMessage = f'Hi, this is {adminUser.username} saying hello in # {group.id}'
+        group.messages.append(Message(
+            userId=adminUser.id, groupId=group.id, message=randomMessage))
+        # ramdom select nonAdminUsers to add to memberships
+        nonAdminUsers = User.query.filter(User.id != group.adminId).all()
+        randomNum = random.randint(1, len(nonAdminUsers))
+        for randomUser in random.sample(nonAdminUsers, randomNum):
             group.members.append(randomUser)
+            randomMessage = f'Hi, this is {randomUser.username} saying hello in # {group.id}'
+            group.messages.append(Message(
+                userId=randomUser.id, groupId=group.id, message=randomMessage))
+
     db.session.commit()
 
 

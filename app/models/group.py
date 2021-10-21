@@ -38,7 +38,6 @@ class Group(db.Model):
             "adminId": self.adminId,
             # cannot have "admin": self.admin, which will cause an error=>
             # Object of type User is not JSON serializable
-            "members": {member.id: {'id': member.id, 'name': member.username}
-                        for member in self.members},
+            "members": [member.to_dict() for member in self.members],
             "messages": [m.to_dict() for m in self.messages],
         }
