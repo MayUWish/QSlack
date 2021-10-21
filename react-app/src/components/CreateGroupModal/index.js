@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import CreateGroupForm from './CreateGroupForm';
 
 
-function SignUpFormModal() {
+function CreateGroupFormModal() {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -20,4 +20,4 @@ function SignUpFormModal() {
     );
 }
 
-export default SignUpFormModal;
+export default CreateGroupFormModal;

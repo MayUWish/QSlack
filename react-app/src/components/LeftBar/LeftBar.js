@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getChatGroupsThunk } from "../../store/chatGroups";
 import { getDMChannelsThunk } from "../../store/dmChannels";
 import MainContent from '../MainContent/MainContent';
+import CreateGroupFormModal from '../CreateGroupModal';
 import './LeftBar.css';
 
 function LeftBar() {
@@ -46,7 +47,8 @@ function LeftBar() {
                 <div className='groupsWrapper'>
                     <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e   => setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
                     <h4 style={{display:'inline'}}>Group chats</h4>
-                    <i className="fas fa-plus" style={{ marginLeft: '10%' }}/>
+                    {/* <i className="fas fa-plus" style={{ marginLeft: '10%' }}/> */}
+                    <CreateGroupFormModal />
                     {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
                         <button className='groupEl' key={`chatGroups${i}`} value={groupId} onClick={loadGroupChats}><i className="fas fa-envelope" /> {chatGroups[groupId]?.name}</button>
                     )}
