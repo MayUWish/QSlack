@@ -1,0 +1,20 @@
+.chatHeaderWrapper{
+    display: flex;
+    align-content: space-between;
+
+}
+.chatHeaderEl{
+    width:5%;
+    text-align: center;
+    
+}
+
+.chatProfilePic{
+    width:50px;
+    height:50px;
+    border-radius: 100%;
+}
+
+.eachChatWrapper{
+    margin:2% 1%
+}
