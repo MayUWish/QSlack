@@ -33,5 +33,7 @@ def create_group():
                       isDM=False)
         db.session.add(group)
         db.session.commit()
+        group.members.append(current_user)
+        db.session.commit()
         return group.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

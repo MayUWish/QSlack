@@ -23,8 +23,8 @@ const CreateGroupForm = () => {
             // isDM:false,
         }
         const data = await dispatch(createChatGroupsThunk(newChatGroup));
-        if (data) {
-                setErrors(data)
+        if (data && data.errors) {
+            setErrors(data.errors)
             }
         } 
     
