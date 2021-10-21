@@ -22,21 +22,43 @@ def get_groups():
 @group_routes.route('/', methods=['POST'])
 @login_required
 def create_group():
-    form = CreateGroupForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    # print('!!!form before', form.data)
-    if form.validate_on_submit():
-        # print('!!!form after', form.data)
-        group = Group(name=form.data['name'],
-                      description=form.data['description'],
-                      adminId=current_user.id,
-                      isDM=False)
-        db.session.add(group)
-        db.session.commit()
-        group.members.append(current_user)
-        db.session.commit()
-        return group.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    if request.form['isDM']:
+        form = CreateGroupForm()
+        form['csrf_token'].data = request.cookies['csrf_token']
+        # print('!!!form before', form.data)
+        if form.validate_on_submit():
+            # print('!!!form after', form.data)
+            group = Group(name=form.data['name'],
+                          description=form.data['description'],
+                          adminId=current_user.id,
+                          isDM=False)
+            db.session.add(group)
+            db.session.commit()
+            group.members.append(current_user)
+            db.session.commit()
+            return group.to_dict()
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    else:
+        if not request.form['username']:
+            return {'errors': ['username: input an username to start direct message.']}, 401
+        else:
+            # username is unique in db
+            theOtherUser = User.query.filter(
+                User.username == request.form['username']).first()
+            if not theOtherUser:
+                return {'errors': ['username: user cannot be found.']}, 401
+            # name the DM channel with name userId_userId to avoid duplication
+            dmGroupName = f'{current_user.id}_{theOtherUser.id}_UniqueDM'
+            isDMExisted = Group.query.filter(Group.name == dmGroupName,
+                                             Group.isDM is True)
+            if isDMExisted:
+                return {'dmChannelId': isDMExisted.id} 
+            group = Group(name=dmGroupName,
+                          adminId=current_user.id,
+                          isDM=True)
+            db.session.add(group)
+            db.session.commit()
+            return group.to_dict()
 
 
 @group_routes.route('/<int:id>', methods=['DELETE'])

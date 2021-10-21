@@ -20,7 +20,7 @@ const CreateGroupForm = ({ setShowModal }) => {
             name,
             description,
             // adminId:user.id,
-            // isDM:false,
+            isDM:false,
         }
         const data = await dispatch(createChatGroupsThunk(newChatGroup));
         if (data && data.errors) {

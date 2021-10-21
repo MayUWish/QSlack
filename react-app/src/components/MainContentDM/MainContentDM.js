@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
-import DeleteGroupModal from '../DeleteGroupModal';
+// import DeleteGroupModal from '../DeleteGroupModal';
 import './MainContentDM.css';
 
 function MainContentDM({ groupId }) {

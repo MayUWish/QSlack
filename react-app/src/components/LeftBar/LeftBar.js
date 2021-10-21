@@ -6,6 +6,7 @@ import { getDMChannelsThunk } from "../../store/dmChannels";
 import MainContent from '../MainContentChatGroups/MainContent';
 import MainContentDM from '../MainContentDM/MainContentDM';
 import CreateGroupFormModal from '../CreateGroupModal';
+import CreateDMFormModal from '../CreateDMModal';
 import './LeftBar.css';
 
 function LeftBar() {
@@ -58,11 +59,19 @@ function LeftBar() {
                 <div className='groupsWrapper'>
                     <i className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e =>    setShowDM(showDM=>!showDM)} /> 
                     <h4 style={{ display: 'inline' }}>Direct messages</h4>
-                    <i className="fas fa-plus" style={{ marginLeft: '10%' }} />
+                    {/* <i className="fas fa-plus" style={{ marginLeft: '50%' }} /> */}
+                    <CreateDMFormModal/>
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>
-                        <button className='groupEl' key={`dmChannel${i}`} value={`DM_${groupId}`} onClick={loadMain}><i className="fas fa-comment" style={{ marginRight:'5px' }}/>
-                        {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel     will only have 2 members, currentUser vs the other user whose name is displayed */}
-                            {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}</button>
+                        <div key={`dmChannelWrapper${i}`}>
+                            <button className='groupEl' key={`dmChannelUserName${i}`} value={`DM_${groupId}`} onClick={loadMain} style={{ display: 'inline' }}>
+                                <i className="fas fa-comment" style={{ marginRight: '5px'}}/>
+                            {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel     will only have 2 members, currentUser vs the other user whose name is displayed */}
+                                {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}
+                            </button>
+
+                            <i className="fas fa-times" style={{ display: 'inline', marginLeft: '66%' }} />
+
+                        </div>
                     )}
 
                 </div>
