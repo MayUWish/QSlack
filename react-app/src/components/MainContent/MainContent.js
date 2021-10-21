@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector} from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import MembersModal from './MembersModal';
+import AddMemberModal from './AddMemberModal';
 import './MainContent.css';
 
 function MainContent({groupId}) {
@@ -31,10 +32,11 @@ function MainContent({groupId}) {
                         {Object.keys(membersObject).length}
                     </div> */}
                     <MembersModal membersObject={membersObject} currentGroupName={currentGroupName}/>
-
-                    <div className='chatHeaderEl'>
+                    
+                    {/* <div className='chatHeaderEl'>
                         <i className="fas fa-user-plus" />
-                    </div>
+                    </div> */}
+                    <AddMemberModal membersObject={membersObject} currentGroupName={currentGroupName} />
 
                     <div className='chatHeaderEl'>
                         <i className="fas fa-info-circle" />

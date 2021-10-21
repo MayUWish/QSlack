@@ -24,7 +24,9 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        allUsers = User.query.all()
+        return {'user': current_user.to_dict(),
+                'allUsers': [user.to_dict() for user in allUsers]}
     return {'errors': ['Unauthorized']}
 
 
@@ -41,14 +43,10 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-
-        # userDic = user.to_dict()
-        # groupsJoined = user.groupsJoined
-        # groupsOwned = user.groupsOwned
-        # userDic['groupsJoined'] = [g.to_dict() for g in groupsJoined]
-        # userDic['groupsOwned'] = [g.to_dict() for g in groupsOwned]
-        # print('final userDic', userDic)
-        return user.to_dict()
+        allUsers = User.query.all()
+        # return user.to_dict()
+        return {'user': current_user.to_dict(),
+                'allUsers': [user.to_dict() for user in allUsers]}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -77,7 +75,10 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        allUsers = User.query.all()
+        # return user.to_dict()
+        return {'user': current_user.to_dict(),
+                'allUsers': [user.to_dict() for user in allUsers]}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
