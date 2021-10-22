@@ -6,8 +6,8 @@ from app.models import User, Group, Message
 # configure cors_allowed_origins
 if os.environ.get('FLASK_ENV') == 'production':
     origins = [
-        'https://qslack-app.herokuapp.com/',
-        'https://qslack-app.herokuapp.com/'
+        'https://qslack-app.herokuapp.com',
+        'https://qslack-app.herokuapp.com'
     ]
 else:
     origins = "*"
@@ -23,7 +23,7 @@ def handle_chat(data):
     # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
     print('!!!!!data>>>>>', data)
     message = Message(
-        
+
     )
     # emit first parameter would need to be same as socket.on first parameter to revieve the data
     emit(data['groupId'], data, broadcast=True)
