@@ -7,7 +7,7 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
 # import socketio object
-from app.api.test_websocket import socketio
+from .websocket import socketio
 
 from .models import db, User
 from .api.user_routes import user_routes
