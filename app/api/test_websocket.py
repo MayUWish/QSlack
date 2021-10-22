@@ -21,4 +21,5 @@ def handle_chat(data):
     # a dictionary with key/value pair sent from frontend by using
     # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
     print('!!!!!data>>>>>', data)
-    emit("chat", data, broadcast=True)
+    # emit first parameter would need to be same as socket.on first parameter to revieve the data
+    emit(data['groupId'], data, broadcast=True)

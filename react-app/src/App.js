@@ -10,7 +10,7 @@ import UsersList from './components/UsersList';
 import LeftBar from './components/LeftBar/LeftBar';
 import { authenticate } from './store/session';
 
-import Chat from './components/TestChat';
+import Chat from './components/Chat';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,7 +46,7 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
-          <Chat />
+          {/* <Chat /> */}
 
         </ProtectedRoute>
       </Switch>

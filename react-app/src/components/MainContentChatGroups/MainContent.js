@@ -5,6 +5,7 @@ import MembersModal from '../MembersModal';
 import AddMemberModal from '../AddMemberModal';
 import DeleteGroupModal from '../DeleteGroupModal';
 import EditGroupModal from '../EditGroupModal';
+import Chat from '../Chat';
 import './MainContent.css';
 
 function MainContent({groupId}) {
@@ -67,6 +68,7 @@ function MainContent({groupId}) {
                 </input>
                 <button>Send</button>
             </form>
+            <Chat groupId={groupId}/>
         </>
     );
 }

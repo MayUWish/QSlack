@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { io } from 'socket.io-client';
 let socket;
 
-const Chat = () => {
+const Chat = ({ groupId}) => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user)
@@ -13,14 +13,16 @@ const Chat = () => {
         // create websocket
         socket = io();
 
-        socket.on("chat", (chat) => {
+        socket.on(String(groupId), (chat) => {
+            console.log('chat!!!', chat)
             setMessages(messages => [...messages, chat])
         })
         // when component unmounts, disconnect
         return (() => {
             socket.disconnect()
+            setMessages([])
         })
-    }, [])
+    }, [groupId])
 
     const updateChatInput = (e) => {
         setChatInput(e.target.value)
@@ -28,7 +30,7 @@ const Chat = () => {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("chat", { user: user.username, msg: chatInput });
+        socket.emit("chat", { user: user.username, msg: chatInput, groupId });
         setChatInput("")
     }
 
