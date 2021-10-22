@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch} from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import MembersModal from '../MembersModal';
