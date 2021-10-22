@@ -11,7 +11,7 @@ const Chat = ({ groupId}) => {
     useEffect(() => {
         // open socket connection
         // create websocket
-        socket = io('https://qslack-app.herokuapp.com');
+        socket = io();
 
         socket.on(String(groupId), (chat) => {
             console.log('chat!!!', chat)
@@ -31,7 +31,7 @@ const Chat = ({ groupId}) => {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("chat", { message: chatInput, groupId, userId:user.id });
+        socket.emit("chat", { user: user.username, msg: chatInput, groupId, userId:user.id });
         setChatInput("")
     }
 
