@@ -11,7 +11,7 @@ const Chat = ({ groupId}) => {
     useEffect(() => {
         // open socket connection
         // create websocket
-        socket = io();
+        socket = io('https://qslack-app.herokuapp.com/');
 
         socket.on(String(groupId), (chat) => {
             console.log('chat!!!', chat)
@@ -20,6 +20,7 @@ const Chat = ({ groupId}) => {
         // when component unmounts, disconnect
         return (() => {
             socket.disconnect()
+            // clear messages array when the component unmouts, otherwise going to different groups the messageArr will be there
             setMessages([])
         })
     }, [groupId])
@@ -30,7 +31,7 @@ const Chat = ({ groupId}) => {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("chat", { user: user.username, msg: chatInput, groupId });
+        socket.emit("chat", { message: chatInput, groupId, userId:user.id });
         setChatInput("")
     }
 
