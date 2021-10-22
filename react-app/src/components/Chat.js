@@ -39,6 +39,7 @@ const Chat = ({ groupId, deleteMessage}) => {
         setChatInput("")
     }
 
+
     return (user && (
         <div>
             <div>

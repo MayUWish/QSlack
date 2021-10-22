@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
-// import DeleteGroupModal from '../DeleteGroupModal';
-import Chat from '../Chat';
-import { getChatGroupsThunk } from "../../store/chatGroups";
 import { getDMChannelsThunk } from "../../store/dmChannels";
 import './MainContentDM.css';
 
@@ -19,14 +16,14 @@ function MainContentDM({ groupId }) {
     const membersObject =  dmChannels[groupId]?.members
     const theOtherUser = membersObject?membersObject[(Object.keys(membersObject)?.filter(memberId => +memberId !== +currentUser.id))[0]]:{}
     
+    const [chatInput, setChatInput] = useState("");
+
     //everytime changing to a different group, will update redux store by putting groupId as dependency list
     useEffect(() => {
         (async () => {
             await dispatch(getDMChannelsThunk())
 
-        })();
-
-        
+        })();       
     }, [dispatch, groupId]);
 
     useEffect(() => {
@@ -39,12 +36,18 @@ function MainContentDM({ groupId }) {
             if (chat.action === 'delete') {
                 console.log('delete chat!!!', chat)
                 await dispatch(getDMChannelsThunk())
+                
             }
+            else if (chat.action === 'create') {
+                console.log('create chat!!!', chat)
+                await dispatch(getDMChannelsThunk())
+            }
+            
+
         })
         // when component unmounts, disconnect
         return (() => {
             socket.disconnect()
-            // clear messages array when the component unmouts, otherwise going to different groups the messageArr will be there
 
         })
     }, [groupId,dispatch])
@@ -56,6 +59,16 @@ function MainContentDM({ groupId }) {
             groupId,
             action: 'delete'
         } );
+    }
+
+    const updateChatInput = (e) => {
+        setChatInput(e.target.value)
+    };
+
+    const sendChat = (e) => {
+        e.preventDefault()
+        socket.emit("chat", { user: currentUser.username, msg: chatInput, groupId, userId: currentUser.id, action: 'create' });
+        setChatInput("")
     }
 
     return (
@@ -77,7 +90,17 @@ function MainContentDM({ groupId }) {
                     
                 </div>
             ))}
-            <Chat groupId={groupId} deleteMessage={deleteMessage}/>
+            {currentUser && (
+            <div>
+                <form onSubmit={sendChat}>
+                    <input
+                        value={chatInput}
+                        onChange={updateChatInput}
+                    />
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+            )}
         </>
     );
 }
