@@ -20,7 +20,7 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
-    }
+    } 
   };
 
 
@@ -33,7 +33,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to={`/clients/${user.username}`} />;
   }
 
   return (

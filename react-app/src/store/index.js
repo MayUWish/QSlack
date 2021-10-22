@@ -1,9 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
+import chatGroups from './chatGroups'
+import dmChannels from './dmChannels'
 
 const rootReducer = combineReducers({
   session,
+  chatGroups,
+  dmChannels,
 });
 
 

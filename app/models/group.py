@@ -22,10 +22,10 @@ class Group(db.Model):
     # many groups to many users through memberships
     members = db.relationship(
         "User", back_populates="groupsJoined", secondary=memberships)
-    
+
     # one to many messages
     messages = db.relationship(
-        'Group', back_populates='group', cascade="all, delete")
+        'Message', back_populates='group', cascade="all, delete")
 
     def to_dict(self):
         return {
@@ -36,7 +36,9 @@ class Group(db.Model):
             'createdAt': self.createdAt,
             "updatedAt": self.updatedAt,
             "adminId": self.adminId,
-            "admin": self.admin,
-            "members": [member.to_dict() for member in self.members],
+            # cannot have "admin": self.admin, which will cause an error=>
+            # Object of type User is not JSON serializable
+            "members": {member.id: member.to_dict()
+                        for member in self.members},
             "messages": [m.to_dict() for m in self.messages],
         }

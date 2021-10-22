@@ -2,8 +2,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin:2%;
+    /* margin-bottom:2%; */
     font-size: larger;
+    border-bottom: 1px solid purple;
+    /* background-color: #edeaff; */
 
 }
 
