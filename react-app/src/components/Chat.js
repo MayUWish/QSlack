@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { io } from 'socket.io-client';
+import defaultProfilePic from '../static/images/defaultProfilePic.png';
 let socket;
 
 const Chat = ({ groupId}) => {
@@ -39,7 +40,13 @@ const Chat = ({ groupId}) => {
         <div>
             <div>
                 {messages.map((message, ind) => (
-                    <div key={ind}>{`${message.user}: ${message.msg}`}</div>
+                    <div key={ind} className="eachChatWrapper">
+                        <img className='chatProfilePic' alt='profilePicture' src={message.profilePic ? message.profilePic : defaultProfilePic} />
+                        {message.user}: {message.msg}
+                    </div>
+                    
+                    
+                
                 ))}
             </div>
             <form onSubmit={sendChat}>

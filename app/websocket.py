@@ -1,6 +1,6 @@
 from flask_socketio import SocketIO, emit
 import os
-from app.models import User, Group, Message
+from app.models import User, Group, Message, db
 
 
 # configure cors_allowed_origins
@@ -23,7 +23,14 @@ def handle_chat(data):
     # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
     print('!!!!!data>>>>>', data)
     message = Message(
+        groupId=data['groupId'],
+        userId=data['userId'],
+        message=data['msg'],
 
     )
+    user = User.query.get(data['userId'])
+    data['profilePic'] = user.profilePic
+    db.session.add(message)
+    db.session.commit()
     # emit first parameter would need to be same as socket.on first parameter to revieve the data
     emit(data['groupId'], data, broadcast=True)

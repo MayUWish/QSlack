@@ -57,7 +57,6 @@ function LeftBar() {
                 <div className='groupsWrapper'>
                     <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e   => setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
                     <h4 style={{display:'inline'}}>Group chats</h4>
-                    {/* <i className="fas fa-plus" style={{ marginLeft: '10%' }}/> */}
                     <CreateGroupFormModal />
                     {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
                         <button className='groupEl' key={`chatGroups${i}`} value={`ChatGroups_${groupId}`} onClick={loadMain}><i className="fas fa-envelope" /> {chatGroups[groupId]?.name}</button>
@@ -67,7 +66,6 @@ function LeftBar() {
                 <div className='groupsWrapper'>
                     <i className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e =>    setShowDM(showDM=>!showDM)} /> 
                     <h4 style={{ display: 'inline' }}>Direct messages</h4>
-                    {/* <i className="fas fa-plus" style={{ marginLeft: '50%' }} /> */}
                     {/* setGroupId is passed down and used to load the mainContent when DM is already at db but user try to create one more */} 
                     <CreateDMFormModal setGroupId={setGroupId}/>
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>

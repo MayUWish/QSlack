@@ -10,7 +10,6 @@ import UsersList from './components/UsersList';
 import LeftBar from './components/LeftBar/LeftBar';
 import { authenticate } from './store/session';
 
-import Chat from './components/Chat';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
