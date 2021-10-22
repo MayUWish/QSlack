@@ -60,7 +60,8 @@ function LeftBar() {
                     <i className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e =>    setShowDM(showDM=>!showDM)} /> 
                     <h4 style={{ display: 'inline' }}>Direct messages</h4>
                     {/* <i className="fas fa-plus" style={{ marginLeft: '50%' }} /> */}
-                    <CreateDMFormModal/>
+                    {/* setGroupId is passed down and used to load the mainContent when DM is already at db but user try to create one more */} 
+                    <CreateDMFormModal setGroupId={setGroupId}/>
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>
                         <div key={`dmChannelWrapper${i}`}>
                             <button className='groupEl' key={`dmChannelUserName${i}`} value={`DM_${groupId}`} onClick={loadMain} style={{ display: 'inline' }}>

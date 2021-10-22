@@ -5,7 +5,7 @@ import { createDMChannelsThunk } from "../../store/dmChannels";
 
 
 
-const CreateDMForm = ({setShowModal }) => {
+const CreateDMForm = ({ setShowModal, setGroupId }) => {
     const [errors, setErrors] = useState([]);
     const [username, setUsername] = useState('');
 
@@ -23,6 +23,11 @@ const CreateDMForm = ({setShowModal }) => {
         const data = await dispatch(createDMChannelsThunk(newDMChannel));
         if (data && data.errors) {
             setErrors(data.errors)
+        } else if (data && data.dmChannelId){
+            // this is how groupId is set to be differentiated between DM channels and  chat groups
+            setGroupId(`DM_${data.dmChannelId}`)
+            setErrors([])
+            setShowModal(false)
         }
         else {
             setErrors([])

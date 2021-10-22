@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import CreateDMForm from './CreateDMForm';
 
 
-function CreateDMModal() {
+function CreateDMModal({ setGroupId}) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -13,7 +13,7 @@ function CreateDMModal() {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <CreateDMForm setShowModal={setShowModal} />
+                    <CreateDMForm setShowModal={setShowModal} setGroupId={setGroupId}/>
                 </Modal>
             )}
         </div>
