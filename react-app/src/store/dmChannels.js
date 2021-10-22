@@ -1,6 +1,7 @@
 // constants
 const GET_DMCHANNELS = 'dmChannels/GET';
 const CREATE_DMCHANNELS = 'dmChannels/CREATE';
+const REMOVE_DMCHANNELS = 'dmChannels/REMOVE';
 
 
 const getDMChannelsAction = (groups) => ({
@@ -11,6 +12,11 @@ const getDMChannelsAction = (groups) => ({
 const createDMChannelsAction = (newDM) => ({
     type: CREATE_DMCHANNELS,
     payload: newDM
+});
+
+const removeDMChannelsAction = (id) => ({
+    type: REMOVE_DMCHANNELS,
+    payload: id
 });
 
 export const getDMChannelsThunk = () => async (dispatch) => {
@@ -39,13 +45,9 @@ export const createDMChannelsThunk = ({ name, isDM}) => async (dispatch) => {
     });
     const data = await response.json();
     if (response.ok) {
-        // console.log('data???', data)
-        if (data.dmChannelId){
-            return data
-        }
         dispatch(createDMChannelsAction(data));
+        return data
     } else if (response.status < 500) {
-        // console.log('data???has error', data)
         if (data.errors) {
             return data;
         }
@@ -55,15 +57,24 @@ export const createDMChannelsThunk = ({ name, isDM}) => async (dispatch) => {
     }
 }
 
+
+export const removeDMChannelsThunk = (id) => async (dispatch) => {
+    // only remove from redux store, not from db        
+    dispatch(removeDMChannelsAction(id));
+    
+}
+
 const initialState = {}
 export default function reducer(state = initialState, action) {
     const updatedState = { ...state }
-    switch (action.type) {
-        
+    switch (action.type) {       
         case GET_DMCHANNELS:
             return { ...action.payload }
         case CREATE_DMCHANNELS:
-            if(!action.payload.dmChannelId) updatedState[action.payload.id] = action.payload
+            (!action.payload.dmChannelId) ? updatedState[action.payload.id] = action.payload : updatedState[action.payload.dmChannelId] = action.payload[action.payload.dmChannelId]
+            return { ...updatedState }
+        case REMOVE_DMCHANNELS:
+            delete updatedState[action.payload]
             return { ...updatedState }
         default:
             return state;

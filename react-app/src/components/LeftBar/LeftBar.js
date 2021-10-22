@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getChatGroupsThunk } from "../../store/chatGroups";
-import { getDMChannelsThunk } from "../../store/dmChannels";
+import { getDMChannelsThunk, removeDMChannelsThunk } from "../../store/dmChannels";
 import MainContent from '../MainContentChatGroups/MainContent';
 import MainContentDM from '../MainContentDM/MainContentDM';
 import CreateGroupFormModal from '../CreateGroupModal';
@@ -38,6 +38,14 @@ function LeftBar() {
 
     }
 
+    const removeFromStore = async(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        // button will need to have innerHTML to have e.target.value(e.g. close), otherwise undefined
+        const id = e.target.value.split('_')[1]
+        await dispatch(removeDMChannelsThunk(id))
+    }
+
     if (!userId) {
         return null;
     }
@@ -65,13 +73,13 @@ function LeftBar() {
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>
                         <div key={`dmChannelWrapper${i}`}>
                             <button className='groupEl' key={`dmChannelUserName${i}`} value={`DM_${groupId}`} onClick={loadMain} style={{ display: 'inline' }}>
-                                <i className="fas fa-comment" style={{ marginRight: '5px'}}/>
+                                <i className="fas fa-comment"/>
                             {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel     will only have 2 members, currentUser vs the other user whose name is displayed */}
                                 {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}
                             </button>
-
-                            <i className="fas fa-times" style={{ display: 'inline', marginLeft: '66%' }} />
-
+                            <button className='groupEl' key={`dmChannelRemoveButton${i}`} value={`DM_${groupId}`} onClick={removeFromStore} style={{ display: 'inline' }}>
+                                <i className="fas fa-times" /> Close
+                            </button>
                         </div>
                     )}
 

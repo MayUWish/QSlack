@@ -10,7 +10,7 @@ function MainContentDM({ groupId }) {
     const currentGroup = dmChannels[groupId]
     const messagesArr = dmChannels[groupId]?.messages
     const membersObject =  dmChannels[groupId]?.members
-    const theOtherUser = membersObject[(Object.keys(membersObject)?.filter(memberId => +memberId !== +currentUser.id))[0]]
+    const theOtherUser = membersObject?membersObject[(Object.keys(membersObject)?.filter(memberId => +memberId !== +currentUser.id))[0]]:{}
     
 
     return (

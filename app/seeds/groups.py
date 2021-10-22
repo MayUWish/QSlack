@@ -7,16 +7,16 @@ def seed_groups():
     group2 = Group(
         name='group2', description='this is group2.', adminId=1)
     group3 = Group(
-        name='group3', description='this is group3.', adminId=2)
+        name='group3', description='this is group3.', adminId=1)
     group4 = Group(
-        name='group4', description='this is group4.', adminId=3)
+        name='group4', description='this is group4.', adminId=2)
     group5 = Group(
-        isDM=True, name='DM1', description='this is DM1.', adminId=1)
+        name='group5', description='this is group5.', adminId=2)
     group6 = Group(
-        isDM=True, name='DM2', description='this is DM2.', adminId=2)
+        name='group6', description='this is group6.', adminId=3)
     group7 = Group(
-        isDM=True, name='DM3', description='this is DM3.', adminId=3)
-    
+        name='group7', description='this is group7.', adminId=2)
+
     db.session.add(group1)
     db.session.add(group2)
     db.session.add(group3)

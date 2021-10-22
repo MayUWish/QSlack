@@ -22,7 +22,7 @@ def get_groups():
 @group_routes.route('/', methods=['POST'])
 @login_required
 def create_group():
-    print('request.form!!!', request.form) 
+    print('request.form!!!', request.form)
     form = CreateGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if not form.data['isDM']:
@@ -46,12 +46,14 @@ def create_group():
                 User.username == form.data['name']).first()
             if not theOtherUser:
                 return {'errors': ['name: user cannot be found.']}, 401
+            if theOtherUser.id == current_user.id:
+                return {'errors': ['name: choose an user but not yourself.']}, 401
             # name the DM channel with name userId_userId to avoid duplication
             dmGroupName = f'{current_user.id}_{theOtherUser.id}_UniqueDM'
             isDMExisted = Group.query.filter(Group.name == dmGroupName).first()
             if isDMExisted and isDMExisted.isDM:
                 # return {'errors': ['Already exist!']}, 401
-                return {'dmChannelId': isDMExisted.id}
+                return {'dmChannelId': isDMExisted.id, f'{isDMExisted.id}': isDMExisted.to_dict()}
             group = Group(name=dmGroupName,
                           adminId=current_user.id,
                           isDM=True)
