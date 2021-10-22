@@ -23,7 +23,8 @@ const CreateDMForm = ({setShowModal }) => {
         const data = await dispatch(createDMChannelsThunk(newDMChannel));
         if (data && data.errors) {
             setErrors(data.errors)
-        } else {
+        }
+        else {
             setErrors([])
             setShowModal(false)
         }

@@ -40,6 +40,9 @@ export const createDMChannelsThunk = ({ name, isDM}) => async (dispatch) => {
     const data = await response.json();
     if (response.ok) {
         // console.log('data???', data)
+        if (data.dmChannelId){
+            return data
+        }
         dispatch(createDMChannelsAction(data));
     } else if (response.status < 500) {
         // console.log('data???has error', data)
@@ -54,9 +57,14 @@ export const createDMChannelsThunk = ({ name, isDM}) => async (dispatch) => {
 
 const initialState = {}
 export default function reducer(state = initialState, action) {
+    const updatedState = { ...state }
     switch (action.type) {
+        
         case GET_DMCHANNELS:
             return { ...action.payload }
+        case CREATE_DMCHANNELS:
+            if(!action.payload.dmChannelId) updatedState[action.payload.id] = action.payload
+            return { ...updatedState }
         default:
             return state;
     }
