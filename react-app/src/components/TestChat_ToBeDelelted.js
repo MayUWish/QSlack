@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { io } from 'socket.io-client';
+import defaultProfilePic from '../static/images/defaultProfilePic.png';
 let socket;
 
-const Chat = ({ groupId}) => {
+const Chat = ({ groupId, deleteMessage}) => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user)
@@ -14,8 +15,11 @@ const Chat = ({ groupId}) => {
         socket = io();
 
         socket.on(String(groupId), (chat) => {
-            console.log('chat!!!', chat)
-            setMessages(messages => [...messages, chat])
+            
+            if (chat.action === 'create'){
+                console.log('create chat!!!', chat)
+                setMessages(messages => [...messages, chat])
+            }
         })
         // when component unmounts, disconnect
         return (() => {
@@ -31,15 +35,26 @@ const Chat = ({ groupId}) => {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("chat", { user: user.username, msg: chatInput, groupId, userId:user.id });
+        socket.emit("chat", { user: user.username, msg: chatInput, groupId, userId: user.id, action: 'create' });
         setChatInput("")
     }
+
 
     return (user && (
         <div>
             <div>
                 {messages.map((message, ind) => (
-                    <div key={ind}>{`${message.user}: ${message.msg}`}</div>
+                    <div key={ind} className="eachChatWrapper">
+                        <img className='chatProfilePic' alt='profilePicture' src={message.profilePic ? message.profilePic : defaultProfilePic} />
+                        {message.user}: {message.msg}
+                        {+message.userId === +user.id && <div>
+                            <button>Edit</button>
+                            <button value={message.id} onClick={deleteMessage}>Delete</button>
+                        </div>}
+                    </div>
+                    
+                    
+                
                 ))}
             </div>
             <form onSubmit={sendChat}>
