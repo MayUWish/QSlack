@@ -4,7 +4,6 @@ import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { getDMChannelsThunk } from "../../store/dmChannels";
 import EditMessageFormModal from '../EditMessageModal';
 import './MainContentDM.css';
-// import { Modal } from '../../context/Modal';
 import { io } from 'socket.io-client';
 let socket;
 
@@ -37,7 +36,6 @@ function MainContentDM({ groupId }) {
         socket = io();
 
         socket.on(String(groupId), async (chat) => {
-
             
             if (chat.action === 'create') {
                 console.log('create chat!!!', chat)

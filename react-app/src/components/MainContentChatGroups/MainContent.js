@@ -6,6 +6,7 @@ import AddMemberModal from '../AddMemberModal';
 import DeleteGroupModal from '../DeleteGroupModal';
 import EditGroupModal from '../EditGroupModal';
 import { getChatGroupsThunk } from "../../store/chatGroups";
+import EditMessageFormModal from '../EditMessageModal';
 import './MainContent.css';
 
 import { io } from 'socket.io-client';
@@ -26,7 +27,7 @@ function MainContent({groupId}) {
     });
     const membersObject = chatGroups[groupId] ? chatGroups[groupId]?.members : dmChannels[groupId]?.members
     
-    const [chatInput, setChatInput] = useState("");
+    const [messageInput, setMessageInput] = useState("");
 
     // everytime changing to a different group, will update redux store by putting groupId as dependency list
     useEffect(() => {
@@ -43,16 +44,25 @@ function MainContent({groupId}) {
 
         socket.on(String(groupId), async (chat) => {
 
-            if (chat.action === 'delete') {
+            
+            if (chat.action === 'create') {
+                console.log('create chat!!!', chat)
+                if (!chat.errors) {
+                    await dispatch(getChatGroupsThunk())
+                }
+            } 
+            else if (chat.action === 'delete') {
                 console.log('delete chat!!!', chat)
                 await dispatch(getChatGroupsThunk())
 
             }
-            else if (chat.action === 'create') {
-                console.log('create chat!!!', chat)
-                await dispatch(getChatGroupsThunk())
-            }
 
+            else if (chat.action === 'edit') {
+                console.log('edit chat!!!', chat)
+                if (!chat.errors) {
+                    await dispatch(getChatGroupsThunk())
+                }
+            }
 
         })
         // when component unmounts, disconnect
@@ -63,19 +73,19 @@ function MainContent({groupId}) {
     }, [groupId, dispatch])
 
 
-    const updateChatInput = (e) => {
-        setChatInput(e.target.value)
+    const updateMessageInput = (e) => {
+        setMessageInput(e.target.value)
     };
 
     const sendChat = (e) => {
         e.preventDefault()
         socket.emit("chat", {
             user: currentUser.username, 
-            msg: chatInput, 
+            msg: messageInput,
             groupId, 
             userId: currentUser.id, 
             action: 'create' });
-        setChatInput("")
+        setMessageInput("")
     }
 
     const deleteMessage = (e) => {
@@ -113,7 +123,7 @@ function MainContent({groupId}) {
                 <div className="eachChatWrapper" key={`message${i}`}>
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>{membersObject[String(message.userId)].username}: {message.message}
                     {+message.userId === +currentUser.id && <div>
-                        <button>Edit</button>
+                        <EditMessageFormModal message={message} groupId={groupId} />
                         <button value={message.id} onClick={deleteMessage}>Delete</button>
                     </div>}
                 </div>
@@ -123,8 +133,8 @@ function MainContent({groupId}) {
                 <div>
                     <form onSubmit={sendChat}>
                         <input
-                            value={chatInput}
-                            onChange={updateChatInput}
+                            value={messageInput}
+                            onChange={updateMessageInput}
                         />
                         <button type="submit">Send</button>
                     </form>
