@@ -20,8 +20,7 @@ function MainContentDM({ groupId }) {
     });
     const membersObject =  dmChannels[groupId]?.members
     const theOtherUser = membersObject?membersObject[(Object.keys(membersObject)?.filter(memberId => +memberId !== +currentUser.id))[0]]:{}
-    
-    const [chatInput, setChatInput] = useState("");
+    const [messageInput, setMessageInput] = useState("");
 
 
     //everytime changing to a different group, will update redux store by putting groupId as dependency list
@@ -39,14 +38,17 @@ function MainContentDM({ groupId }) {
 
         socket.on(String(groupId), async (chat) => {
 
-            if (chat.action === 'delete') {
+            
+            if (chat.action === 'create') {
+                console.log('create chat!!!', chat)
+                if (!chat.errors) {
+                    await dispatch(getDMChannelsThunk())
+                } 
+            }
+            else if (chat.action === 'delete') {
                 console.log('delete chat!!!', chat)
                 await dispatch(getDMChannelsThunk())
-                
-            }
-            else if (chat.action === 'create') {
-                console.log('create chat!!!', chat)
-                await dispatch(getDMChannelsThunk())
+
             }
             else if (chat.action === 'edit') {
                 console.log('edit chat!!!', chat)
@@ -62,19 +64,21 @@ function MainContentDM({ groupId }) {
         })
     }, [groupId,dispatch])
 
-    const updateChatInput = (e) => {
-        setChatInput(e.target.value)
+    const updateMessageInput = (e) => {
+        setMessageInput(e.target.value)
+        
     };
 
     const createMessage = (e) => {
         e.preventDefault()
         socket.emit("chat", {
             user: currentUser.username, 
-            msg: chatInput, 
+            msg: messageInput, 
             groupId, 
             userId: currentUser.id, 
             action: 'create' });
-        setChatInput("")
+        setMessageInput("")
+ 
     }
     const deleteMessage = (e) => {
         e.preventDefault()
@@ -112,8 +116,8 @@ function MainContentDM({ groupId }) {
             <div>
                 <form onSubmit={createMessage}>
                     <input
-                        value={chatInput}
-                        onChange={updateChatInput}
+                        value={messageInput}
+                        onChange={updateMessageInput}
                     />
                     <button type="submit">Send</button>
                 </form>

@@ -24,16 +24,20 @@ def handle_chat(data):
     print('!!!!!data>>>>>', data)
     # front-end seeding 'action' key/value pair to tell among create, delete, edit
     if data['action'] == 'create':
-        message = Message(
-            groupId=data['groupId'],
-            userId=data['userId'],
-            message=data['msg'],
-        )
-        user = User.query.get(data['userId'])
-        data['profilePic'] = user.profilePic
-        db.session.add(message)
-        db.session.commit()
-        # emit first parameter would need to be same as socket.on first parameter to revieve the data
+        # Validation: message has to be not empty or all spaces
+        if not len(data['msg']) or data['msg'].isspace():
+            data['errors'] = ['Message cannot be empty.']
+        else:
+            message = Message(
+                groupId=data['groupId'],
+                userId=data['userId'],
+                message=data['msg'],
+            )
+            user = User.query.get(data['userId'])
+            data['profilePic'] = user.profilePic
+            db.session.add(message)
+            db.session.commit()
+        # emit first parameter would need to be same as socket.on first parameter to recieve the data
         emit(data['groupId'], data, broadcast=True)
     elif data['action'] == 'delete':
         messageId = data['messageId']
