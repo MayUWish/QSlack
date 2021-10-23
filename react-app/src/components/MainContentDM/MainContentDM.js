@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { getDMChannelsThunk } from "../../store/dmChannels";
+// import EditMessageFormModal from '../EditMessageModal';
 import './MainContentDM.css';
 
 import { io } from 'socket.io-client';
@@ -52,15 +53,6 @@ function MainContentDM({ groupId }) {
         })
     }, [groupId,dispatch])
 
-    const deleteMessage =(e)=>{
-        e.preventDefault()
-        socket.emit("chat", { 
-            'messageId':e.target.value,
-            groupId,
-            action: 'delete'
-        } );
-    }
-
     const updateChatInput = (e) => {
         setChatInput(e.target.value)
     };
@@ -70,6 +62,24 @@ function MainContentDM({ groupId }) {
         socket.emit("chat", { user: currentUser.username, msg: chatInput, groupId, userId: currentUser.id, action: 'create' });
         setChatInput("")
     }
+    const deleteMessage = (e) => {
+        e.preventDefault()
+        socket.emit("chat", {
+            'messageId': e.target.value,
+            groupId,
+            action: 'delete'
+        });
+    }
+
+    // const editMessage = (e) => {
+    //     e.preventDefault()
+    //     socket.emit("chat", {
+    //         'messageId': e.target.value,
+    //         groupId,
+    //         action: 'delete'
+    //     });
+    // }
+    
 
     return (
         <>
@@ -84,7 +94,8 @@ function MainContentDM({ groupId }) {
                 <div className="eachChatWrapper" key={`message${i}`}>
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />{membersObject[String(message.userId)].username}: {message.message}
                     {+message.userId === +currentUser.id && <div>
-                        <button>Edit</button>
+                        {/* <button value={message.id} onClick={editMessage} >Edit</button> */}
+                        {/* <EditMessageFormModal messageId={message.id}/> */}
                         <button value={message.id} onClick={deleteMessage}>Delete</button>
                     </div>}
                     
