@@ -46,19 +46,19 @@ function MainContent({groupId}) {
 
             
             if (chat.action === 'create') {
-                console.log('create chat!!!', chat)
+                //console.log('create chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
                 }
             } 
             else if (chat.action === 'delete') {
-                console.log('delete chat!!!', chat)
+                //console.log('delete chat!!!', chat)
                 await dispatch(getChatGroupsThunk())
 
             }
 
             else if (chat.action === 'edit') {
-                console.log('edit chat!!!', chat)
+                //console.log('edit chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
                 }

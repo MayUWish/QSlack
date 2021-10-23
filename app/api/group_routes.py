@@ -23,7 +23,7 @@ def get_groups():
 @group_routes.route('/', methods=['POST'])
 @login_required
 def create_group():
-    print('request.form!!!', request.form)
+    # print('request.form!!!', request.form)
     form = CreateGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if not form.data['isDM']:
@@ -96,9 +96,9 @@ def delete_group(id):
 def edit_group(id):
     form = CreateGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('!!!form before', form.data)
+    # print('!!!form before', form.data)
     if form.validate_on_submit():
-        print('!!!form after', form.data)
+        # print('!!!form after', form.data)
         group = Group.query.get(id)
         if group.adminId != current_user.id:
             return {'errors': ['No authorization']}, 403

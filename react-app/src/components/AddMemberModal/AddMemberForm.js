@@ -16,8 +16,8 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setSho
 
     const onAdd = async (e) => {
         e.preventDefault();
-        console.log('currentGroupId', currentGroupId)
-        console.log('username', username)
+        //console.log('currentGroupId', currentGroupId)
+        //console.log('username', username)
         const data = await dispatch(addMemberThunk({ 'groupId': currentGroupId, username}));
         if (data && data.errors) {
             setErrors(data.errors)

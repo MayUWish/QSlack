@@ -13,19 +13,18 @@ membership_routes = Blueprint('memberships', __name__)
 def add_member():
     form = AddMemberForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('!!!form before', form.data)
+    # print('!!!form before', form.data)
     if form.validate_on_submit():
-        print('!!!form after', form.data)
+        # print('!!!form after', form.data)
         group = Group.query.filter(Group.id == form.data['groupId']).first()
-        print('!!group', group)
+        # print('!!group', group)
         user = User.query.filter(
             User.username == form.data['username']).first()
-        print('!!user', user)
+        # print('!!user', user)
         group.members.append(user)
-        print('group.members', group.members)
+        # print('group.members', group.members)
         db.session.commit()
-        print('members:', {member.id: member.to_dict()
-                           for member in group.members})
+        # print('members:', {member.id: member.to_dict() for member in group.members})
 
         return {'members': {member.id: member.to_dict()
                 for member in group.members}, 'groupId': form.data['groupId']}

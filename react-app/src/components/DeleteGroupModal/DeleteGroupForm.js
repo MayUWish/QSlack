@@ -13,7 +13,7 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
 
     const user = useSelector(state => state.session.user);
     const isAdmin = +user.id === + currentGroup.adminId
-    console.log('isAdmin>>>>', isAdmin, user.id, currentGroup.adminId)
+    //console.log('isAdmin>>>>', isAdmin, user.id, currentGroup.adminId)
     const dispatch = useDispatch();
 
 

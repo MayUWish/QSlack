@@ -1,11 +1,11 @@
 import React, { useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import LogoutButton from '.././auth/LogoutButton';
-import LoginFormModal from '.././auth/LoginFormModal';
-import SignUpFormModal from '.././auth/SignUpFormModal';
+import LogoutButton from '.././Auth/LogoutButton';
+import LoginFormModal from '.././Auth/LoginFormModal';
+import SignUpFormModal from '.././Auth/SignUpFormModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
-import DemoButton from '.././auth/DemoButton'
+import DemoButton from '.././Auth/DemoButton'
 import './NavBar.css';
 
 const NavBar = () => {

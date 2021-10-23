@@ -38,18 +38,18 @@ function MainContentDM({ groupId }) {
         socket.on(String(groupId), async (chat) => {
             
             if (chat.action === 'create') {
-                console.log('create chat!!!', chat)
+                //console.log('create chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getDMChannelsThunk())
                 } 
             }
             else if (chat.action === 'delete') {
-                console.log('delete chat!!!', chat)
+                //console.log('delete chat!!!', chat)
                 await dispatch(getDMChannelsThunk())
 
             }
             else if (chat.action === 'edit') {
-                console.log('edit chat!!!', chat)
+                //console.log('edit chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getDMChannelsThunk())
                 }               
