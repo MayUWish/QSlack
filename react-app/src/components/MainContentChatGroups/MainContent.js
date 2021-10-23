@@ -6,6 +6,7 @@ import AddMemberModal from '../AddMemberModal';
 import DeleteGroupModal from '../DeleteGroupModal';
 import EditGroupModal from '../EditGroupModal';
 import { getChatGroupsThunk } from "../../store/chatGroups";
+import { getDMChannelsThunk } from "../../store/dmChannels";
 import EditMessageFormModal from '../EditMessageModal';
 import './MainContent.css';
 
@@ -22,7 +23,7 @@ function MainContent({groupId}) {
     const currentGroupId = chatGroups[groupId] ? chatGroups[groupId]?.id : dmChannels[groupId]?.id
     const messagesArr = chatGroups[groupId] ? chatGroups[groupId]?.messages : dmChannels[groupId]?.messages
     // ensure the message is ordered by createdTime/id
-    messagesArr.sort(function (message1, message2) {
+    messagesArr?.sort(function (message1, message2) {
         return message1.id - message2.id;
     });
     const membersObject = chatGroups[groupId] ? chatGroups[groupId]?.members : dmChannels[groupId]?.members
@@ -33,6 +34,8 @@ function MainContent({groupId}) {
     useEffect(() => {
         (async () => {
             await dispatch(getChatGroupsThunk())
+            // when the other user add the current user into a DM channel or chat groups, and the current user click onto any DM or chat groups, it will re-render to see the new chat groups or DM channel
+            await dispatch(getDMChannelsThunk())
 
         })();
     }, [dispatch, groupId]);
@@ -49,11 +52,15 @@ function MainContent({groupId}) {
                 //console.log('create chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
+                    // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
+                    await dispatch(getDMChannelsThunk())
                 }
             } 
             else if (chat.action === 'delete') {
                 //console.log('delete chat!!!', chat)
                 await dispatch(getChatGroupsThunk())
+                // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
+                await dispatch(getDMChannelsThunk())
 
             }
 
@@ -61,6 +68,8 @@ function MainContent({groupId}) {
                 //console.log('edit chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
+                    // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
+                    await dispatch(getDMChannelsThunk())
                 }
             }
 
