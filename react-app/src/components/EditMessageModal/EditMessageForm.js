@@ -18,7 +18,12 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
         socket.on(String(groupId), async (chat) => {
             if (chat.action === 'edit') {
                 console.log('edit chat!!!', chat)
-                setShowModal(false)
+                if (chat.errors) {
+                    setErrors(chat.errors)
+                } else {
+                    setShowModal(false)
+                }
+                
             }
         })
         // when component unmounts, disconnect

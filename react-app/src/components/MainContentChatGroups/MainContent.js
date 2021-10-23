@@ -20,6 +20,10 @@ function MainContent({groupId}) {
     const currentGroupName = chatGroups[groupId] ? chatGroups[groupId]?.name : dmChannels[groupId]?.name
     const currentGroupId = chatGroups[groupId] ? chatGroups[groupId]?.id : dmChannels[groupId]?.id
     const messagesArr = chatGroups[groupId] ? chatGroups[groupId]?.messages : dmChannels[groupId]?.messages
+    // ensure the message is ordered by createdTime/id
+    messagesArr.sort(function (message1, message2) {
+        return message1.id - message2.id;
+    });
     const membersObject = chatGroups[groupId] ? chatGroups[groupId]?.members : dmChannels[groupId]?.members
     
     const [chatInput, setChatInput] = useState("");

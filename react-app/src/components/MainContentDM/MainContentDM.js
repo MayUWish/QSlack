@@ -14,14 +14,15 @@ function MainContentDM({ groupId }) {
     const dmChannels = useSelector((state) => state.dmChannels);
     const currentGroup = dmChannels[groupId]
     const messagesArr = dmChannels[groupId]?.messages
+    // ensure the message is ordered by createdTime/id
+    messagesArr.sort(function (message1, message2) {
+        return message1.id - message2.id;
+    });
     const membersObject =  dmChannels[groupId]?.members
     const theOtherUser = membersObject?membersObject[(Object.keys(membersObject)?.filter(memberId => +memberId !== +currentUser.id))[0]]:{}
     
     const [chatInput, setChatInput] = useState("");
-    // edit messages
-    // const [showModal, setShowModal] = useState(false);
-    // const [errors, setErrors] = useState([]);
-    // const [updatedMessage, setUpdatedMessage] = useState('');
+
 
     //everytime changing to a different group, will update redux store by putting groupId as dependency list
     useEffect(() => {
@@ -49,10 +50,10 @@ function MainContentDM({ groupId }) {
             }
             else if (chat.action === 'edit') {
                 console.log('edit chat!!!', chat)
-                await dispatch(getDMChannelsThunk())
+                if (!chat.errors) {
+                    await dispatch(getDMChannelsThunk())
+                }               
             }
-            
-
         })
         // when component unmounts, disconnect
         return (() => {
@@ -85,64 +86,8 @@ function MainContentDM({ groupId }) {
         });
     }
 
-    // eidt messages:
-    // const updateMessage = e => {
-    //     setUpdatedMessage(e.target.value)
-    // }
-
-    // const cancelEdit = e => {
-    //     e.preventDefault()
-    //     setShowModal(false)
-    // }
-
-    // const editMessage = (e) => {
-    //     e.preventDefault()
-    //     socket.emit("chat", {
-    //         // 'messageId': message.id,
-    //         msg: updatedMessage,
-    //         groupId,
-    //         userId: currentUser.id,
-    //         action: 'edit'
-    //     });
-    // }
-
-    // const EditButton = ({ message}) => {
-    //     return (<div >
-    //     <button onClick={() => setShowModal(true)}>
-    //         Edit
-    //     </button>
-    //     {showModal && (
-    //         <Modal onClose={() => setShowModal(false)}>
-    //             <EditMessageForm message={message}/>
-    //         </Modal>
-    //     )}
-    // </div>)
-
-    // const EditMessageForm =(
-    //     <form onSubmit={editMessage}>
-    //         <div>
-    //             {errors.map((error, ind) => (
-    //                 <div key={ind}>{error}</div>
-    //             ))}
-    //         </div>
-    //         <div>
-    //             <input
-    //                 type='text'
-    //                 name='message'
-    //                 onChange={updateMessage}
-    //                 value={updatedMessage}
-    //             ></input>
-    //         </div>
-
-
-    //         <button type='submit'>Edit</button>
-    //         <button onClick={cancelEdit}>Cancel</button>
-    //     </form>
-        
-    // )
-
     
-    
+ 
 
     return (
         <>
@@ -157,9 +102,7 @@ function MainContentDM({ groupId }) {
                 <div className="eachChatWrapper" key={`message${i}`}>
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />{membersObject[String(message.userId)].username}: {message.message}
                     {+message.userId === +currentUser.id && <div>
-                        {/* <button value={message.id} onClick={editMessage} >Edit</button> */}
-                        <EditMessageFormModal message={message} socket={socket} groupId={groupId}/>
-                        {/* <EditButton message={message}/> */}
+                        <EditMessageFormModal message={message} groupId={groupId}/>                      
                         <button value={message.id} onClick={deleteMessage}>Delete</button>
                     </div>}
                     

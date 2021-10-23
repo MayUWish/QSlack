@@ -38,7 +38,10 @@ def handle_chat(data):
     elif data['action'] == 'delete':
         messageId = data['messageId']
         messageToDelete = Message.query.get(messageId)
-        # validation: only message's owner can delete the message
+        # validation: only message's owner can delete the message;
+        # No error message would need to be returned,
+        # bc if cannot pass the validation,
+        # the action just cannot be implemented
         if messageToDelete.userId == data['userId']:
             db.session.delete(messageToDelete)
             db.session.commit()
@@ -48,7 +51,12 @@ def handle_chat(data):
         messageToEdit = Message.query.get(messageId)
         # validation: only message's owner can edit the message
         # and message has to be not empty or all spaces
-        if messageToEdit.userId == data['userId'] and len(data['msg']) and not data['msg'].isspace():
+        if messageToEdit.userId != data['userId']:
+            data['errors'] = ['No Authorization.']
+        elif not len(data['msg']) or data['msg'].isspace():
+            data['errors'] = ['Message cannot be empty.']
+
+        elif messageToEdit.userId == data['userId'] and len(data['msg']) and not data['msg'].isspace():
             messageToEdit.message = data['msg']
             db.session.commit()
-            emit(data['groupId'], data, broadcast=True)
+        emit(data['groupId'], data, broadcast=True)
