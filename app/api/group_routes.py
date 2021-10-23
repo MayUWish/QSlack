@@ -12,6 +12,7 @@ group_routes = Blueprint('groups', __name__)
 @login_required
 def get_groups():
     groupsJoined = current_user.groupsJoined
+
     return {'dmChannels': {group.id: group.to_dict() for group in groupsJoined
                            if group.isDM},
             'chatGroups': {group.id: group.to_dict() for group in groupsJoined

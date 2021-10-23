@@ -24,33 +24,43 @@ def handle_chat(data):
     print('!!!!!data>>>>>', data)
     # front-end seeding 'action' key/value pair to tell among create, delete, edit
     if data['action'] == 'create':
-        message = Message(
-            groupId=data['groupId'],
-            userId=data['userId'],
-            message=data['msg'],
-        )
-        user = User.query.get(data['userId'])
-        data['profilePic'] = user.profilePic
-        db.session.add(message)
-        db.session.commit()
-        # emit first parameter would need to be same as socket.on first parameter to revieve the data
+        # Validation: message has to be not empty or all spaces
+        if not len(data['msg']) or data['msg'].isspace():
+            data['errors'] = ['Message cannot be empty.']
+        else:
+            message = Message(
+                groupId=data['groupId'],
+                userId=data['userId'],
+                message=data['msg'],
+            )
+            user = User.query.get(data['userId'])
+            data['profilePic'] = user.profilePic
+            db.session.add(message)
+            db.session.commit()
+        # emit first parameter would need to be same as socket.on first parameter to recieve the data
         emit(data['groupId'], data, broadcast=True)
     elif data['action'] == 'delete':
         messageId = data['messageId']
         messageToDelete = Message.query.get(messageId)
-        db.session.delete(messageToDelete)
-        db.session.commit()
+        # validation: only message's owner can delete the message;
+        # No error message would need to be returned,
+        # bc if cannot pass the validation,
+        # the action just cannot be implemented
+        if messageToDelete.userId == data['userId']:
+            db.session.delete(messageToDelete)
+            db.session.commit()
+            emit(data['groupId'], data, broadcast=True)
+    elif data['action'] == 'edit':
+        messageId = data['messageId']
+        messageToEdit = Message.query.get(messageId)
+        # validation: only message's owner can edit the message
+        # and message has to be not empty or all spaces
+        if messageToEdit.userId != data['userId']:
+            data['errors'] = ['No Authorization.']
+        elif not len(data['msg']) or data['msg'].isspace():
+            data['errors'] = ['Message cannot be empty.']
+
+        elif messageToEdit.userId == data['userId'] and len(data['msg']) and not data['msg'].isspace():
+            messageToEdit.message = data['msg']
+            db.session.commit()
         emit(data['groupId'], data, broadcast=True)
-
-
-# @socketio.on("delete")
-# def handle_chat_delete(data):
-#     # a dictionary with key/value pair sent from frontend by using
-#     # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
-#     print('!!!!!data>>>>>', data)
-#     # By having data sent from front-end with different keyName e.g. 'delete',
-#     # to handle create, delete, eidt of messages
-#     # so that using websockets will ensure the change will affect
-#     # all the users connected to the same group
-#     # (both chatgroups and dm channels are groups)
-    

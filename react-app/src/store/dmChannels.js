@@ -30,6 +30,7 @@ export const getDMChannelsThunk = () => async (dispatch) => {
         if (data.errors) {
             return;
         }
+
         dispatch(getDMChannelsAction(data.dmChannels));
     }
 }
