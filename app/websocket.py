@@ -38,19 +38,17 @@ def handle_chat(data):
     elif data['action'] == 'delete':
         messageId = data['messageId']
         messageToDelete = Message.query.get(messageId)
-        db.session.delete(messageToDelete)
-        db.session.commit()
-        emit(data['groupId'], data, broadcast=True)
-
-
-# @socketio.on("delete")
-# def handle_chat_delete(data):
-#     # a dictionary with key/value pair sent from frontend by using
-#     # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
-#     print('!!!!!data>>>>>', data)
-#     # By having data sent from front-end with different keyName e.g. 'delete',
-#     # to handle create, delete, eidt of messages
-#     # so that using websockets will ensure the change will affect
-#     # all the users connected to the same group
-#     # (both chatgroups and dm channels are groups)
-    
+        # validation: only message's owner can delete the message
+        if messageToDelete.userId == data['userId']:
+            db.session.delete(messageToDelete)
+            db.session.commit()
+            emit(data['groupId'], data, broadcast=True)
+    elif data['action'] == 'edit':
+        messageId = data['messageId']
+        messageToEdit = Message.query.get(messageId)
+        # validation: only message's owner can edit the message
+        # and message has to be not empty or all spaces
+        if messageToEdit.userId == data['userId'] and len(data['msg']) and not data['msg'].isspace():
+            messageToEdit.message = data['msg']
+            db.session.commit()
+            emit(data['groupId'], data, broadcast=True)

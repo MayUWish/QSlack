@@ -58,14 +58,6 @@ function MainContent({groupId}) {
         })
     }, [groupId, dispatch])
 
-    const deleteMessage = (e) => {
-        e.preventDefault()
-        socket.emit("chat", {
-            'messageId': e.target.value,
-            groupId,
-            action: 'delete'
-        });
-    }
 
     const updateChatInput = (e) => {
         setChatInput(e.target.value)
@@ -73,8 +65,23 @@ function MainContent({groupId}) {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("chat", { user: currentUser.username, msg: chatInput, groupId, userId: currentUser.id, action: 'create' });
+        socket.emit("chat", {
+            user: currentUser.username, 
+            msg: chatInput, 
+            groupId, 
+            userId: currentUser.id, 
+            action: 'create' });
         setChatInput("")
+    }
+
+    const deleteMessage = (e) => {
+        e.preventDefault()
+        socket.emit("chat", {
+            'messageId': e.target.value,
+            groupId,
+            userId: currentUser.id,
+            action: 'delete'
+        });
     }
 
     return (

@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import EditMessageForm from './EditMessageForm';
 
 
-function EditMessageFormModal({ currentGroup }) {
+function EditMessageFormModal({ message, socket, groupId }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -13,7 +13,7 @@ function EditMessageFormModal({ currentGroup }) {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EditMessageForm setShowModal={setShowModal} currentGroup={currentGroup} />
+                    <EditMessageForm setShowModal={setShowModal} message={message} socket={socket} groupId={groupId}/>
                 </Modal>
             )}
         </div>
