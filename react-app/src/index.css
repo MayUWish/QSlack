@@ -1,10 +1,13 @@
 /* TODO Add site wide styles */
-html{
+html, body{
     background-color: #e1eedd; 
     font-size: larger;
     font-family: serif;
 
+
+
 }
+
 
 .btn{
     background-color: #e1eedd;
