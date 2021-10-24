@@ -9,11 +9,14 @@ const LogoutButton = () => {
   };
 
   return (
-    <button onClick={onLogout}
-      style={{ textDecoration: 'none', border:'none', backgroundColor:'white',
-                position: 'relative', display: 'inline-block'
-          }}
-      >Sign out</button>)
+    <button onClick={onLogout} className='btn'
+      style={{ border: 'none', 
+                color: '#183a1d',
+                fontWeight: 'bold',
+                height: '30px',
+                width:'85px',
+                textAlign:'start'}}
+      >Log Out</button>)
 };
 
 export default LogoutButton;

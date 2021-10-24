@@ -34,19 +34,21 @@ const NavBar = () => {
           </NavLink>
         </div>} */}
 
-        {user && <div>
+        {user && <div style={{display:'flex', gap:'5%'}}>
         <img alt='profilePic' 
           src={user.profilePic ? user.profilePic : defaultProfilePic } 
           style={{width:'50px',height:'50px', borderRadius:'5px'}}
           onClick={e=>setShow(show=>!show)}/>
           {show && 
-            <>
-              <NavLink to={`/clients/${user.username}`} exact={true} activeClassName='active'
-                style={{ textDecoration: 'none' }}>
-                Launch QSlack
-               </NavLink>
+          <div style={{ }}>
+              
+              <NavLink to={`/clients/${user.username}`} exact={true}    
+                  style={{ textDecoration: 'none', color: '#183a1d', fontWeight: 'bold'}}>
+                  Launch 
+              </NavLink>
+            
               <LogoutButton />
-            </>         
+            </div>         
           }
         </div>}
     </nav>
