@@ -8,8 +8,8 @@ function EditGroupFormModal({ currentGroup}) {
 
     return (
         <div >
-            <button onClick={() => setShowModal(true)}>
-                <i className="fas fa-info-circle" />
+            <button className='middleBtn' onClick={() => setShowModal(true)}>
+                <i className="fas fa-info-circle fa-2x chatIcon" />
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>

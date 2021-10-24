@@ -8,10 +8,10 @@ function MembersModal({ membersObject, currentGroupName}) {
 
     return (
     
-        <div className='chatHeaderEl' style={{ border: '1px solid lightgray', width:'8%'}}>
-                <button onClick={() => setShowModal(true)}>
-                    <i className="fas fa-users" style={{ paddingRight: '5px' }} />
-                    {Object.keys(membersObject).length}
+        <div>
+            <button className='middleBtn2' onClick={() => setShowModal(true)}>
+                <i className="fas fa-users fa-2x chatIcon"  />
+                    <div style={{fontWeight:'bolder', fontSize:'larger', display:'inline-block', marginLeft:'5px'}}>{Object.keys(membersObject).length}</div>
                 </button>              
 
             {showModal && (

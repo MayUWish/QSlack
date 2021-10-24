@@ -17,6 +17,21 @@ html{
     
 }
 
+.middleBtn{
+    background-color: #e1eedd;
+    border:none;
+    height:35px;
+    width: 42px;
+}
+
+.middleBtn2{
+    background-color: #e1eedd;
+    border:1px solid lightgray;
+    border-radius: 5px; 
+    height:35px;
+    width: 75px;
+}
+
 .smallBtn{
     background-color: #e1eedd;
     border:1px solid #183a1d;

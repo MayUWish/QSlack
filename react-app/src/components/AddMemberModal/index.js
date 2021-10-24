@@ -8,11 +8,9 @@ function AddMemberModal({ membersObject, currentGroupName, currentGroupId }) {
 
     return (
 
-        <div className='chatHeaderEl' style={{ border: '1px solid lightgray', width: '8%' }}>
-            <button onClick={() => setShowModal(true)}>
-                <div className='chatHeaderEl'>
-                    <i className="fas fa-user-plus" />
-                </div>
+        <div>
+            <button className='middleBtn' onClick={() => setShowModal(true)}>               
+                <i className="fas fa-user-plus fa-2x chatIcon" />
             </button>
 
             {showModal && (

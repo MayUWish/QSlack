@@ -45,8 +45,8 @@ const EditGroupForm = ({ setShowEditModal, currentGroup, setShowModal }) => {
 
 
     return (
-        <form onSubmit={onCreate}>
-            <div>
+        <form onSubmit={onCreate} className='formWrapper'>
+            <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
@@ -58,6 +58,7 @@ const EditGroupForm = ({ setShowEditModal, currentGroup, setShowModal }) => {
                     name='name'
                     onChange={updateName}
                     value={name}
+                    className='formInput'
                 ></input>
             </div>
             <div>
@@ -67,9 +68,12 @@ const EditGroupForm = ({ setShowEditModal, currentGroup, setShowModal }) => {
                     name='description'
                     onChange={updateDescritption}
                     value={description}
+                    className='formInput'
                 ></input>
             </div>
-            <button type='submit'>Edit</button>
+            <div style={{display:'flex', justifyContent:'center', marginTop:'2%'}}>
+            <button className='btn' type='submit'>Edit</button>
+            </div>
         </form>
     )
 

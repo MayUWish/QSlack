@@ -13,19 +13,20 @@ const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
  
     return (
         <div>
-            <div>
+            <div style={{padding:'5%'}}>
                 Name: {currentGroup.name}
             </div>
-            <div>
+            <div style={{ padding: '5%' }}>
                 Description: {currentGroup.description ? currentGroup.description : 'None'}
             </div>
-            <div>
+            <div style={{ padding: '5%' }}>
                 Created on {new Date(currentGroup.createdAt).toLocaleDateString()}
-            </div>
-            {isAdmin && <div>
-                <button onClick={() => {
+            </div >
+            {isAdmin && <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%' }}>
+                <button className='btn' onClick={() => {
                     // setShowModal(false)
                     setShowEditModal(true)
+                    
                     
                 }}>
                     Eidt
