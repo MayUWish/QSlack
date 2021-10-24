@@ -18,7 +18,7 @@ const NavBar = () => {
           <NavLink to='/' exact={true} activeClassName='active' 
             style={{textDecoration:'none'}}
           > 
-          <h1 style={{ color:'#183a1d', marginLeft:'3%'}}>QSLACK</h1>
+          <h1 style={{ color:'#183a1d', marginLeft:'3%', display:'inline'}}>QSLACK</h1>
           </NavLink>
         </div>
         {!user && <div className='loginSignupWrapper'>

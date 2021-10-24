@@ -7,9 +7,9 @@ function CreateGroupFormModal() {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <div >
-            <button onClick={() => setShowModal(true)}>
-                <i className="fas fa-plus" style={{ marginLeft: '10%' }} />
+        <div style={{textAlign:'end'}}>
+            <button className= 'smallBtn' onClick={() => setShowModal(true)}>
+                <i className="fas fa-plus" />
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>

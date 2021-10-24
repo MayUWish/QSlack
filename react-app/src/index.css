@@ -15,3 +15,9 @@ html{
     font-size: large;
     
 }
+
+.smallBtn{
+    background-color: #e1eedd;
+    border:1px solid #183a1d;
+    border-radius: 3px;  
+}

@@ -10,7 +10,7 @@ const HomePage = () => {
  
     return (
         <>
-            <div style={{display:'flex'}}>  
+            <div style={{display:'flex', marginTop:'7%'}}>  
                 <img src={welcome} alt='homepageImages' style={{width:'60%', borderRadius:'5px' }}></img>
 
                 <div style={{ width:'40%', textAlign:'center'}}>
