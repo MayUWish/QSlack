@@ -101,7 +101,7 @@ function MainContentDM({ groupId }) {
  
 
     return (
-        <div >
+        <div id="main">
             {currentGroup && <div className='chatHeaderWrapper'>
                 <div className='chatHeaderEl'>
                     <h3 style={{ display: 'inline' }}>{theOtherUser?.username}</h3>
@@ -120,7 +120,7 @@ function MainContentDM({ groupId }) {
                 </div>
             ))}
             {currentUser && (
-                <div style={{ postion: 'fixed', bottom: '5px' }}>
+                <div id='messageBox'>
                 <form onSubmit={createMessage}>
                     <input
                         className='messageInput'
