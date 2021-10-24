@@ -36,8 +36,8 @@ const NavBar = () => {
 
         {user && <div>
         <img alt='profilePic' 
-          src={user.ProfilePic ? user.ProfilePic : defaultProfilePic } 
-          style={{width:'60px',height:'50px'}}
+          src={user.profilePic ? user.profilePic : defaultProfilePic } 
+          style={{width:'50px',height:'50px', borderRadius:'5px'}}
           onClick={e=>setShow(show=>!show)}/>
           {show && 
             <>

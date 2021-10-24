@@ -11,12 +11,12 @@ const HomePage = () => {
     return (
         <>
             <div style={{display:'flex'}}>  
-                <img src={welcome} alt='homepageImages' style={{    width:'60%' }}></img>
+                <img src={welcome} alt='homepageImages' style={{width:'60%', borderRadius:'5px' }}></img>
 
                 <div style={{ width:'40%', textAlign:'center'}}>
            
                     <h2 style={{ color: '#183a1d', margin: '55% 10% 1%  10%' }}>
-                        Join us to send direct message, chat in groups,     and share moments.
+                        <span style={{ color: '#f0a04b'}}>Join</span> us to send direct message, chat in groups,and share moments.
 
                     </h2>
                     <DemoButton info={'TRY A FREE DEMO'} style={{width:'150px'}}/>
@@ -65,20 +65,21 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div style={{ margin: '10% 5%' }}>
-                <h1 style={{ color: '#183a1d', textAlign:'center' }}> My other projects: </h1>
-                <a href='https://uniqueene.herokuapp.com/listings' target="_blank" rel='noreferrer'>
-                    <img src={UniqueEnE} alt='project_UniqueEnE' style={{width:'45%', height:'600px', marginRight:'5%'}}/>
-                </a>
-                <a href='https://ingestibles-app.herokuapp.com/' target="_blank" rel='noreferrer'>
-                    <img src={Ingestibles} alt='project_Ingestibles' style={{ width: '45%', height: '600px' }} />
-                </a>
-                
+            <div style={{ margin: '10% 5%'}}>
+                <h1 style={{  textAlign: 'center', color: '#f0a04b' }}> My other projects: </h1>
+                <div>
+                    <a href='https://uniqueene.herokuapp.com/listings' target="_blank" rel='noreferrer' >
+                        <img src={UniqueEnE} alt='project_UniqueEnE' style={{width:'45%', height:'600px',   marginRight:'5%'}}/>
+                    </a>
+                    <a href='https://ingestibles-app.herokuapp.com/' target="_blank" rel='noreferrer'>
+                        <img src={Ingestibles} alt='project_Ingestibles' style={{ width: '45%', height:     '600px' }} />
+                    </a>
+                </div>
                 
             </div>
 
             <div style={{ textAlign: 'center', color:'#183a1d'}}>
-                <h1> Contact Me: </h1>
+                <h1 style={{ color: '#f0a04b'}}> Contact Me: </h1>
                 <h2>
                     <div style={{display:'flex', gap:'2%', justifyContent:'center'}}>
                     Meitong Qu
