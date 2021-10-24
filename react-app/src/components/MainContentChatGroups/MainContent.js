@@ -133,7 +133,7 @@ function MainContent({groupId}) {
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>{membersObject[String(message.userId)].username}: {message.message}
                     {+message.userId === +currentUser.id && <div>
                         <EditMessageFormModal message={message} groupId={groupId} />
-                        <button value={message.id} onClick={deleteMessage}>Delete</button>
+                        <button style={{ display: 'inline' }} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
                     </div>}
                 </div>
             ))}
@@ -142,10 +142,13 @@ function MainContent({groupId}) {
                 <div>
                     <form onSubmit={sendChat}>
                         <input
+                            className='messageInput'
                             value={messageInput}
                             onChange={updateMessageInput}
                         />
-                        <button type="submit">Send</button>
+                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0 1%' }}>
+                            <button className='smallBtn' type="submit">Send</button>
+                        </div>
                     </form>
                 </div>
             )}

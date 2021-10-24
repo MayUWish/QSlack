@@ -37,3 +37,12 @@ html{
     border:1px solid #183a1d;
     border-radius: 3px;  
 }
+
+.messageInput{
+    background-color: #e1eedd;
+    width:98%;
+    height:90px;
+    border:1px solid #183a1d;
+    border-radius: 5px;
+
+}
