@@ -1,11 +1,13 @@
 .chatHeaderWrapper{
     display: flex;
     align-content: space-between;
+    margin: 3% 0 3% -2%;
+  
 
 }
 .chatHeaderEl{
-    width:5%;
     text-align: center;
+    min-width: 150px; 
     
 }
 
@@ -16,5 +18,5 @@
 }
 
 .eachChatWrapper{
-    margin:5% 1%
+    margin:5% 10%;
 }

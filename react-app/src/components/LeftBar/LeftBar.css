@@ -5,13 +5,11 @@
 .leftBarWrapper{
     width: 25%;
     border: 1px solid #183a1d;
-    border-bottom: none;
-    border-left: none;
 }
 .mainContentWrapper{
     width: 75%;
     border: 1px solid #183a1d;
-    border-bottom: none;
+  
     padding-left: 2%;
 
 }

@@ -108,7 +108,7 @@ function MainContent({groupId}) {
     }
 
     return (
-        <div >  
+        <div>
             {currentGroup && <div className='chatHeaderWrapper'>
                 <div className='chatHeaderEl'>
                     <h3 style={{ display: 'inline' }}>{currentGroupName}</h3>
@@ -129,7 +129,7 @@ function MainContent({groupId}) {
             </div>}
             
             {currentGroup && messagesArr.map((message,i)=>(
-                <div className="eachChatWrapper" key={`message${i}`}>
+                <div className="eachChatWrapper" key={`message${i}`} style={{overflow:'auto'}}>
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>{membersObject[String(message.userId)].username}: {message.message}
                     {+message.userId === +currentUser.id && <div>
                         <EditMessageFormModal message={message} groupId={groupId} />
