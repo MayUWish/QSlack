@@ -5,6 +5,8 @@ import { signUp } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import LoginForm from '../LoginFormModal/LoginForm.js'
+import { getChatGroupsThunk } from "../../../store/chatGroups";
+import { getDMChannelsThunk } from "../../../store/dmChannels";
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -32,6 +34,10 @@ const SignUpForm = () => {
       const data = await dispatch(signUp(formData));
       if (data) {
         setErrors(data)
+      }else{
+        await dispatch(getChatGroupsThunk())
+        await dispatch(getDMChannelsThunk())
+        
       }
     } else{
       setErrors(['Password Confirmation: Password Confirmation does not match Password.'])

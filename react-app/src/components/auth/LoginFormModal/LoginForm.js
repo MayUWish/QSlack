@@ -5,6 +5,8 @@ import { login } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import SignUpForm from '../SignUpFormModal/SignUpForm.js'
+import { getChatGroupsThunk } from "../../../store/chatGroups";
+import { getDMChannelsThunk } from "../../../store/dmChannels";
 
 
 const LoginForm = () => {
@@ -21,7 +23,11 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
-    } 
+    } else {
+      await dispatch(getChatGroupsThunk())
+      await dispatch(getDMChannelsThunk())
+      
+    }
   };
 
 

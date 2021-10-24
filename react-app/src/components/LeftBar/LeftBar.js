@@ -12,16 +12,19 @@ import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import './LeftBar.css';
 
 function LeftBar() {
-    const dispatch = useDispatch();
-    const [showChatGroups, setShowChatGroups] = useState(true);
-    const [showDM, setShowDM] = useState(true);
-    const [showMoments, setShowMoments] = useState(true);
-    const [groupId, setGroupId] = useState(null);
-
     const currentUser = useSelector((state) => state.session?.user);
     const chatGroups = useSelector((state) => state.chatGroups);
     const dmChannels = useSelector((state) => state.dmChannels);
     const userId = currentUser.id
+
+    const dispatch = useDispatch();
+    const [showChatGroups, setShowChatGroups] = useState(true);
+    const [showDM, setShowDM] = useState(true);
+    const [showMoments, setShowMoments] = useState(true);
+    const [groupId, setGroupId] = useState(`ChatGroups_${ Object.keys(chatGroups)[0]}`);
+    
+
+    
 
     useEffect(() => {
         if (!userId) {
@@ -30,6 +33,7 @@ function LeftBar() {
         (async () => {
             await dispatch(getChatGroupsThunk())
             await dispatch(getDMChannelsThunk())
+            
           
         })();
     }, [dispatch, userId]);
