@@ -12,6 +12,8 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [biography, setBiography] = useState('');
+  const [profilePic, setProfilePic] = useState(null);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -19,7 +21,7 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(signUp(username, email, password, profilePic, biography));
       if (data) {
         setErrors(data)
       }
@@ -43,6 +45,14 @@ const SignUpForm = () => {
 
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
+  };
+
+  const updateBiography = (e) => {
+    setBiography(e.target.value);
+  };
+
+  const updateProfilePic = (e) => {
+    setProfilePic(e.target.files[0]);
   };
 
   if (user) {
@@ -75,6 +85,28 @@ const SignUpForm = () => {
             onChange={updateEmail}
             value={email}
             className='formInput'
+          ></input>
+        </div>
+        <div className='formInputWrapper'>
+          <label>Biography</label>
+          <textarea
+            name='Biography'
+            onChange={updateBiography}
+            value={biography}
+            style={{ resize: 'none', height: '70px' }}
+            className='formInput'
+          ></textarea>
+        </div>
+        <div>
+          <label>Profile Picture</label>
+          <input
+            name='profilePic'
+            type="file"
+            accept="image/*"
+            onChange={updateProfilePic}
+            className="formInput"
+            style={{ border:'1px solid black' }}
+           
           ></input>
         </div>
         <div className='formInputWrapper'>
