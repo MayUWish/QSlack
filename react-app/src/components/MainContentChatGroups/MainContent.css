@@ -14,14 +14,15 @@
 #messagesDiv{
     overflow: auto;
     min-height: 2000px;
+    padding-bottom: 10%
 }
 
 #messageBox{
     position: fixed;
     bottom:5%; 
-    width: 68%;
+    width: 70%;
     margin-top: 10%;
-    /* margin-left: -2%; */
+   
 
 }
 
@@ -32,6 +33,7 @@
 }
 
 .eachChatWrapper{
- 
-    padding-bottom: 4%
+    display: flex;
+    gap: 2%;
+    padding-bottom: 3%
 }
