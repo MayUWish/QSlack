@@ -43,31 +43,33 @@ const CreateGroupForm = ({ setShowModal }) => {
 
 
     return (
-        <form onSubmit={onCreate}>
-            <div>
+        <form onSubmit={onCreate} className='formWrapper'>
+            <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <div>
+            <div className='formInputWrapper'>
                 <label>Name</label>
                 <input
                     type='text'
                     name='name'
                     onChange={updateName}
                     value={name}
+                    className='formInput'
                 ></input>
             </div>
-            <div>
+            <div className='formInputWrapper'>
                 <label>Description</label>
                 <input
                     type='text'
                     name='description'
                     onChange={updateDescritption}
                     value={description}
+                    className='formInput'
                 ></input>
             </div>
-            <button type='submit'>Create chat group</button>
+            <button className='formBtn' type='submit'>Create chat group</button>
         </form>
     )
       

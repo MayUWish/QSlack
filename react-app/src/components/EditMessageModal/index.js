@@ -7,8 +7,9 @@ function EditMessageFormModal({ message, groupId }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <div >
-            <button onClick={() => setShowModal(true)}>
+        <div style={{ display: 'inline' }}>
+            <button style={{ display: 'inline' }} className='smallBtn'
+                onClick={() => setShowModal(true)}>
                 Edit
             </button>
             {showModal && (

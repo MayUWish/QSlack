@@ -130,10 +130,10 @@ export const deleteChatGroupsThunk = (id) => async (dispatch) => {
     const data = await response.json();
     if (response.ok) {
 
-        console.log('data???', data)
+        //console.log('data???', data)
         dispatch(deleteChatGroupsAction(data));
     } else if (response.status < 500) {
-        console.log('data???has error', data)
+        //console.log('data???has error', data)
         if (data.errors) {
             return data;
 

@@ -7,6 +7,7 @@ import MainContent from '../MainContentChatGroups/MainContent';
 import MainContentDM from '../MainContentDM/MainContentDM';
 import CreateGroupFormModal from '../CreateGroupModal';
 import CreateDMFormModal from '../CreateDMModal';
+import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import './LeftBar.css';
 
 function LeftBar() {
@@ -53,31 +54,35 @@ function LeftBar() {
     return (
         <div className='Wrapper'>
             <div className='leftBarWrapper'>
-                <h3 style={{ display: 'inline' }}>Cheerful welcome, {currentUser.username}</h3>
+                <h3 style={{ borderBottom:'1px solid #183a1d', paddingBottom:'2%'}}>Cheerful welcome, {currentUser.username}</h3>
                 <div className='groupsWrapper'>
                     <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e=> setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
-                    <h4 style={{ display: 'inline' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>
+                    <h4 style={{ display:'inline', marginLeft:'1%' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>
                     <CreateGroupFormModal />
                     {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
-                        <button className='groupEl' key={`chatGroups${i}`} value={`ChatGroups_${groupId}`} onClick={loadMain}><i className="fas fa-envelope" /> {chatGroups[groupId]?.name}</button>
+                        <button className='groupEl' key={`chatGroups${i}`} value={`ChatGroups_${groupId}`} onClick={loadMain}># {chatGroups[groupId]?.name}</button>
                     )}
 
                 </div>
                 <div className='groupsWrapper'>
                     <i className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e => setShowDM(showDM=>!showDM)} /> 
-                    <h4 style={{ display: 'inline' }} onClick={e => setShowDM(showDM => !showDM)}>Direct messages</h4>
+                    <h4 style={{ display: 'inline', marginLeft: '1%' }} onClick={e => setShowDM(showDM => !showDM)}>Direct messages</h4>
                     {/* setGroupId is passed down and used to load the mainContent when DM is already at db but user try to create one more */} 
                     <CreateDMFormModal setGroupId={setGroupId}/>
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>
-                        <div key={`dmChannelWrapper${i}`}>
+                        <div key={`dmChannelWrapper${i}`} style={{ display: 'flex', justifyContent:'space-between' }}>
                             <button className='groupEl' key={`dmChannelUserName${i}`} value={`DM_${groupId}`} onClick={loadMain} style={{ display: 'inline' }}>
-                                <i className="fas fa-comment"/>
                             {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel     will only have 2 members, currentUser vs the other user whose name is displayed */}
+                                <img src={dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].profilePic ? dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].profilePic : defaultProfilePic} alt='profilePicForDMChannel'
+                                style={{width:'36px', height:'36px',borderRadius:'5px', marginRight:'3px'}}/>
+
                                 {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}
                             </button>
-                            <button className='groupEl' key={`dmChannelRemoveButton${i}`} value={`DM_${groupId}`} onClick={removeFromStore} style={{ display: 'inline' }}>
-                                <i className="fas fa-times" /> Close
-                            </button>
+                            <div style={{ display: 'flex', justifyContent: 'center',     flexDirection:'column' }}>
+                                <button className='groupEl' key={`dmChannelRemoveButton${i}`} value={`DM_${groupId}`} onClick={removeFromStore} >
+                                    close
+                                </button>
+                            </div>
                         </div>
                     )}
 

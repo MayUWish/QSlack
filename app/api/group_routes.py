@@ -23,7 +23,7 @@ def get_groups():
 @group_routes.route('/', methods=['POST'])
 @login_required
 def create_group():
-    print('request.form!!!', request.form)
+    # print('request.form!!!', request.form)
     form = CreateGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if not form.data['isDM']:
@@ -51,10 +51,14 @@ def create_group():
                 return {'errors': ['name: choose an user but not yourself.']}, 401
             # name the DM channel with name userId_userId to avoid duplication
             dmGroupName = f'{current_user.id}_{theOtherUser.id}_UniqueDM'
-            isDMExisted = Group.query.filter(Group.name == dmGroupName).first()
-            if isDMExisted and isDMExisted.isDM:
+            dmGroupName2 = f'{theOtherUser.id}_{current_user.id}_UniqueDM'
+            isDMExisted = Group.query.filter(
+                Group.name == dmGroupName).first()
+            isDMExisted2 = Group.query.filter(
+                Group.name == dmGroupName2).first()
+            if (isDMExisted and isDMExisted.isDM) or (isDMExisted2 and isDMExisted2.isDM):
                 # return {'errors': ['Already exist!']}, 401
-                return {'dmChannelId': isDMExisted.id, f'{isDMExisted.id}': isDMExisted.to_dict()}
+                return {'dmChannelId': isDMExisted.id if isDMExisted else isDMExisted2.id, f'{isDMExisted.id if isDMExisted else isDMExisted2.id}': isDMExisted.to_dict() if isDMExisted else isDMExisted2.to_dict()}
             group = Group(name=dmGroupName,
                           adminId=current_user.id,
                           isDM=True)
@@ -96,9 +100,9 @@ def delete_group(id):
 def edit_group(id):
     form = CreateGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('!!!form before', form.data)
+    # print('!!!form before', form.data)
     if form.validate_on_submit():
-        print('!!!form after', form.data)
+        # print('!!!form after', form.data)
         group = Group.query.get(id)
         if group.adminId != current_user.id:
             return {'errors': ['No authorization']}, 403

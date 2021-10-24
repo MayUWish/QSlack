@@ -50,41 +50,44 @@ const SignUpForm = () => {
   }
 
   return (
-    <>
+    <div className='formWrapper'>
       <form onSubmit={onSignUp}>
-        <div>
+        <div style={{ color: '#f0a04b' }}>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <div>
+        <div className='formInputWrapper'>
           <label>User Name</label>
           <input
             type='text'
             name='username'
             onChange={updateUsername}
             value={username}
+            className='formInput'
           ></input>
         </div>
-        <div>
+        <div className='formInputWrapper'>
           <label>Email</label>
           <input
             type='text'
             name='email'
             onChange={updateEmail}
             value={email}
+            className='formInput'
           ></input>
         </div>
-        <div>
+        <div className='formInputWrapper'>
           <label>Password</label>
           <input
             type='password'
             name='password'
             onChange={updatePassword}
             value={password}
+            className='formInput'
           ></input>
         </div>
-        <div>
+        <div className='formInputWrapper'>
           <label>Password Confirmation</label>
           <input
             type='password'
@@ -92,17 +95,23 @@ const SignUpForm = () => {
             onChange={updateRepeatPassword}
             value={repeatPassword}
             // required={true}
+            className='formInput'
           ></input>
         </div>
-        <button type='submit'>Sign Up</button>
+        <button className='formBtn' type='submit'>Sign Up</button>
       </form>
-      <DemoButton />
-		  <div>
-		    Already have an account?
-        <button onClick={() => {
-          setShowLoginModal(true)
+      
+      <div style={{fontSize: 'lareger', fontWeight: 'bold', marginBottom:'2%'}}>
+        Have an account?
+        <button onClick={() => {setShowLoginModal(true)}}
+          style={{
+            marginLeft:'2%',
+            borderRadius: '3px',
+            fontSize: 'lareger',
+            fontWeight: 'bold',
+            backgroundColor: '#fefbe9',
           }}>
-          Log In
+           Log In
         </button>
         {showLoginModal&& (
           <Modal onClose={() => setShowLoginModal(false)}>
@@ -110,7 +119,9 @@ const SignUpForm = () => {
           </Modal>
         )}
 		  </div>
-    </>
+
+      <DemoButton info={'DEMO'}/>
+    </div>
   );
 };
 

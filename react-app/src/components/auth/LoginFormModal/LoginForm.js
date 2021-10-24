@@ -5,6 +5,7 @@ import { login } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import SignUpForm from '../SignUpFormModal/SignUpForm.js'
+import './LoginForm.css';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -37,14 +38,14 @@ const LoginForm = () => {
   }
 
   return (
-    <>
+    < div className='formWrapper'>
       <form onSubmit={onLogin}>
-        <div>
+        <div style={{ color:'#f0a04b'}}>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <div>
+        <div className='formInputWrapper'>
           <label htmlFor='email'>Email</label>
           <input
             name='email'
@@ -52,9 +53,10 @@ const LoginForm = () => {
             placeholder='Email'
             value={email}
             onChange={updateEmail}
+            className = 'formInput'
           />
         </div>
-        <div>
+        <div className='formInputWrapper'>
           <label htmlFor='password'>Password</label>
           <input
             name='password'
@@ -62,15 +64,21 @@ const LoginForm = () => {
             placeholder='Password'
             value={password}
             onChange={updatePassword}
+            className='formInput'
           />
-          <button type='submit'>Login</button>
         </div>
+        <button className='formBtn' type='submit'>Login</button>
       </form>
-      < DemoButton />
-		  <div>
-		    New to QSlack?
-        <button onClick={() => {
-          setShowSignupModal(true)
+     
+      <div style={{ fontSize: 'lareger', fontWeight: 'bold', marginBottom: '2%' }}>
+        New to QSlack?
+        <button onClick={()=>{setShowSignupModal(true)}}        
+          style={{
+            marginLeft: '2%',
+            borderRadius: '3px',
+            fontSize: 'lareger',
+            fontWeight: 'bold',
+            backgroundColor: '#fefbe9',
           }}>
           Sign up
         </button>
@@ -80,7 +88,8 @@ const LoginForm = () => {
           </Modal>
         )}
 		  </div>
-    </>
+      < DemoButton info={'DEMO'} />
+    </div>
   );
 };
 

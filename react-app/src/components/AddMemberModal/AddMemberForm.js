@@ -16,8 +16,8 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setSho
 
     const onAdd = async (e) => {
         e.preventDefault();
-        console.log('currentGroupId', currentGroupId)
-        console.log('username', username)
+        //console.log('currentGroupId', currentGroupId)
+        //console.log('username', username)
         const data = await dispatch(addMemberThunk({ 'groupId': currentGroupId, username}));
         if (data && data.errors) {
             setErrors(data.errors)
@@ -33,31 +33,33 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setSho
     };
 
     return (
-        <div>
+        <div className='formWrapper'>
             <h3>{currentGroupName}</h3>
             <form onSubmit={onAdd}>
-                <div>
+                <div style={{ color: '#f0a04b' }}>
                   {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                   ))}
                 </div>
                 <div>
-                  <label>User Name</label>
+                  {/* <label>User Name</label> */}
                   <input
                     type='text'
                     name='username'
                     onChange={updateUsername}
                     value={username}
-                    placeholder='add a user by name'
+                    placeholder='Add a user by name'
+                    className='formInput'
                   ></input>
+                    <button className='btn' type='submit' >Add</button>
                 </div>
-                <button type='submit'>Add</button>
+                
             </form>
             
             
             {allUsers.map((member, i) => (
                 <div className="eachChatWrapper" key={`message${i}`}>
-                    <img className='chatProfilePic' alt='profilePicture' src={member.profilePic ? member.profilePic : defaultProfilePic} /> {currentMemberNames.includes(member.username) ? <><div>{member.username}</div> <div>current member</div> </> : <div>{member.username}</div> }
+                    <img className='chatProfilePic' alt='profilePicture' src={member.profilePic ? member.profilePic : defaultProfilePic} /> {currentMemberNames.includes(member.username) ? <>{member.username} <div style={{display:'inline-block'}}>(present)</div> </> : <span>{member.username}</span> }
                 </div>
             ))}
 

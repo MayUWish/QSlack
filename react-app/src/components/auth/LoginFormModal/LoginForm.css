@@ -1,0 +1,42 @@
+.formWrapper{
+   
+    display: "flex";
+    flex-direction: 'column';
+    align-items: 'center';
+    padding-left: 10%;
+
+    overflow: auto; 
+    max-height: 600px;
+    min-width:  500px;
+    border-radius: '5px';
+   
+    
+    
+}
+
+.formInput{
+    padding:3% 20%;
+    border-radius: 5px;
+    background-color: #e1eedd;
+
+    
+       
+}
+
+.formInputWrapper{
+    margin: 5% auto;
+}
+
+.formBtn{
+    height: 40px;
+    width: 72%;
+    background-color: #e1eedd;
+    border:1px solid #183a1d;
+    border-radius: 5px;
+    margin-bottom: 3%;
+    font-size: large;
+}
+
+label{
+    display: block;
+}

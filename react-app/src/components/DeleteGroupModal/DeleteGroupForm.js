@@ -13,7 +13,7 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
 
     const user = useSelector(state => state.session.user);
     const isAdmin = +user.id === + currentGroup.adminId
-    console.log('isAdmin>>>>', isAdmin, user.id, currentGroup.adminId)
+    //console.log('isAdmin>>>>', isAdmin, user.id, currentGroup.adminId)
     const dispatch = useDispatch();
 
 
@@ -32,17 +32,20 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
 
 
     return (
-        <form onSubmit={onDelete}>
-            <div>
+        <form onSubmit={onDelete} className='formWrapper'>
+            <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
             </div>
            
-            <div>
+            <h4>
                 {isAdmin ? `Are you sure to delete the chat group, ${currentGroupName}?` : `Are you sure to leave the chat group, ${currentGroupName}?`}
+            </h4>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%'}}>
+                <button className='btn' type='submit'>{isAdmin ? 'Delete' : 'Leave'}</button>
             </div>
-            <button type='submit'>{isAdmin ? 'Delete':'Leave' }</button>
+            
         </form>
     )
 

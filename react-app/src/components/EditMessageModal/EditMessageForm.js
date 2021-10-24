@@ -16,7 +16,7 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
 
         socket.on(String(groupId), async (chat) => {
             if (chat.action === 'edit') {
-                console.log('edit chat!!!', chat)
+                //console.log('edit chat!!!', chat)
                 if (chat.errors) {
                     setErrors(chat.errors)
                 } else {
@@ -55,8 +55,8 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
 
 
     return (
-        <form onSubmit={editMessage}>
-            <div>
+        <form onSubmit={editMessage} className='formWrapper'>
+            <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
@@ -67,12 +67,14 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
                     name='message'
                     onChange={updateMessage}
                     value={updatedMessage}
+                    className='formInput'
                 ></input>
             </div>
 
-
-            <button type='submit'>Edit</button>
-            <button onClick = {cancelEdit}>Cancel</button>
+            <div tyle={{display:'flex', justifyConent:'end'}}>
+                <button style={{  margin:'1%', height:'30px',width:'55px' }} className='btn' type='submit'>Edit</button>
+                <button style={{  margin: '1%', height: '30px', width: '70px' }}className='btn' onClick = {cancelEdit}>Cancel</button>
+            </div>
         </form>
     )
 

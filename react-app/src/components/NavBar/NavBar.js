@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import LogoutButton from '.././auth/LogoutButton';
-import LoginFormModal from '.././auth/LoginFormModal';
-import SignUpFormModal from '.././auth/SignUpFormModal';
+import LogoutButton from '.././Auth/LogoutButton';
+import LoginFormModal from '.././Auth/LoginFormModal';
+import SignUpFormModal from '.././Auth/SignUpFormModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
-import DemoButton from '.././auth/DemoButton'
+import DemoButton from '.././Auth/DemoButton'
+
 import './NavBar.css';
 
 const NavBar = () => {
@@ -16,43 +17,38 @@ const NavBar = () => {
         <div>
           <NavLink to='/' exact={true} activeClassName='active' 
             style={{textDecoration:'none'}}
-          >
-            QSlack
+          > 
+          <h1 style={{ color:'#183a1d', marginLeft:'3%', display:'inline'}}>QSLACK</h1>
           </NavLink>
         </div>
         {!user && <div className='loginSignupWrapper'>
-          <DemoButton />
+          <DemoButton info={'DEMO'}/>
           <LoginFormModal />
           <SignUpFormModal />
-          {/* <NavLink to='/login' exact={true} activeClassName='active' 
-           style={{ display: 'block', textDecoration: 'none'}}>
-            Login
-          </NavLink> */}
-          {/* <NavLink to='/sign-up' exact={true} activeClassName='active' 
-          style={{ display: 'block', textDecoration: 'none' }}>
-            Signup
-          </NavLink> */}
+          
         </div>}
-        {user && <div>
+        {/* {user && <div>
           <NavLink to='/users' exact={true} activeClassName='active'
             style={{ textDecoration: 'none' }}>
             Users
           </NavLink>
-        </div>}
+        </div>} */}
 
-        {user && <div>
+        {user && <div style={{display:'flex', gap:'5%'}}>
         <img alt='profilePic' 
-          src={user.ProfilePic ? user.ProfilePic : defaultProfilePic } 
-          style={{width:'60px',height:'50px'}}
+          src={user.profilePic ? user.profilePic : defaultProfilePic } 
+          style={{width:'50px',height:'50px', borderRadius:'5px'}}
           onClick={e=>setShow(show=>!show)}/>
           {show && 
-            <>
-              <NavLink to={`/clients/${user.username}`} exact={true} activeClassName='active'
-                style={{ textDecoration: 'none' }}>
-                Launch QSlack
-               </NavLink>
+          <div style={{ }}>
+              
+              <NavLink to={`/clients/${user.username}`} exact={true}    
+                  style={{ textDecoration: 'none', color: '#183a1d', fontWeight: 'bold'}}>
+                  Launch 
+              </NavLink>
+            
               <LogoutButton />
-            </>         
+            </div>         
           }
         </div>}
     </nav>

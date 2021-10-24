@@ -3,19 +3,27 @@ from app.models import db, Group
 
 def seed_groups():
     group1 = Group(
-        name='group1', description='this is group1.', adminId=1)
+        name='App-Academy', description='All about App-Academy.', adminId=1)
     group2 = Group(
-        name='group2', description='this is group2.', adminId=1)
+        name='June-Cohort', description='All about June-Cohort of App-Academy.', adminId=1)
     group3 = Group(
-        name='group3', description='this is group3.', adminId=1)
+        name='Dogs-lover', description='All about dogs.', adminId=2)
     group4 = Group(
-        name='group4', description='this is group4.', adminId=2)
+        name='Cats-lover', description='All about cats.', adminId=3)
     group5 = Group(
-        name='group5', description='this is group5.', adminId=2)
+        name='Flowers', description='All about flowers.', adminId=4)
     group6 = Group(
-        name='group6', description='this is group6.', adminId=3)
+        name='Anime', description='All about anime.', adminId=5)
     group7 = Group(
-        name='group7', description='this is group7.', adminId=2)
+        name='Football', description='All about footaball.', adminId=6)
+    group8 = Group(
+        name='Street-dance', description='All about Street-dance.', adminId=7)
+    group9 = Group(
+        name='hip-hop', description='All about hip-hop.', adminId=8)
+    group10 = Group(
+        name='Food', description='All about Food.', adminId=9)
+    group11 = Group(
+        name='Travel', description='All about Travel.', adminId=10)
 
     db.session.add(group1)
     db.session.add(group2)
@@ -24,6 +32,10 @@ def seed_groups():
     db.session.add(group5)
     db.session.add(group6)
     db.session.add(group7)
+    db.session.add(group8)
+    db.session.add(group9)
+    db.session.add(group10)
+    db.session.add(group11)
 
     db.session.commit()
 

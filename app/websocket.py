@@ -21,7 +21,7 @@ socketio = SocketIO(cors_allowed_origins=origins)
 def handle_chat(data):
     # a dictionary with key/value pair sent from frontend by using
     # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
-    print('!!!!!data>>>>>', data)
+    # print('!!!!!data>>>>>', data)
     # front-end seeding 'action' key/value pair to tell among create, delete, edit
     if data['action'] == 'create':
         # Validation: message has to be not empty or all spaces

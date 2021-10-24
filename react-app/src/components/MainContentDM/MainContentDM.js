@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { getDMChannelsThunk } from "../../store/dmChannels";
+import { getChatGroupsThunk } from "../../store/chatGroups";
 import EditMessageFormModal from '../EditMessageModal';
 import './MainContentDM.css';
 import { io } from 'socket.io-client';
@@ -14,7 +15,7 @@ function MainContentDM({ groupId }) {
     const currentGroup = dmChannels[groupId]
     const messagesArr = dmChannels[groupId]?.messages
     // ensure the message is ordered by createdTime/id
-    messagesArr.sort(function (message1, message2) {
+    messagesArr?.sort(function (message1, message2) {
         return message1.id - message2.id;
     });
     const membersObject =  dmChannels[groupId]?.members
@@ -26,6 +27,8 @@ function MainContentDM({ groupId }) {
     useEffect(() => {
         (async () => {
             await dispatch(getDMChannelsThunk())
+            // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
+            await dispatch(getChatGroupsThunk())
 
         })();       
     }, [dispatch, groupId]);
@@ -38,20 +41,26 @@ function MainContentDM({ groupId }) {
         socket.on(String(groupId), async (chat) => {
             
             if (chat.action === 'create') {
-                console.log('create chat!!!', chat)
+                //console.log('create chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getDMChannelsThunk())
+                    // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
+                    await dispatch(getChatGroupsThunk())
                 } 
             }
             else if (chat.action === 'delete') {
-                console.log('delete chat!!!', chat)
+                //console.log('delete chat!!!', chat)
                 await dispatch(getDMChannelsThunk())
+                // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
+                await dispatch(getChatGroupsThunk())
 
             }
             else if (chat.action === 'edit') {
-                console.log('edit chat!!!', chat)
+                //console.log('edit chat!!!', chat)
                 if (!chat.errors) {
                     await dispatch(getDMChannelsThunk())
+                    // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
+                    await dispatch(getChatGroupsThunk())
                 }               
             }
         })
@@ -105,7 +114,7 @@ function MainContentDM({ groupId }) {
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />{membersObject[String(message.userId)].username}: {message.message}
                     {+message.userId === +currentUser.id && <div>
                         <EditMessageFormModal message={message} groupId={groupId}/>                      
-                        <button value={message.id} onClick={deleteMessage}>Delete</button>
+                        <button style={{display:'inline'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
                     </div>}
                     
                 </div>
@@ -114,10 +123,13 @@ function MainContentDM({ groupId }) {
             <div>
                 <form onSubmit={createMessage}>
                     <input
+                        className='messageInput'
                         value={messageInput}
                         onChange={updateMessageInput}
                     />
-                    <button type="submit">Send</button>
+                    <div style={{ display: 'flex', justifyContent: 'end', margin: '0 1%' }}>
+                        <button className='smallBtn' type="submit">Send</button>
+                    </div>
                 </form>
             </div>
             )}
