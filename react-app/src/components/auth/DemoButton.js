@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../store/session';
 import {useHistory } from 'react-router-dom';
 
-const DemoButton = () => {
+const DemoButton = ({ info }) => {
     const dispatch = useDispatch()
     const history = useHistory();
     const demoUser = async (e) => {
@@ -15,7 +15,10 @@ const DemoButton = () => {
     };
 
     return (
-        <button onClick={demoUser}>Try A Demo</button>)
+        <button className='btn' onClick={demoUser} 
+            style={{ color: 'white', backgroundColor:'#183a1d', width:'150px'}}>
+                {info}
+        </button>)
 };
 
 export default DemoButton;

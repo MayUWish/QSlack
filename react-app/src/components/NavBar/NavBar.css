@@ -2,23 +2,19 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* margin-bottom:2%; */
+    align-items: center;
     font-size: larger;
-    border-bottom: 1px solid purple;
-    /* background-color: #edeaff; */
+    /* border-bottom: 1px solid #183a1d; */
+
 
 }
 
 .loginSignupWrapper{
     display: flex;
-    gap: 20%;
+    gap: 10%;
+    margin-right: 3%;
 
 }
 
 
-/* .btn{
-    background-color: none;
-    padding: 1%;
-    border:none;
-    
-} */
+

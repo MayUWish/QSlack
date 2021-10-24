@@ -1,6 +1,17 @@
 /* TODO Add site wide styles */
-#root{
-    margin:0 2%;
+html{
+    background-color: #e1eedd; 
     font-size: larger;
-    /* font-family: Slack-Lato; */
+    font-family: serif;
+}
+
+.btn{
+    background-color: #e1eedd;
+    border:1px solid #183a1d;
+    border-radius: 5px;  
+
+    height:45px;
+    width: 80px;
+    font-size: large;
+    
 }

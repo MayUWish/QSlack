@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 // import UsersList from './components/UsersList';
 import LeftBar from './components/LeftBar/LeftBar';
+import HomePage from './components/HomePage';
 import { authenticate } from './store/session';
 
 
@@ -34,9 +35,9 @@ function App() {
         <ProtectedRoute path='/clients/:clientName' exact={true} >
           <LeftBar />          
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
+        <Route path='/' exact={true} >
+          <HomePage />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

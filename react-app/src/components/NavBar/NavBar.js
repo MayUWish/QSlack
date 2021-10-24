@@ -6,6 +6,7 @@ import LoginFormModal from '.././Auth/LoginFormModal';
 import SignUpFormModal from '.././Auth/SignUpFormModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import DemoButton from '.././Auth/DemoButton'
+
 import './NavBar.css';
 
 const NavBar = () => {
@@ -16,29 +17,22 @@ const NavBar = () => {
         <div>
           <NavLink to='/' exact={true} activeClassName='active' 
             style={{textDecoration:'none'}}
-          >
-            QSlack
+          > 
+          <h1 style={{ color:'#183a1d', marginLeft:'3%'}}>QSLACK</h1>
           </NavLink>
         </div>
         {!user && <div className='loginSignupWrapper'>
-          <DemoButton />
+          <DemoButton info={'DEMO'}/>
           <LoginFormModal />
           <SignUpFormModal />
-          {/* <NavLink to='/login' exact={true} activeClassName='active' 
-           style={{ display: 'block', textDecoration: 'none'}}>
-            Login
-          </NavLink> */}
-          {/* <NavLink to='/sign-up' exact={true} activeClassName='active' 
-          style={{ display: 'block', textDecoration: 'none' }}>
-            Signup
-          </NavLink> */}
+          
         </div>}
-        {user && <div>
+        {/* {user && <div>
           <NavLink to='/users' exact={true} activeClassName='active'
             style={{ textDecoration: 'none' }}>
             Users
           </NavLink>
-        </div>}
+        </div>} */}
 
         {user && <div>
         <img alt='profilePic' 
