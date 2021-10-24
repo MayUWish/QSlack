@@ -9,7 +9,7 @@ def user_exists(form, field):
     username = field.data
     user = User.query.filter(User.username == username).first()
     if not user:
-        raise ValidationError('User is not founded.')
+        raise ValidationError('User not found.')
 
     groupId = form.data['groupId']
     userId = user.id

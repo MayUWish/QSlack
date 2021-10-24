@@ -70,7 +70,7 @@ const LoginForm = () => {
         <button className='formBtn' type='submit'>Login</button>
       </form>
      
-      <div style={{ fontSize: 'lareger', fontWeight: 'bold', marginBottom: '2%' }}>
+      <div className='formInputWrapper' >
         New to QSlack?
         <button onClick={()=>{setShowSignupModal(true)}}        
           style={{
@@ -88,7 +88,10 @@ const LoginForm = () => {
           </Modal>
         )}
 		  </div>
-      < DemoButton info={'DEMO'} />
+      <div className='formInputWrapper' style={{ marginLeft: '30%' }}>
+        < DemoButton info={'DEMO'} />
+      </div>
+      
     </div>
   );
 };

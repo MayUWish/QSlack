@@ -105,7 +105,7 @@ const SignUpForm = () => {
             className='formInput'
           ></textarea>
         </div>
-        <div>
+        <div className='formInputWrapper'>
           <label>Profile Picture</label>
           <input
             name='profilePic'
@@ -113,8 +113,7 @@ const SignUpForm = () => {
             accept="image/*"
             onChange={updateProfilePic}
             className="formInput"
-            style={{ border:'1px solid black' }}
-           
+            style={{ border: '1px solid black'}}          
           ></input>
         </div>
         <div className='formInputWrapper'>
@@ -141,7 +140,7 @@ const SignUpForm = () => {
         <button className='formBtn' type='submit'>Sign Up</button>
       </form>
       
-      <div style={{fontSize: 'lareger', fontWeight: 'bold', marginBottom:'2%'}}>
+      <div className='formInputWrapper'>
         Have an account?
         <button onClick={() => {setShowLoginModal(true)}}
           style={{
@@ -159,8 +158,9 @@ const SignUpForm = () => {
           </Modal>
         )}
 		  </div>
-
-      <DemoButton info={'DEMO'}/>
+      <div className='formInputWrapper' style={{ marginLeft: '30%'}}>
+        <DemoButton info={'DEMO'}/>
+      </div>
     </div>
   );
 };

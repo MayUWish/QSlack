@@ -141,13 +141,14 @@ function MainContent({groupId}) {
             {currentUser && (
                 <div id='messageBox'>
                     <form onSubmit={sendChat}>
-                        <input
+                        <textarea
                             className='messageInput'
                             value={messageInput}
                             onChange={updateMessageInput}
+                           
                         />
-                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0 1%' }}>
-                            <button className='smallBtn' type="submit">Send</button>
+                        <div style={{ display: 'flex', justifyContent: 'end', margin: '-4% 1%' }}>
+                            <button className='middleBtn2' type="submit" style={{ borderColor: '#183a1d' }}>Send</button>
                         </div>
                     </form>
                 </div>

@@ -13,7 +13,7 @@ html{
 }
 #messageBox{
     position: absolute;
-    bottom: 2%;
+    bottom: 5%;
     width: 70%;
 
 }
@@ -24,6 +24,8 @@ html{
     height:90px;
     border:1px solid #183a1d;
     border-radius: 5px;
+    font-size: larger;
+    resize: none;
 
 }
 
@@ -67,7 +69,6 @@ html{
     display: "flex";
     flex-direction: 'column';
     align-items: 'center';
-    margin-left: 10%;
 
     overflow: auto; 
     max-height: 700px;
@@ -77,7 +78,7 @@ html{
 }
 
 .formInput{
-    width:70%;
+    width:90%;
     min-height: 45px;
     border-radius: 5px;
     background-color: #e1eedd;
@@ -86,16 +87,19 @@ html{
 }
 
 .formInputWrapper{
-    margin: 5% auto;
+    margin: 3% 7%;
+    /* margin-left: 10%; */
+
 }
 
 .formBtn{
     height: 40px;
-    width: 72%;
+    width: 80%;
     background-color: #e1eedd;
     border:1px solid #183a1d;
     border-radius: 5px;
     margin-bottom: 3%;
+    margin-left: 7%;
     font-size: large;
 }
 
