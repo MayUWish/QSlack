@@ -3,6 +3,7 @@ html{
     background-color: #e1eedd; 
     font-size: larger;
     font-family: serif;
+
 }
 
 .btn{
@@ -10,7 +11,7 @@ html{
     border:1px solid #183a1d;
     border-radius: 5px;  
 
-    height:45px;
+    height:44px;
     width: 80px;
     font-size: large;
     

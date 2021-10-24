@@ -41,32 +41,36 @@ const CreateDMForm = ({ setShowModal, setGroupId }) => {
     };
 
     return (
-        <div>
+        <div className='formWrapper'>
             <h3>Direct Messages With:</h3>
             <form onSubmit={onAdd}>
-                <div>
+                <div style={{ color: '#f0a04b' }}>
                     {errors.map((error, ind) => (
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <div>
+                <div style={{ display: 'inline' }}>
                     <input
                         type='text'
                         name='username'
                         onChange={updateUsername}
                         value={username}
-                        placeholder='by name'
+                        placeholder='By name'
+                        className='formInput'
                     ></input>
                 </div>
-                <button type='submit'>Go</button>
+                <button style={{ display: 'inline-block'}} className='btn' type='submit'>Go</button>
             </form>
 
+            <div>
+                {allUsers.map((member, i) => (
+                    <div className="eachChatWrapper" key={`message${i}`}>
+                        <img style={{display:'inline'}} className='chatProfilePic' alt='profilePicture' src={member.profilePic ? member.profilePic : defaultProfilePic} /> {member.username}
+                    </div>
+                ))}
 
-            {allUsers.map((member, i) => (
-                <div className="eachChatWrapper" key={`message${i}`}>
-                    <img className='chatProfilePic' alt='profilePicture' src={member.profilePic ? member.profilePic : defaultProfilePic} /> <div>{member.username}</div>
-                </div>
-            ))}
+           </div>
+            
 
         </div>
     );
