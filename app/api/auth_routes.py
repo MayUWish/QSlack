@@ -71,10 +71,33 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        if "profilePic" in request.files:
+            profilePic = request.files["profilePic"]
+
+            if not allowed_file(profilePic.filename):
+                return {"errors": ["profilePic file type not permitted"]}, 400
+
+            profilePic.filename = get_unique_filename(
+                profilePic.filename)
+
+            upload_profilePic = upload_file_to_s3(profilePic)
+
+            if "url" not in upload_profilePic:
+                # if the dictionary doesn't have a url key
+                # it means that there was an error when we tried to upload
+                # so we send back that error message
+                return {'errors': [upload_profilePic['errors']]}, 400
+
+            profilePic_url = upload_profilePic["url"]
+        else:
+            profilePic_url = None
+
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            biography=form.data['biography'],
+            profilePic=profilePic_url,
         )
         db.session.add(user)
         db.session.commit()

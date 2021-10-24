@@ -21,7 +21,15 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password, profilePic, biography));
+      // prepare recipe input data ready for AWS
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("biography", biography);
+      formData.append("profilePic", profilePic);
+
+      const data = await dispatch(signUp(formData));
       if (data) {
         setErrors(data)
       }
