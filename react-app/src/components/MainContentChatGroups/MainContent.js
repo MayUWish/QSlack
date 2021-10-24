@@ -108,7 +108,7 @@ function MainContent({groupId}) {
     }
 
     return (
-        <>  
+        <div >  
             {currentGroup && <div className='chatHeaderWrapper'>
                 <div className='chatHeaderEl'>
                     <h3 style={{ display: 'inline' }}>{currentGroupName}</h3>
@@ -139,7 +139,7 @@ function MainContent({groupId}) {
             ))}
            
             {currentUser && (
-                <div>
+                <div style={{ postion:'fixed', bottom:'0'}}>
                     <form onSubmit={sendChat}>
                         <input
                             className='messageInput'
@@ -152,7 +152,7 @@ function MainContent({groupId}) {
                     </form>
                 </div>
             )}
-        </>
+        </div>
     );
 }
 export default MainContent;

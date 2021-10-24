@@ -8,6 +8,7 @@ import MainContentDM from '../MainContentDM/MainContentDM';
 import CreateGroupFormModal from '../CreateGroupModal';
 import CreateDMFormModal from '../CreateDMModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
+// import footer from '../../static/images/footer.png'
 import './LeftBar.css';
 
 function LeftBar() {
@@ -52,6 +53,7 @@ function LeftBar() {
     }
 
     return (
+        <>
         <div className='Wrapper'>
             <div className='leftBarWrapper'>
                 <h3 style={{ borderBottom:'1px solid #183a1d', paddingBottom:'2%'}}>Cheerful welcome, {currentUser.username}</h3>
@@ -98,6 +100,8 @@ function LeftBar() {
             </div>
             
         </div>
+        
+        </>
     );
 }
 export default LeftBar;
