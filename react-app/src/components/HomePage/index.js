@@ -16,7 +16,7 @@ const HomePage = () => {
                 <div style={{ width:'40%', textAlign:'center'}}>
            
                     <h2 style={{ color: '#183a1d', margin: '55% 10% 1%  10%' }}>
-                        <span style={{ color: '#f0a04b'}}>Join</span> us to send direct message, chat in groups,and share moments.
+                        <span style={{ color: '#f0a04b'}}>Join</span> us to send direct message, chat in groups, and share moments.
 
                     </h2>
                     <DemoButton info={'TRY A FREE DEMO'} style={{width:'150px'}}/>
@@ -24,16 +24,16 @@ const HomePage = () => {
                 </div>
 
             </div>
-            <div style={{ margin: '10% 5%'}}>
-                <div>
+            <div style={{ margin: '5%' }}>
+                <div style={{ margin: '3%' }}>
                     <h1 style={{ color: '#f0a04b' }}>
-                        Technologies and Frameworks:
+                        {'Technologies & Frameworks:'}
                     </h1>
                     
                 </div>
                 
 
-                <div style={{display:'flex', gap:'5%', flexWrap:'wrap', width: '50%', marginLeft:'2%'}}>
+                <div style={{display:'flex', gap:'5%', flexWrap:'wrap', width: '50%', marginLeft:'30%'}}>
                     <i className="fab fa-python fa-2x tech" >Python</i>
 
 
@@ -64,6 +64,8 @@ const HomePage = () => {
 
                 </div>
             </div>
+
+            
 
             <div style={{ margin: '10% 5%'}}>
                 <h1 style={{  textAlign: 'center', color: '#f0a04b' }}> My other projects: </h1>

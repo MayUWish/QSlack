@@ -108,7 +108,7 @@ function MainContent({groupId}) {
     }
 
     return (
-        <div >  
+        <div>
             {currentGroup && <div className='chatHeaderWrapper'>
                 <div className='chatHeaderEl'>
                     <h3 style={{ display: 'inline' }}>{currentGroupName}</h3>
@@ -127,27 +127,39 @@ function MainContent({groupId}) {
                 </div>
                 
             </div>}
-            
+            <div id='messagesDiv' >
             {currentGroup && messagesArr.map((message,i)=>(
-                <div className="eachChatWrapper" key={`message${i}`}>
-                    <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>{membersObject[String(message.userId)].username}: {message.message}
+                <div className="eachChatWrapper" key={`message${i}`} >
+                    <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>
+                    <div>
+                        <div style={{marginBottom:'1%'}}>
+                            {membersObject[String(message.userId)].username}:
+                        </div>
+                        <div>
+                            {message.message}
+                        </div>
+                         
+                    </div>
+                    
                     {+message.userId === +currentUser.id && <div>
                         <EditMessageFormModal message={message} groupId={groupId} />
                         <button style={{ display: 'inline' }} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
                     </div>}
                 </div>
             ))}
+
+            </div>
            
             {currentUser && (
                 <div id='messageBox'>
                     <form onSubmit={sendChat}>
-                        <input
+                        <textarea
                             className='messageInput'
                             value={messageInput}
-                            onChange={updateMessageInput}
+                            onChange={updateMessageInput}                          
                         />
-                        <div style={{ display: 'flex', justifyContent: 'end', margin: '0 1%' }}>
-                            <button className='smallBtn' type="submit">Send</button>
+                        <div style={{ display: 'flex', justifyContent: 'end', margin: '-4% 1%' }}>
+                            <button className='middleBtn2' type="submit" style={{ borderColor: '#183a1d', zIndex:'5' }}>Send</button>
                         </div>
                     </form>
                 </div>

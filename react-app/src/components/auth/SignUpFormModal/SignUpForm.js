@@ -5,6 +5,8 @@ import { signUp } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import LoginForm from '../LoginFormModal/LoginForm.js'
+import { getChatGroupsThunk } from "../../../store/chatGroups";
+import { getDMChannelsThunk } from "../../../store/dmChannels";
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -12,6 +14,8 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [biography, setBiography] = useState('');
+  const [profilePic, setProfilePic] = useState(null);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -19,9 +23,21 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      // prepare recipe input data ready for AWS
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("biography", biography);
+      formData.append("profilePic", profilePic);
+
+      const data = await dispatch(signUp(formData));
       if (data) {
         setErrors(data)
+      }else{
+        await dispatch(getChatGroupsThunk())
+        await dispatch(getDMChannelsThunk())
+        
       }
     } else{
       setErrors(['Password Confirmation: Password Confirmation does not match Password.'])
@@ -43,6 +59,14 @@ const SignUpForm = () => {
 
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
+  };
+
+  const updateBiography = (e) => {
+    setBiography(e.target.value);
+  };
+
+  const updateProfilePic = (e) => {
+    setProfilePic(e.target.files[0]);
   };
 
   if (user) {
@@ -78,6 +102,27 @@ const SignUpForm = () => {
           ></input>
         </div>
         <div className='formInputWrapper'>
+          <label>Biography</label>
+          <textarea
+            name='Biography'
+            onChange={updateBiography}
+            value={biography}
+            style={{ resize: 'none', height: '70px' }}
+            className='formInput'
+          ></textarea>
+        </div>
+        <div className='formInputWrapper'>
+          <label>Profile Picture</label>
+          <input
+            name='profilePic'
+            type="file"
+            accept="image/*"
+            onChange={updateProfilePic}
+            className="formInput"
+            style={{ border: '1px solid black'}}          
+          ></input>
+        </div>
+        <div className='formInputWrapper'>
           <label>Password</label>
           <input
             type='password'
@@ -101,7 +146,7 @@ const SignUpForm = () => {
         <button className='formBtn' type='submit'>Sign Up</button>
       </form>
       
-      <div style={{fontSize: 'lareger', fontWeight: 'bold', marginBottom:'2%'}}>
+      <div className='formInputWrapper'>
         Have an account?
         <button onClick={() => {setShowLoginModal(true)}}
           style={{
@@ -119,8 +164,9 @@ const SignUpForm = () => {
           </Modal>
         )}
 		  </div>
-
-      <DemoButton info={'DEMO'}/>
+      <div className='formInputWrapper' style={{ marginLeft: '30%'}}>
+        <DemoButton info={'DEMO'}/>
+      </div>
     </div>
   );
 };

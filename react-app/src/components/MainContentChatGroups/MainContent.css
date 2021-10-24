@@ -1,12 +1,29 @@
 .chatHeaderWrapper{
     display: flex;
     align-content: space-between;
+    margin: 3% 0 3% -2%;
+  
 
 }
 .chatHeaderEl{
-    width:5%;
     text-align: center;
+    min-width: 150px; 
     
+}
+
+#messagesDiv{
+    overflow: auto;
+    min-height: 2000px;
+    padding-bottom: 10%
+}
+
+#messageBox{
+    position: fixed;
+    bottom:5%; 
+    width: 70%;
+    margin-top: 10%;
+   
+
 }
 
 .chatProfilePic{
@@ -16,5 +33,7 @@
 }
 
 .eachChatWrapper{
-    margin:5% 1%
+    display: flex;
+    gap: 2%;
+    padding-bottom: 3%
 }

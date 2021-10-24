@@ -6,17 +6,8 @@ html, body{
 
 }
 
-html{
-    position: relative;
-    min-height:100%;
 
-}
-#messageBox{
-    position: absolute;
-    bottom: 2%;
-    width: 70%;
 
-}
 
 .messageInput{
     background-color: #e1eedd;
@@ -24,6 +15,8 @@ html{
     height:90px;
     border:1px solid #183a1d;
     border-radius: 5px;
+    font-size: larger;
+    resize: none;
 
 }
 
@@ -35,6 +28,7 @@ html{
     height:44px;
     width: 80px;
     font-size: large;
+    margin-bottom: 1%;
     
 }
 
@@ -43,6 +37,7 @@ html{
     border:none;
     height:35px;
     width: 42px;
+
 }
 
 .middleBtn2{
@@ -59,3 +54,46 @@ html{
     border-radius: 3px;  
 }
 
+
+
+.formWrapper{ 
+    display: "flex";
+    flex-direction: 'column';
+    align-items: 'center';
+
+    overflow: auto; 
+    max-height: 700px;
+    min-width:  500px;
+    border-radius: '5px';
+ 
+}
+
+.formInput{
+    width:90%;
+    min-height: 45px;
+    border-radius: 5px;
+    background-color: #e1eedd;
+    font-size: large;
+       
+}
+
+.formInputWrapper{
+    margin: 3% 7%;
+    /* margin-left: 10%; */
+
+}
+
+.formBtn{
+    height: 40px;
+    width: 80%;
+    background-color: #e1eedd;
+    border:1px solid #183a1d;
+    border-radius: 5px;
+    margin-bottom: 3%;
+    margin-left: 7%;
+    font-size: large;
+}
+
+label{
+    display: block;
+}

@@ -12,16 +12,19 @@ import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import './LeftBar.css';
 
 function LeftBar() {
-    const dispatch = useDispatch();
-    const [showChatGroups, setShowChatGroups] = useState(true);
-    const [showDM, setShowDM] = useState(true);
-    const [showMoments, setShowMoments] = useState(true);
-    const [groupId, setGroupId] = useState(null);
-
     const currentUser = useSelector((state) => state.session?.user);
     const chatGroups = useSelector((state) => state.chatGroups);
     const dmChannels = useSelector((state) => state.dmChannels);
     const userId = currentUser.id
+
+    const dispatch = useDispatch();
+    const [showChatGroups, setShowChatGroups] = useState(true);
+    const [showDM, setShowDM] = useState(true);
+    const [showMoments, setShowMoments] = useState(true);
+    const [groupId, setGroupId] = useState(`ChatGroups_${ Object.keys(chatGroups)[0]}`);
+    
+
+    
 
     useEffect(() => {
         if (!userId) {
@@ -30,6 +33,7 @@ function LeftBar() {
         (async () => {
             await dispatch(getChatGroupsThunk())
             await dispatch(getDMChannelsThunk())
+            
           
         })();
     }, [dispatch, userId]);
@@ -56,7 +60,7 @@ function LeftBar() {
         <>
         <div className='Wrapper'>
             <div className='leftBarWrapper'>
-                <h3 style={{ borderBottom:'1px solid #183a1d', paddingBottom:'2%'}}>Cheerful welcome, {currentUser.username}</h3>
+                    <h3 style={{ borderBottom: '1px solid #183a1d', paddingBlock:'2%'}}>Cheerful welcome, {currentUser.username}</h3>
                 <div className='groupsWrapper'>
                     <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e=> setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
                     <h4 style={{ display:'inline', marginLeft:'1%' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>

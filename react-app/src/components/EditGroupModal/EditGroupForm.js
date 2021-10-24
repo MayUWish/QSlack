@@ -51,7 +51,7 @@ const EditGroupForm = ({ setShowEditModal, currentGroup, setShowModal }) => {
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <div>
+            <div className='formInputWrapper'>
                 <label>Name</label>
                 <input
                     type='text'
@@ -61,7 +61,7 @@ const EditGroupForm = ({ setShowEditModal, currentGroup, setShowModal }) => {
                     className='formInput'
                 ></input>
             </div>
-            <div>
+            <div className='formInputWrapper'>
                 <label>Description</label>
                 <input
                     type='text'
@@ -71,7 +71,7 @@ const EditGroupForm = ({ setShowEditModal, currentGroup, setShowModal }) => {
                     className='formInput'
                 ></input>
             </div>
-            <div style={{display:'flex', justifyContent:'center', marginTop:'2%'}}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%'}}>
             <button className='btn' type='submit'>Edit</button>
             </div>
         </form>

@@ -5,7 +5,9 @@ import { login } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import SignUpForm from '../SignUpFormModal/SignUpForm.js'
-import './LoginForm.css';
+import { getChatGroupsThunk } from "../../../store/chatGroups";
+import { getDMChannelsThunk } from "../../../store/dmChannels";
+
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -21,7 +23,11 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
-    } 
+    } else {
+      await dispatch(getChatGroupsThunk())
+      await dispatch(getDMChannelsThunk())
+      
+    }
   };
 
 
@@ -70,7 +76,7 @@ const LoginForm = () => {
         <button className='formBtn' type='submit'>Login</button>
       </form>
      
-      <div style={{ fontSize: 'lareger', fontWeight: 'bold', marginBottom: '2%' }}>
+      <div className='formInputWrapper' >
         New to QSlack?
         <button onClick={()=>{setShowSignupModal(true)}}        
           style={{
@@ -88,7 +94,10 @@ const LoginForm = () => {
           </Modal>
         )}
 		  </div>
-      < DemoButton info={'DEMO'} />
+      <div className='formInputWrapper' style={{ marginLeft: '30%' }}>
+        < DemoButton info={'DEMO'} />
+      </div>
+      
     </div>
   );
 };
