@@ -139,7 +139,7 @@ function MainContent({groupId}) {
             ))}
            
             {currentUser && (
-                <div style={{ postion:'fixed', bottom:'0'}}>
+                <div id='messageBox'>
                     <form onSubmit={sendChat}>
                         <input
                             className='messageInput'

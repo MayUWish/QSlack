@@ -4,10 +4,28 @@ html, body{
     font-size: larger;
     font-family: serif;
 
+}
 
+html{
+    position: relative;
+    min-height:100%;
+
+}
+#messageBox{
+    position: absolute;
+    bottom: 2%;
+    width: 70%;
 
 }
 
+.messageInput{
+    background-color: #e1eedd;
+    width:100%;
+    height:90px;
+    border:1px solid #183a1d;
+    border-radius: 5px;
+
+}
 
 .btn{
     background-color: #e1eedd;
@@ -41,11 +59,3 @@ html, body{
     border-radius: 3px;  
 }
 
-.messageInput{
-    background-color: #e1eedd;
-    width:98%;
-    height:90px;
-    border:1px solid #183a1d;
-    border-radius: 5px;
-
-}
