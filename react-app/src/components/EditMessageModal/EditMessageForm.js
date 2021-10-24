@@ -61,19 +61,20 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <div>
-                <input
-                    type='text'
+            <div className='formInputWrapper'>
+                <textarea
+                    
                     name='message'
                     onChange={updateMessage}
                     value={updatedMessage}
-                    className='formInput'
-                ></input>
+                    className='messageInput'
+
+                ></textarea>
             </div>
 
-            <div tyle={{display:'flex', justifyConent:'end'}}>
-                <button style={{  margin:'1%', height:'30px',width:'55px' }} className='btn' type='submit'>Edit</button>
-                <button style={{  margin: '1%', height: '30px', width: '70px' }}className='btn' onClick = {cancelEdit}>Cancel</button>
+            <div tyle={{ display: 'flex'}}>
+                <button style={{  marginLeft:'25%', height:'30px',width:'55px' }} className='btn' type='submit'>Edit</button>
+                <button style={{ marginLeft: '25%', height: '30px', width: '70px' }}className='btn' onClick = {cancelEdit}>Cancel</button>
             </div>
         </form>
     )
