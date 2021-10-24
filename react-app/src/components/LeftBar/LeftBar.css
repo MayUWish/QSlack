@@ -1,18 +1,21 @@
 .Wrapper{
     display: flex;
-
+    border: 1px solid #183a1d;
+   
+    min-height: 90%;
 }
 .leftBarWrapper{
     width: 25%;
     border: 1px solid #183a1d;
+    
 }
 .mainContentWrapper{
     width: 75%;
     border: 1px solid #183a1d;
-  
     padding-left: 2%;
 
 }
+
 .groupsWrapper{
     margin:3%;
     color:#183a1d

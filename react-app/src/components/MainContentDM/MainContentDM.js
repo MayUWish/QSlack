@@ -108,17 +108,18 @@ function MainContentDM({ groupId }) {
                 </div>
 
             </div>}
-
-            {currentGroup && messagesArr.map((message, i) => (
-                <div className="eachChatWrapper" key={`message${i}`}>
-                    <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />{membersObject[String(message.userId)].username}: {message.message}
-                    {+message.userId === +currentUser.id && <div>
-                        <EditMessageFormModal message={message} groupId={groupId}/>                      
-                        <button style={{display:'inline'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
-                    </div>}
-                    
-                </div>
-            ))}
+            <div id='messagesDiv' >
+                {currentGroup && messagesArr.map((message, i) => (
+                    <div className="eachChatWrapper" key={`message${i}`}>
+                        <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />{membersObject[String(message.userId)].username}: {message.message}
+                        {+message.userId === +currentUser.id && <div>
+                            <EditMessageFormModal message={message} groupId={groupId}/>                      
+                            <button style={{display:'inline'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
+                        </div>}
+                        
+                    </div>
+                ))}
+            </div>
             {currentUser && (
                 <div id='messageBox'>
                 <form onSubmit={createMessage}>

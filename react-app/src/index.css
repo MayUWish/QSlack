@@ -6,17 +6,8 @@ html, body{
 
 }
 
-html{
-    position: relative;
-    min-height:100%;
 
-}
-#messageBox{
-    position: absolute;
-    bottom: 5%;
-    width: 70%;
 
-}
 
 .messageInput{
     background-color: #e1eedd;

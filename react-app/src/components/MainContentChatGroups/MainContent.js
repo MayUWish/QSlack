@@ -127,9 +127,9 @@ function MainContent({groupId}) {
                 </div>
                 
             </div>}
-            
+            <div id='messagesDiv' >
             {currentGroup && messagesArr.map((message,i)=>(
-                <div className="eachChatWrapper" key={`message${i}`} style={{overflow:'auto'}}>
+                <div className="eachChatWrapper" key={`message${i}`} >
                     <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>{membersObject[String(message.userId)].username}: {message.message}
                     {+message.userId === +currentUser.id && <div>
                         <EditMessageFormModal message={message} groupId={groupId} />
@@ -137,6 +137,8 @@ function MainContent({groupId}) {
                     </div>}
                 </div>
             ))}
+
+            </div>
            
             {currentUser && (
                 <div id='messageBox'>
@@ -144,8 +146,7 @@ function MainContent({groupId}) {
                         <textarea
                             className='messageInput'
                             value={messageInput}
-                            onChange={updateMessageInput}
-                           
+                            onChange={updateMessageInput}                          
                         />
                         <div style={{ display: 'flex', justifyContent: 'end', margin: '-4% 1%' }}>
                             <button className='middleBtn2' type="submit" style={{ borderColor: '#183a1d' }}>Send</button>
