@@ -20,7 +20,7 @@
 .likeCommentWrapper{
     display: flex;
     gap: 5%;
-    margin-top: 1%;
+    margin: 1% 0;
 }
 .like:hover, .comment:hover{
     color: #f0a04b ;
