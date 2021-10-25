@@ -39,8 +39,16 @@ function LeftBar() {
     }, [dispatch, userId]);
 
     const loadMain = (e) =>{
-        setGroupId(e.target.value)
-        // console.log('???? !!!!!!', e.target.value)
+        setGroupId(e.target.value);
+
+        // onClick remove highlight class to all elements in groupsWapper and add highlight class to the target
+        
+        const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");;
+        const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");;
+        dmParentEl.forEach(e => e.classList.remove("highlight"));
+        chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+
+        e.target.classList.add('highlight');
 
     }
 

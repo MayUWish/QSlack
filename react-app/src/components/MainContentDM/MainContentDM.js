@@ -110,19 +110,20 @@ function MainContentDM({ groupId }) {
             </div>}
             <div id='messagesDiv' >
                 {currentGroup && messagesArr.map((message, i) => (
-                    <div className="eachChatWrapper" key={`message${i}`}>
-                        <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />
-                        <div>
-                            <div style={{ marginBottom: '1%' }}>
-                                {membersObject[String(message.userId)].username}: 
-
-                            </div>
+                    <div className="eachChatWrapperOutside" key={`message${i}`}>
+                        <div className="eachChatWrapperInside">
+                            <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />
                             <div>
-                                {message.message}
+                                <div style={{ marginBottom: '1%' }}>
+                                    {membersObject[String(message.userId)].username}: 
+
+                                </div>
+                                <div>
+                                    {message.message}
+                                </div>
                             </div>
                         </div>
-                        
-                        {+message.userId === +currentUser.id && <div>
+                        {+message.userId === +currentUser.id && <div style={{ marginRight: '2%' }}>
                             <EditMessageFormModal message={message} groupId={groupId}/>                      
                             <button style={{display:'inline'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
                         </div>}

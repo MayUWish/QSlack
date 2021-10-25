@@ -19,7 +19,7 @@
 
 #messageBox{
     position: fixed;
-    bottom:5%; 
+    bottom:10%; 
     width: 70%;
     margin-top: 10%;
    
@@ -32,8 +32,25 @@
     border-radius: 100%;
 }
 
-.eachChatWrapper{
+.eachChatWrapperInside, .eachChatWrapperOutside{
     display: flex;
     gap: 2%;
-    padding-bottom: 3%
+ 
+
+}
+
+.eachChatWrapperInside{
+    width:80%
+}
+
+.eachChatWrapperOutside{
+    justify-content: space-between;
+    margin-bottom: 5%;
+
+}
+
+.eachChatWrapperOutside:hover {
+  background-color: #183a1d;
+  color:whitesmoke;
+  border-radius: 5px;
 }

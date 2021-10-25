@@ -2,6 +2,9 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .groups import seed_groups, undo_groups
 from .memberships import seed_memberships, undo_memberships
+from .moments import seed_moments, undo_moments
+from .likes import seed_likes, undo_likes
+from .comments import seed_comments, undo_comments
 
 
 # Creates a seed group to hold our commands
@@ -15,6 +18,9 @@ def seed():
     seed_users()
     seed_groups()
     seed_memberships()
+    seed_moments()
+    seed_likes()
+    seed_comments()
     # Add other seed functions here
 
 
@@ -24,4 +30,7 @@ def undo():
     undo_users()
     undo_groups()
     undo_memberships()
+    undo_moments()
+    undo_likes()
+    undo_comments()
     # Add other undo functions here
