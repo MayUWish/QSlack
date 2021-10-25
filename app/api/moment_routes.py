@@ -64,6 +64,6 @@ def delete_moment(id):
     if userId == moment.userId:
         db.session.delete(moment)
         db.session.commit()
-        return {'deletedMomentId': int(id)}
+        return str(id)
 
-    return {'errors': ['No authorization.']}, 401
+    return {'errors': ['No authorization.']}, 403

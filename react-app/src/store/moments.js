@@ -1,6 +1,7 @@
 // constants
 const GET_MOMENTS = 'moments/GET';
 const CREATE_MOMENTS = 'moments/CREATE';
+const DELETE_MOMENTS = 'moments/DELETE';
 
 
 
@@ -12,6 +13,11 @@ const getMomentsAction = (moments) => ({
 const createMomentsAction = (moment) => ({
     type: CREATE_MOMENTS,
     payload: moment
+});
+
+const deleteMomentsAction = (id) => ({
+    type: DELETE_MOMENTS,
+    payload: id
 });
 
 
@@ -52,6 +58,22 @@ export const createMomentsThunk = (formData) => async (dispatch) => {
     }
 }
 
+export const deleteMomentsThunk = (id) => async (dispatch) => {
+    const response = await fetch(`/api/moments/${id}`, {
+        method: 'DELETE',
+    });
+    const data = await response.json();
+    if (response.ok) {
+        dispatch(deleteMomentsAction(data));
+    } else if (response.status < 500) {
+        if (data.errors) {
+            return data;
+        }
+    }
+    else {
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
+}
 
 const initialState = {}
 export default function reducer(state = initialState, action) {
@@ -62,6 +84,10 @@ export default function reducer(state = initialState, action) {
         case CREATE_MOMENTS:
             updatedState[action.payload.id] = action.payload
             updatedState.momentsList.unshift(action.payload.id)
+            return updatedState
+        case DELETE_MOMENTS:
+            delete updatedState[action.payload]
+            updatedState.momentsList.splice(updatedState.momentsList.indexOf(action.payload),1)
             return updatedState
         default:
             return state;

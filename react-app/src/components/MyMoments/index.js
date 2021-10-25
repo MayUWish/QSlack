@@ -25,8 +25,7 @@ function MyMoments() {
         <div className='MomentsWrapper'>
 
             {moments.momentsList.map(momentId => (
-            <>
-                {(+moments[momentId].user.id === +currentUser.id) && <div key={momentId} className="momentWrapperOutside">
+                (+moments[momentId].user.id === +currentUser.id) && <div key={momentId} className="momentWrapperOutside">
                     <div className="eachChatWrapperInside">
 
                         <img className='chatProfilePic' alt='profilePicture' src={moments[momentId].user.profilePic ? moments[momentId].user.profilePic : defaultProfilePic} />
@@ -60,8 +59,8 @@ function MyMoments() {
                         ))}
 
                     </div>
-                </div>}
-            </>                    
+                </div>
+                              
             ))}
         </div>
     );

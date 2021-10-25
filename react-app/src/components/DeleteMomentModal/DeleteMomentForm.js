@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteChatGroupsThunk } from "../../store/chatGroups";
+import { deleteMomentsThunk} from "../../store/moments";
 
 
 
@@ -17,7 +17,7 @@ const DeleteMomentForm = ({ setShowModal, momentId }) => {
     const onDelete = async (e) => {
         e.preventDefault();
 
-        const data = await dispatch();
+        const data = await dispatch(deleteMomentsThunk(momentId));
         if (data && data.errors) {
             setErrors(data.errors)
         }
