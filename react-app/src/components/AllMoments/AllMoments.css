@@ -1,0 +1,26 @@
+.MomentsWrapper{
+     display: flex;
+     flex-direction: column;
+
+}
+.momentWrapperOutside{
+    display: flex;
+    flex-direction: column;
+    margin: 5% auto;
+}
+
+.momentMedia{
+    width: 350px;
+    height: 350px;
+    border-radius: 5px;
+    margin-top: 1%;
+}
+
+.like:hover{
+    color: #f0a04b ;
+}
+
+.like{
+    color: #183a1d;
+    display: inline;
+}
