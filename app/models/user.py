@@ -38,6 +38,9 @@ class User(db.Model, UserMixin):
     # one to many messages created by the user
     messages = db.relationship(
         'Message', back_populates='user', cascade="all, delete")
+    # one to many moments created by the user
+    moments = db.relationship(
+        'Moment', back_populates='user', cascade="all, delete")
 
     @property
     def password(self):
