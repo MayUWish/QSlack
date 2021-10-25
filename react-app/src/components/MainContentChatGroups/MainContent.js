@@ -111,7 +111,7 @@ function MainContent({groupId}) {
         <div>
             {currentGroup && <div className='chatHeaderWrapper'>
                 <div className='chatHeaderEl'>
-                    <h3 style={{ display: 'inline' }}>{currentGroupName}</h3>
+                    <h3 style={{ display:'inline'}}>{currentGroupName}</h3>
                 </div>
 
                 <div style={{ display: 'flex', width: '95%', justifyContent: 'end' }}>
@@ -159,7 +159,7 @@ function MainContent({groupId}) {
                             value={messageInput}
                             onChange={updateMessageInput}                          
                         />
-                        <div style={{ display: 'flex', justifyContent: 'end', marginTop: '-4%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'end', marginTop: '-40px' }}>
                             <button className='middleBtn2' type="submit" style={{ borderColor: '#183a1d', zIndex:'5' }}>Send</button>
                         </div>
                     </form>

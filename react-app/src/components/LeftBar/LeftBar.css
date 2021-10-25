@@ -1,12 +1,15 @@
 .Wrapper{
     display: flex;
     border: 1px solid #183a1d;
-   border-radius: 5px;
+    border-radius: 5px;
     min-height: 90%;
+    
 }
 .leftBarWrapper{
     width: 25%;
     border: 1px solid #183a1d;
+    background-color: #e1eedd;
+    /* color:whitesmoke; */
     
 }
 .mainContentWrapper{

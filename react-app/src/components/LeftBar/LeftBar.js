@@ -6,7 +6,8 @@ import { getDMChannelsThunk, removeDMChannelsThunk } from "../../store/dmChannel
 import { getMomentsThunk } from "../../store/moments";
 import MainContent from '../MainContentChatGroups/MainContent';
 import MainContentDM from '../MainContentDM/MainContentDM';
-import AllMoments from '../AllMoments';
+import AllMoments from '../AllMoments'; 
+import MyMoments from '../MyMoments';
 import CreateGroupFormModal from '../CreateGroupModal';
 import CreateDMFormModal from '../CreateDMModal';
 import CreateMomentFormModal from '../CreateMomentModal';
@@ -25,6 +26,7 @@ function LeftBar() {
     const [showDM, setShowDM] = useState(true);
     const [showMoments, setShowMoments] = useState(true);
     const [showAllMoments, setShowAllMoments] = useState(false);
+    const [showMyMoments, setShowMyMoments] = useState(false);
     const [groupId, setGroupId] = useState(`ChatGroups_${ Object.keys(chatGroups)[0]}`);
     
 
@@ -46,6 +48,7 @@ function LeftBar() {
     const loadMain = (e) =>{
         setGroupId(e.target.value);
         setShowAllMoments(false)
+        setShowMyMoments(false)
 
         // onClick remove highlight class to all elements in groupsWapper and add highlight class to the target
         
@@ -57,7 +60,6 @@ function LeftBar() {
         momentParentEl.forEach(e => e.classList.remove("highlight"));
 
         e.target.classList.add('highlight');
-
     }
 
     const loadMoment = (e) => {
@@ -68,16 +70,33 @@ function LeftBar() {
     const loadAllMoment = (e) =>{
         e.stopPropagation();
         setShowAllMoments(true)
+        setShowMyMoments(false)
         setGroupId(null);
 
-        const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");;
-        const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");;
+        const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");
+        const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");
+        const momentParentEl = document.getElementsByClassName("groupsWrapper")[2].querySelectorAll(".highlight");
         dmParentEl.forEach(e => e.classList.remove("highlight"));
         chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+        momentParentEl.forEach(e => e.classList.remove("highlight"));
 
         e.target.classList.add('highlight');
+    }
 
+    const loadMyMoment = (e) => {
+        e.stopPropagation();
+        setShowMyMoments(true)
+        setShowAllMoments(false)
+        setGroupId(null);
 
+        const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");
+        const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");
+        const momentParentEl = document.getElementsByClassName("groupsWrapper")[2].querySelectorAll(".highlight");
+        dmParentEl.forEach(e => e.classList.remove("highlight"));
+        chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+        momentParentEl.forEach(e => e.classList.remove("highlight"));
+
+        e.target.classList.add('highlight');
     }
 
     const removeFromStore = async(e) => {
@@ -134,10 +153,15 @@ function LeftBar() {
                             <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"}/> 
                             <h4 style={{ display: 'inline' }}>Moments</h4>
                         </div>
-                        <CreateMomentFormModal />
-                        {showMoments && <div style={{ display: 'inline', marginLeft:'2%' }} onClick={loadAllMoment}>
-                            <i className={"fas fa-camera-retro"} >
-                            All moments </i>
+
+                        <CreateMomentFormModal setShowMyMoments={setShowMyMoments} setShowAllMoments={setShowAllMoments} setGroupId={setGroupId}/>
+
+                        {showMoments && <div style={{ marginLeft:'4%' }} onClick={loadAllMoment}>
+                            <i className={"fas fa-camera-retro"} > All moments </i>
+                        </div>}
+
+                        {showMoments && <div style={{ marginLeft:'4%', marginTop:'5%' }} onClick={loadMyMoment}>
+                            <i className={"fas fa-camera-retro"} > My moments </i>
                         </div>}
                 </div>
                     
@@ -145,7 +169,8 @@ function LeftBar() {
             <div className='mainContentWrapper'>
                 {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} />}
                 {groupId && groupId.startsWith('DM_') && <MainContentDM groupId={groupId.split('_')[1]} />}
-                {showAllMoments && <AllMoments />}
+                {showAllMoments && <AllMoments/>}
+                    {showMyMoments && <MyMoments/>}
             </div>
          
             

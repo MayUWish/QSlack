@@ -27,16 +27,14 @@ def get_moments():
 def create_moment():
     form = CreateMomentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
-    
+
         if "media" not in request.files:
-            return {"errors": ["Media required"]}, 400
-
+            return {"errors": ["Photo is required"]}, 400
         media = request.files["media"]
-
         if not allowed_file(media.filename):
-            return {"errors": ["Media file type not permitted"]}, 400
-
+            return {"errors": ["Photo file type not permitted"]}, 400
         media.filename = get_unique_filename(
             media.filename)
         upload_media = upload_file_to_s3(media)
@@ -53,6 +51,53 @@ def create_moment():
             media=media_url,
         )
         db.session.add(moment)
+        db.session.commit()
+        return moment.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@moment_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_moment(id):
+    userId = current_user.id
+    moment = Moment.query.get(id)
+    if userId == moment.userId:
+        db.session.delete(moment)
+        db.session.commit()
+        return str(id)
+
+    return {'errors': ['No authorization.']}, 403
+
+
+@moment_routes.route('/<int:id>', methods=['PATCH'])
+@login_required
+def edit_moment(id):
+    form = CreateMomentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    moment = Moment.query.get(id)
+
+    if not moment or moment.userId != current_user.id:
+        return {"errors": ["No authorization"]}, 403
+
+    if form.validate_on_submit():
+        if "media" not in request.files:
+            media_url = request.form['media']
+        else:
+            media = request.files["media"]
+            if not allowed_file(media.filename):
+                return {"errors": ["Photo file type not permitted"]}, 400
+            media.filename = get_unique_filename(
+                media.filename)
+            upload_media = upload_file_to_s3(media)
+            if "url" not in upload_media:
+                # if the dictionary doesn't have a url key
+                # it means that there was an error when we tried to upload
+                # so we send back that error message
+                return {'errors': [upload_media['errors']]}, 400
+            media_url = upload_media["url"]
+        moment.media = media_url
+        moment.description = form.data['description']
         db.session.commit()
         return moment.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
