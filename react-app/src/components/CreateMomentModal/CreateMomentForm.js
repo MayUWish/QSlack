@@ -33,7 +33,11 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
         }
     }
 
+    const onCancel = async (e) => {
+        e.preventDefault();
+        setShowModal(false)
 
+    }
 
     const updateDescritption = (e) => {
         setDescription(e.target.value);
@@ -75,6 +79,7 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
                 ></input>
             </div>
             <button className='formBtn' type='submit'>Create moment</button>
+            <button className='formBtn' onClick={onCancel}>Cancel</button>
         </form>
     )
 

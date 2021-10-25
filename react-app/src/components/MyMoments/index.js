@@ -23,7 +23,7 @@ function MyMoments() {
 
     return (
         <div className='MomentsWrapper'>
-
+            <h3 style={{ textAlign: 'center', color: '#f0a04b' }}>My moments</h3>
             {moments.momentsList.map(momentId => (
                 (+moments[momentId].user.id === +currentUser.id) && <div key={momentId} className="momentWrapperOutside">
                     <div className="eachChatWrapperInside">
