@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createChatGroupsThunk } from "../../store/chatGroups";
+import { createChatGroupsThunk } from "../../store/moments";
 
 
 
 
 const CreateMomentForm = ({ setShowModal }) => {
     const [errors, setErrors] = useState([]);
-    const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [media, setMedia] = useState(null);
 
     // const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
@@ -16,13 +16,10 @@ const CreateMomentForm = ({ setShowModal }) => {
 
     const onCreate = async (e) => {
         e.preventDefault();
-        const newChatGroup = {
-            name,
-            description,
-            // adminId:user.id,
-            isDM: false,
-        }
-        const data = await dispatch(createChatGroupsThunk(newChatGroup));
+        const formData = new FormData();
+        formData.append("description", description);
+        formData.append("media", media);
+        const data = await dispatch(createChatGroupsThunk(FormData));
         if (data && data.errors) {
             setErrors(data.errors)
         } else {
@@ -32,12 +29,12 @@ const CreateMomentForm = ({ setShowModal }) => {
 
 
 
-    const updateName = (e) => {
-        setName(e.target.value);
-    };
-
     const updateDescritption = (e) => {
         setDescription(e.target.value);
+    };
+
+    const updateMedia= (e) => {
+        setMedia(e.target.value);
     };
 
 
@@ -49,16 +46,7 @@ const CreateMomentForm = ({ setShowModal }) => {
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <div className='formInputWrapper'>
-                <label>Name</label>
-                <input
-                    type='text'
-                    name='name'
-                    onChange={updateName}
-                    value={name}
-                    className='formInput'
-                ></input>
-            </div>
+            
             <div className='formInputWrapper'>
                 <label>Description</label>
                 <input
@@ -69,7 +57,18 @@ const CreateMomentForm = ({ setShowModal }) => {
                     className='formInput'
                 ></input>
             </div>
-            <button className='formBtn' type='submit'>Create chat group</button>
+            <div className='formInputWrapper'>
+                <label>Profile Picture</label>
+                <input
+                    name='profilePic'
+                    type="file"
+                    accept="image/*"
+                    onChange={updateMedia}
+                    className="formInput"
+                    style={{ border: '1px solid black' }}
+                ></input>
+            </div>
+            <button className='formBtn' type='submit'>Create moment</button>
         </form>
     )
 
