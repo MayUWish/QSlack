@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { getChatGroupsThunk } from "../../store/chatGroups";
 import { getDMChannelsThunk, removeDMChannelsThunk } from "../../store/dmChannels";
+import { getMomentsThunk } from "../../store/moments";
 import MainContent from '../MainContentChatGroups/MainContent';
 import MainContentDM from '../MainContentDM/MainContentDM';
+import AllMoments from '../AllMoments';
 import CreateGroupFormModal from '../CreateGroupModal';
 import CreateDMFormModal from '../CreateDMModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
@@ -20,7 +22,7 @@ function LeftBar() {
     const dispatch = useDispatch();
     const [showChatGroups, setShowChatGroups] = useState(true);
     const [showDM, setShowDM] = useState(true);
-    const [showMoments, setShowMoments] = useState(true);
+    const [showMoments, setShowMoments] = useState(false);
     const [groupId, setGroupId] = useState(`ChatGroups_${ Object.keys(chatGroups)[0]}`);
     
 
@@ -33,6 +35,7 @@ function LeftBar() {
         (async () => {
             await dispatch(getChatGroupsThunk())
             await dispatch(getDMChannelsThunk())
+            await dispatch(getMomentsThunk())
             
           
         })();
@@ -40,15 +43,32 @@ function LeftBar() {
 
     const loadMain = (e) =>{
         setGroupId(e.target.value);
+        setShowMoments(false)
 
         // onClick remove highlight class to all elements in groupsWapper and add highlight class to the target
         
+        const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");;
+        const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");
+        const momentParentEl = document.getElementsByClassName("groupsWrapper")[2].querySelectorAll(".highlight");
+        dmParentEl.forEach(e => e.classList.remove("highlight"));
+        chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+        momentParentEl.forEach(e => e.classList.remove("highlight"));
+
+        e.target.classList.add('highlight');
+
+    }
+
+    const loadMoment = (e) =>{
+        setShowMoments(true)
+        setGroupId(null);
+
         const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");;
         const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");;
         dmParentEl.forEach(e => e.classList.remove("highlight"));
         chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
 
         e.target.classList.add('highlight');
+
 
     }
 
@@ -101,15 +121,18 @@ function LeftBar() {
                     )}
 
                 </div>
-                <div className='groupsWrapper'>
-                    <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e =>   setShowMoments(showMoments => !showMoments)} /> <h4 style={{ display: 'inline'}} >Moments</h4>
+                <div className='groupsWrapper' onClick={loadMoment}>
+                        <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"}/> 
+                        <h4 style={{ display: 'inline' }}>Moments</h4>
                 </div>
                     
             </div>
             <div className='mainContentWrapper'>
                 {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} />}
                 {groupId && groupId.startsWith('DM_') && <MainContentDM groupId={groupId.split('_')[1]} />}
+                {showMoments && <AllMoments />}
             </div>
+         
             
         </div>
         

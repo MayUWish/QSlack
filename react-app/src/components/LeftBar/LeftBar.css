@@ -1,7 +1,7 @@
 .Wrapper{
     display: flex;
     border: 1px solid #183a1d;
-   
+   border-radius: 5px;
     min-height: 90%;
 }
 .leftBarWrapper{
