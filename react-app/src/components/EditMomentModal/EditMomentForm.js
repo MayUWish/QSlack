@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { io } from 'socket.io-client';
+import React, { useState} from 'react';
+import { useDispatch } from 'react-redux';
+import { editMomentsThunk } from "../../store/moments";
+
 
 
 const EditMomentForm = ({ setShowModal, moment, momentId }) => {
     const [errors, setErrors] = useState([]);
     const [description, setDescription] = useState(moment.description);
-    const [oldMedia, setOldMedia] = useState(moment.media);
+    const oldMedia = moment.media;
     const [media, setMedia] = useState(null);
 
     // const user = useSelector(state => state.session.user);
@@ -18,7 +19,7 @@ const EditMomentForm = ({ setShowModal, moment, momentId }) => {
         const formData = new FormData();
         formData.append("description", description);
         formData.append("media", media ? media : oldMedia);
-        const data = await dispatch();
+        const data = await dispatch(editMomentsThunk({momentId, formData}));
         if (data && data.errors) {
             setErrors(data.errors)
         } else {          
