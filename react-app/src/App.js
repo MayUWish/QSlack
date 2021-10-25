@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import NavBar from './components/NavBar/NavBar';
-import ProtectedRoute from './components/Auth/ProtectedRoute';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 // import UsersList from './components/UsersList';
 import LeftBar from './components/LeftBar/LeftBar';
 import HomePage from './components/HomePage';
