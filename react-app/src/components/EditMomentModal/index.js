@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import DeleteMomentForm from './DeleteMomentForm';
+import EditMomentForm from './EditMomentForm';
 
 
-function DeleteMomentModal({ momentId }) {
+function EditMomentModal({ moment, momentId }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <div>
-            <button style={{ display: 'inlineBlock'}}
-                className='smallBtn'
+        <div style={{ display: 'inline' }}>
+            <button style={{ display: 'inline' }} className='smallBtn'
                 onClick={() => setShowModal(true)}>
-                Delete
+                Edit
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteMomentForm setShowModal={setShowModal} momentId={momentId} />
+                    <EditMomentForm setShowModal={setShowModal} moment={moment} momentId={momentId} />
                 </Modal>
             )}
         </div>
     );
 }
 
-export default DeleteMomentModal;
+export default EditMomentModal;

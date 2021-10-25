@@ -48,6 +48,7 @@ function LeftBar() {
     const loadMain = (e) =>{
         setGroupId(e.target.value);
         setShowAllMoments(false)
+        setShowMyMoments(false)
 
         // onClick remove highlight class to all elements in groupsWapper and add highlight class to the target
         

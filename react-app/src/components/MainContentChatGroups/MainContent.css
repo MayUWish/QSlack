@@ -15,13 +15,13 @@
 
 #messagesDiv{
     overflow: auto;
-    min-height: 1000px;
+    min-height: 1200px;
     padding-bottom: 10%
 }
 
 #messageBox{
     position: fixed;
-    bottom:5%; 
+    bottom:9px; 
     width: 70%;
     margin-top: 10%;
    

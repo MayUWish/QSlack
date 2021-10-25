@@ -22,7 +22,7 @@ function AllMoments() {
 
     return (
         <div className='MomentsWrapper'>
-            <h3 style={{ textAlign: 'center', color:'#f0a04b'}}>Explore all moments</h3>
+            <h3 style={{ textAlign: 'center', color:'#183a1d'}}>Explore all moments</h3>
             {moments.momentsList.map(momentId=>(
             
                 <div key={momentId} className="momentWrapperOutside">

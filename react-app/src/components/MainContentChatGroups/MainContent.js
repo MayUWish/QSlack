@@ -159,7 +159,7 @@ function MainContent({groupId}) {
                             value={messageInput}
                             onChange={updateMessageInput}                          
                         />
-                        <div style={{ display: 'flex', justifyContent: 'end', marginTop: '-4%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'end', marginTop: '-40px' }}>
                             <button className='middleBtn2' type="submit" style={{ borderColor: '#183a1d', zIndex:'5' }}>Send</button>
                         </div>
                     </form>

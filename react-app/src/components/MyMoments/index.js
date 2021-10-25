@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
-import DeleteMomentModal from '../DeleteMomentModal';
+import DeleteMomentModal from '../DeleteMomentModal'; 
+import EditMomentModal from '../EditMomentModal';
 
 
 function MyMoments() {
@@ -23,7 +24,7 @@ function MyMoments() {
 
     return (
         <div className='MomentsWrapper'>
-            <h3 style={{ textAlign: 'center', color: '#f0a04b' }}>My moments</h3>
+            <h3 style={{ textAlign: 'center', color: '#183a1d' }}>My moments</h3>
             {moments.momentsList.map(momentId => (
                 (+moments[momentId].user.id === +currentUser.id) && <div key={momentId} className="momentWrapperOutside">
                     <div className="eachChatWrapperInside">
@@ -44,7 +45,8 @@ function MyMoments() {
                             <i className="fas fa-heart like"> {moments[momentId].likes.length}</i>
                             <i className="fas fa-comment comment"> {moments[momentId].comments.length}</    i>        
                         </div>
-                        <div>
+                        <div style={{ display: 'flex', gap:'3%' }}>
+                            <EditMomentModal momentId={momentId} moment={moments[momentId]}/>
                             <DeleteMomentModal momentId={momentId}/>
                         </div>
                     </div>
