@@ -27,17 +27,14 @@ def get_moments():
 def create_moment():
     form = CreateMomentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('form!!>>out', form.data)
+
     if form.validate_on_submit():
-        print('form!!>>in', form.data)
+
         if "media" not in request.files:
             return {"errors": ["Photo is required"]}, 400
-
         media = request.files["media"]
-
         if not allowed_file(media.filename):
             return {"errors": ["Photo file type not permitted"]}, 400
-
         media.filename = get_unique_filename(
             media.filename)
         upload_media = upload_file_to_s3(media)
@@ -47,14 +44,12 @@ def create_moment():
             # so we send back that error message
             return {'errors': [upload_media['errors']]}, 400
         media_url = upload_media["url"]
-        print('media_url>>>', media_url)
 
         moment = Moment(
             userId=current_user.id,
             description=form.data['description'],
             media=media_url,
         )
-        print('moment>>>', moment)
         db.session.add(moment)
         db.session.commit()
         return moment.to_dict()

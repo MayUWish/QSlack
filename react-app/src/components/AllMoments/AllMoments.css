@@ -29,6 +29,7 @@
 .like, .comment{
     color: gray;
     display: inline;
+    min-width: 50px;
 }
 
 .commentWrapper{
