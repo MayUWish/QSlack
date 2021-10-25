@@ -5,7 +5,7 @@ from datetime import datetime
 class Message(db.Model):
     __tablename__ = 'messages'
 
-    id = db.Column(db.Integer, primary_key=True)  
+    id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String, nullable=False)
     createdAt = db.Column(db.DateTime, nullable=False,
                           default=datetime.now())
@@ -28,5 +28,4 @@ class Message(db.Model):
             'message': self.message,
             'createdAt': self.createdAt,
             "updatedAt": self.updatedAt,
-            
         }

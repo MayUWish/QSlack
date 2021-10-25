@@ -1,5 +1,4 @@
 from .db import db
-from sqlalchemy.sql import func
 from datetime import datetime
 
 
@@ -18,6 +17,13 @@ class Moment(db.Model):
 
     user = db.relationship('User', back_populates='moments')
 
+    # one to many likes
+    likes = db.relationship(
+        'Like', back_populates='moment', cascade="all, delete")
+    # one to many comments
+    comments = db.relationship(
+        'Comment', back_populates='moment', cascade="all, delete")
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -25,12 +31,7 @@ class Moment(db.Model):
             'media': self.media,
             'userId': self.userId,
             "time_created": self.createdAt,
-
             "user": self.user.to_dict(),
-            
-            "comments": [comment.to_dict() for comment in self.comments],
-           
             "likes": [like.to_dict() for like in self.likes],
-          
-            
+            "comments": [comment.to_dict() for comment in self.comments]
         }
