@@ -8,7 +8,9 @@
 .chatHeaderEl{
     text-align: start;
     min-width: 300px;
-    margin-left: -8%;
+    font-weight: bolder;
+    font-size: larger;
+    /* margin-left: -8%; */
     
     
 }
