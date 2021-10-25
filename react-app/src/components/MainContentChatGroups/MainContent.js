@@ -111,7 +111,7 @@ function MainContent({groupId}) {
         <div>
             {currentGroup && <div className='chatHeaderWrapper'>
                 <div className='chatHeaderEl'>
-                    <h3 style={{ display: 'inline' }}>{currentGroupName}</h3>
+                    <h3 style={{ display:'inline'}}>{currentGroupName}</h3>
                 </div>
 
                 <div style={{ display: 'flex', width: '95%', justifyContent: 'end' }}>

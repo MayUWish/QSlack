@@ -32,7 +32,7 @@ export const getMomentsThunk = () => async (dispatch) => {
 }
 
 export const createMomentsThunk = (formData) => async (dispatch) => {
-    const response = await fetch('/api/moments', {
+    const response = await fetch('/api/moments/', {
         method: 'POST',
         body: formData,
     });

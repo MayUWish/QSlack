@@ -16,10 +16,10 @@ const CreateMomentForm = ({ setShowModal }) => {
 
     const onCreate = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
+        const formData = new FormData(); 
         formData.append("description", description);
         formData.append("media", media);
-        const data = await dispatch(createMomentsThunk(FormData));
+        const data = await dispatch(createMomentsThunk(formData));
         if (data && data.errors) {
             setErrors(data.errors)
         } else {
@@ -34,7 +34,7 @@ const CreateMomentForm = ({ setShowModal }) => {
     };
 
     const updateMedia= (e) => {
-        setMedia(e.target.value);
+        setMedia(e.target.files[0]);
     };
 
 
@@ -58,9 +58,9 @@ const CreateMomentForm = ({ setShowModal }) => {
                 ></input>
             </div>
             <div className='formInputWrapper'>
-                <label>Profile Picture</label>
+                <label>Photo</label>
                 <input
-                    name='profilePic'
+                    name='media'
                     type="file"
                     accept="image/*"
                     onChange={updateMedia}
