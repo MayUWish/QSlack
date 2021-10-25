@@ -54,3 +54,16 @@ def create_moment():
         db.session.commit()
         return moment.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@moment_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_moment(id):
+    userId = current_user.id
+    moment = Moment.query.get(id)
+    if userId == moment.userId:
+        db.session.delete(moment)
+        db.session.commit()
+        return {'deletedMomentId': int(id)}
+
+    return {'errors': ['No authorization.']}, 401
