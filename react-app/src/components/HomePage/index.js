@@ -37,15 +37,15 @@ const HomePage = () => {
                     <i className="fab fa-python fa-2x tech" >Python</i>
                     <i className="fab fa-js-square fa-2x tech" >JavaScript</i>
                     <i className="fab fa-react fa-2x tech" >React</i>
-                    {/* <i className="devicon-redux-original tech" style={{ fontSize: '40px', color: '#183a1d' }}>Redux</i> */}
+                    <i className="devicon-redux-original tech" style={{ fontSize: '40px', color: '#183a1d' }}>Redux</i>
                     <i className="fab fa-html5 fa-2x tech" >Html</i>
                     <i className="fab fa-css3-alt fa-2x tech" >CSS</i>
                     <i className="fab fa-docker fa-2x tech" >Docker</i>
                     <i className="fab fa-aws fa-2x tech" >AWS</i>
-                    {/* <i className="devicon-socketio-original tech" style={{ fontSize: '40px', color: '#183a1d' }}>WebSocket</i> */}
-                    {/* <i className="devicon-flask-original" style={{ fontSize: '40px', color: '#183a1d', marginRight: '12%' }}>Flask</i> */}
-                    {/* <i className="devicon-postgresql-plain tech" style={{ fontSize: '40px', color: '#183a1d' }}>Postgresql</i> */}
-                    {/* <i className="devicon-sqlalchemy-plain tech" style={{ fontSize: '40px', color: '#183a1d' }}>Sqlalchemy</i> */}
+                    <i className="devicon-socketio-original tech" style={{ fontSize: '40px', color: '#183a1d' }}>WebSocket</i>
+                    <i className="devicon-flask-original" style={{ fontSize: '40px', color: '#183a1d', marginRight: '12%' }}>Flask</i>
+                    <i className="devicon-postgresql-plain tech" style={{ fontSize: '40px', color: '#183a1d' }}>Postgresql</i>
+                    <i className="devicon-sqlalchemy-plain tech" style={{ fontSize: '40px', color: '#183a1d' }}>Sqlalchemy</i>
                 </div>
                 <div style={{width: '50%', marginLeft: '3%' }}>
                 </div>
