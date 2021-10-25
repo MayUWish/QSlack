@@ -23,9 +23,7 @@ const EditMomentForm = ({ setShowModal, moment, momentId }) => {
         if (data && data.errors) {
             setErrors(data.errors)
         } else {          
-
             setShowModal(false)
-
         }
     }
 

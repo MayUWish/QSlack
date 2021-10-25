@@ -76,7 +76,8 @@ def edit_moment(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     moment = Moment.query.get(id)
-    if moment.userId != int(id):
+
+    if not moment or moment.userId != current_user.id:
         return {"errors": ["No authorization"]}, 403
 
     if form.validate_on_submit():
@@ -95,8 +96,8 @@ def edit_moment(id):
                 # so we send back that error message
                 return {'errors': [upload_media['errors']]}, 400
             media_url = upload_media["url"]
-        moment['media'] = media_url
-        moment['description'] = form.data['description']   
+        moment.media = media_url
+        moment.description = form.data['description']
         db.session.commit()
         return moment.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
