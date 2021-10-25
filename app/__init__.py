@@ -15,6 +15,7 @@ from .api.auth_routes import auth_routes
 from .api.group_routes import group_routes
 from .api.membership_routes import membership_routes
 from .api.moment_routes import moment_routes
+from .api.like_routes import like_routes
 
 from .seeds import seed_commands
 
@@ -44,6 +45,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(group_routes, url_prefix='/api/groups')
 app.register_blueprint(membership_routes, url_prefix='/api/memberships')
 app.register_blueprint(moment_routes, url_prefix='/api/moments')
+app.register_blueprint(like_routes, url_prefix='/api/likes')
 db.init_app(app)
 Migrate(app, db)
 

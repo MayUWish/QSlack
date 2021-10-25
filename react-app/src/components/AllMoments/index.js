@@ -20,6 +20,10 @@ function AllMoments() {
         return null;
     }
 
+    const postLike = e =>{
+        
+    }
+
     return (
         <div className='MomentsWrapper'>
             <h3 style={{ textAlign: 'center', color:'#183a1d'}}>Explore all moments</h3>
@@ -40,7 +44,7 @@ function AllMoments() {
                     </div>
                     {moments[momentId].media && <img className='momentMedia' alt='momentPicture' src={moments[momentId].media} />}
                     <div className='likeCommentWrapper'>
-                        <i className="fas fa-heart like"> {moments[momentId].likes.length}</i>
+                        <i className="fas fa-heart like" onClick={postLike}> {moments[momentId].likes.length}</i>
                         <i className="fas fa-comment comment"> {moments[momentId].comments.length}</i>
                     </div>
                     <div className='commentWrapper'>
