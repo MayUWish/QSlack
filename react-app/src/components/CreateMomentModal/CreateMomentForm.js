@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createChatGroupsThunk } from "../../store/moments";
+import { createMomentsThunk } from "../../store/moments";
 
 
 
@@ -19,7 +19,7 @@ const CreateMomentForm = ({ setShowModal }) => {
         const formData = new FormData();
         formData.append("description", description);
         formData.append("media", media);
-        const data = await dispatch(createChatGroupsThunk(FormData));
+        const data = await dispatch(createMomentsThunk(FormData));
         if (data && data.errors) {
             setErrors(data.errors)
         } else {

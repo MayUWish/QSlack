@@ -1,5 +1,5 @@
 import React from 'react';
-import DemoButton from '.././Auth/DemoButton'
+import DemoButton from '../auth/DemoButton'
 import welcome from '../../static/images/welcome.png';
 import UniqueEnE from '../../static/images/UniqueEnE.jpg'; 
 import Ingestibles from '../../static/images/Ingestibles.jpg';

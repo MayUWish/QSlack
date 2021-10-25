@@ -9,6 +9,7 @@ import MainContentDM from '../MainContentDM/MainContentDM';
 import AllMoments from '../AllMoments';
 import CreateGroupFormModal from '../CreateGroupModal';
 import CreateDMFormModal from '../CreateDMModal';
+import CreateMomentFormModal from '../CreateMomentModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 // import footer from '../../static/images/footer.png'
 import './LeftBar.css';
@@ -22,7 +23,8 @@ function LeftBar() {
     const dispatch = useDispatch();
     const [showChatGroups, setShowChatGroups] = useState(true);
     const [showDM, setShowDM] = useState(true);
-    const [showMoments, setShowMoments] = useState(false);
+    const [showMoments, setShowMoments] = useState(true);
+    const [showAllMoments, setShowAllMoments] = useState(false);
     const [groupId, setGroupId] = useState(`ChatGroups_${ Object.keys(chatGroups)[0]}`);
     
 
@@ -43,7 +45,7 @@ function LeftBar() {
 
     const loadMain = (e) =>{
         setGroupId(e.target.value);
-        setShowMoments(false)
+        setShowAllMoments(false)
 
         // onClick remove highlight class to all elements in groupsWapper and add highlight class to the target
         
@@ -58,8 +60,14 @@ function LeftBar() {
 
     }
 
-    const loadMoment = (e) =>{
-        setShowMoments(true)
+    const loadMoment = (e) => {
+
+        setShowMoments(showMoments => !showMoments)
+
+    }
+    const loadAllMoment = (e) =>{
+        e.stopPropagation();
+        setShowAllMoments(true)
         setGroupId(null);
 
         const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");;
@@ -121,16 +129,23 @@ function LeftBar() {
                     )}
 
                 </div>
-                <div className='groupsWrapper' onClick={loadMoment}>
-                        <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"}/> 
-                        <h4 style={{ display: 'inline' }}>Moments</h4>
+                    <div className='groupsWrapper' onClick={loadMoment}>
+                        <div>
+                            <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"}/> 
+                            <h4 style={{ display: 'inline' }}>Moments</h4>
+                        </div>
+                        <CreateMomentFormModal />
+                        {showMoments && <div style={{ display: 'inline', marginLeft:'2%' }} onClick={loadAllMoment}>
+                            <i className={"fas fa-camera-retro"} >
+                            All moments </i>
+                        </div>}
                 </div>
                     
             </div>
             <div className='mainContentWrapper'>
                 {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} />}
                 {groupId && groupId.startsWith('DM_') && <MainContentDM groupId={groupId.split('_')[1]} />}
-                {showMoments && <AllMoments />}
+                {showAllMoments && <AllMoments />}
             </div>
          
             
