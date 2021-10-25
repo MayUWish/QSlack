@@ -10,17 +10,41 @@
 }
 
 .momentMedia{
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 400px;
     border-radius: 5px;
     margin-top: 1%;
 }
 
-.like:hover{
+.likeCommentWrapper{
+    display: flex;
+    gap: 5%;
+    margin-top: 1%;
+}
+.like:hover, .comment:hover{
     color: #f0a04b ;
 }
 
-.like{
-    color: #183a1d;
+.like, .comment{
+    color: gray;
     display: inline;
+}
+
+.commentWrapper{
+    max-height: 300px;
+    max-width: 400px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap:1%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: smaller;
+}
+
+.commentProfilePic{
+    width:30px;
+    height:30px;
+    border-radius: 100%;
+    margin-right: 1%;
 }

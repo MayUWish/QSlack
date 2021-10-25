@@ -7,7 +7,7 @@ function AllMoments() {
  
     const currentUser = useSelector((state) => state.session?.user);
     const moments = useSelector((state) => state.moments);
-    console.log('moments>>>', moments)
+    // console.log('moments>>>', moments)
     
     // useEffect(() => {
     //     (async () => {
@@ -39,7 +39,21 @@ function AllMoments() {
                         </div>
                     </div>
                     {moments[momentId].media && <img className='momentMedia' alt='momentPicture' src={moments[momentId].media} />}
-                    <i class="fas fa-heart like"> {moments[momentId].likes.length}</i>
+                    <div className='likeCommentWrapper'>
+                        <i className="fas fa-heart like"> {moments[momentId].likes.length}</i>
+                        <i className="fas fa-comment comment"> {moments[momentId].comments.length}</i>
+                    </div>
+                    <div className='commentWrapper'>
+                        {moments[momentId].comments.map((comment,i)=>(
+                            <div key={`comment:${comment} ${i}`}>
+                                <div>
+                                    <img src={comment.user.profilePic ? comment.user.profilePic:defaultProfilePic} alt='profilePic' className='commentProfilePic' />
+                                    {comment.user.username}: {comment.comment}
+                                </div>
+                            </div>
+                        ))}
+
+                    </div>
                 </div>
 
             ))}
