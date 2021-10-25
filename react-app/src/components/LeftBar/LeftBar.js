@@ -153,7 +153,7 @@ function LeftBar() {
                             <h4 style={{ display: 'inline' }}>Moments</h4>
                         </div>
 
-                        <CreateMomentFormModal />
+                        <CreateMomentFormModal setShowMyMoments={setShowMyMoments} setShowAllMoments={setShowAllMoments} setGroupId={setGroupId}/>
 
                         {showMoments && <div style={{ marginLeft:'4%' }} onClick={loadAllMoment}>
                             <i className={"fas fa-camera-retro"} > All moments </i>

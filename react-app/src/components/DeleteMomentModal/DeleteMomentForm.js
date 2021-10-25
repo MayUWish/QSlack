@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteMomentsThunk} from "../../store/moments";
 
 
@@ -7,10 +7,6 @@ import { deleteMomentsThunk} from "../../store/moments";
 
 const DeleteMomentForm = ({ setShowModal, momentId }) => {
     const [errors, setErrors] = useState([]);
-   
-    const user = useSelector(state => state.session.user);
-
-
     const dispatch = useDispatch();
 
 
@@ -27,6 +23,12 @@ const DeleteMomentForm = ({ setShowModal, momentId }) => {
         // }
     }
 
+    const onCancel = async (e) => {
+        e.preventDefault();
+        setShowModal(false)
+    
+    }
+
 
     return (
         <form onSubmit={onDelete} className='formWrapper'>
@@ -36,11 +38,12 @@ const DeleteMomentForm = ({ setShowModal, momentId }) => {
                 ))}
             </div>
 
-            <h4>
+            <h4 style={{textAlign:'center'}}>
                 {`Are you sure to delete the moment?`}
             </h4>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%', gap:'5%' }}>
                 <button className='btn' type='submit'>Delete</button>
+                <button className='btn' onClick={onCancel}>Cancel</button>
             </div>
 
         </form>

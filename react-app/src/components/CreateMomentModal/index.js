@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import CreateMomentForm from './CreateMomentForm';
 
 
-function CreateMomentFormModal() {
+function CreateMomentFormModal({ setShowMyMoments, setShowAllMoments, setGroupId}) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -13,7 +13,7 @@ function CreateMomentFormModal() {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <CreateMomentForm setShowModal={setShowModal} />
+                    <CreateMomentForm setShowModal={setShowModal} setShowMyMoments={setShowMyMoments} setShowAllMoments={setShowAllMoments} setGroupId={setGroupId} />
                 </Modal>
             )}
         </div>

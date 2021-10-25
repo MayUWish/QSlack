@@ -5,7 +5,7 @@ import { createMomentsThunk } from "../../store/moments";
 
 
 
-const CreateMomentForm = ({ setShowModal }) => {
+const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, setGroupId }) => {
     const [errors, setErrors] = useState([]);
     const [description, setDescription] = useState('');
     const [media, setMedia] = useState(null);
@@ -23,7 +23,13 @@ const CreateMomentForm = ({ setShowModal }) => {
         if (data && data.errors) {
             setErrors(data.errors)
         } else {
+            // show myMoments when a newMoments is created
+            setShowMyMoments(true)
+            setShowAllMoments(false)
+            setGroupId(null)
+
             setShowModal(false)
+            
         }
     }
 
@@ -65,7 +71,7 @@ const CreateMomentForm = ({ setShowModal }) => {
                     accept="image/*"
                     onChange={updateMedia}
                     className="formInput"
-                    style={{ border: '1px solid black' }}
+                    style={{ border: '1px solid black', width:'92%' }}
                 ></input>
             </div>
             <button className='formBtn' type='submit'>Create moment</button>
