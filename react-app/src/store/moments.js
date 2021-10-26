@@ -8,7 +8,7 @@ const LIKE_MOMENTS = 'moments/LIKE';
 
 const CREATE_COMMENTS = 'comments/CREATE';
 const DELETE_COMMENTS = 'comments/DELETE';
-
+const EDIT_COMMENTS = 'comments/EDIT';
 
 
 const getMomentsAction = (moments) => ({
@@ -43,6 +43,11 @@ const createCommentsAction = (moment) => ({
 
 const deleteCommentsAction = (moment) => ({
     type: DELETE_COMMENTS,
+    payload: moment
+});
+
+const editCommentsAction = (moment) => ({
+    type: EDIT_COMMENTS,
     payload: moment
 });
 
@@ -191,6 +196,29 @@ export const deleteCommentsThunk = ({momentId, commentId}) => async (dispatch) =
     }
 }
 
+export const editCommentsThunk = ({ momentId, userId, comment, commentId  }) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ momentId, userId, comment }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        dispatch(editCommentsAction(data));
+    } else if (response.status < 500) {
+        if (data.errors) {
+            return data;
+        }
+    }
+    else {
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
+}
+
+
 const initialState = {}
 export default function reducer(state = initialState, action) {
     const updatedState = { ...state }
@@ -226,6 +254,9 @@ export default function reducer(state = initialState, action) {
             updatedState[action.payload.id] = action.payload
             return updatedState
         case DELETE_COMMENTS:
+            updatedState[action.payload.id] = action.payload
+            return updatedState
+        case EDIT_COMMENTS:
             updatedState[action.payload.id] = action.payload
             return updatedState
         default:
