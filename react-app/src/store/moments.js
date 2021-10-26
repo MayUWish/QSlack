@@ -4,6 +4,8 @@ const CREATE_MOMENTS = 'moments/CREATE';
 const DELETE_MOMENTS = 'moments/DELETE';
 const EDIT_MOMENTS = 'moments/EDIT';
 
+const LIKE_MOMENTS = 'moments/LIKE';
+
 
 
 const getMomentsAction = (moments) => ({
@@ -25,6 +27,11 @@ const editMomentsAction = (moment) => ({
     type: EDIT_MOMENTS,
     payload: moment
 });
+
+const likeMomentsAction = (like) => ({
+    type: LIKE_MOMENTS,
+    payload: like
+})
 
 
 export const getMomentsThunk = () => async (dispatch) => {
@@ -102,6 +109,31 @@ export const editMomentsThunk = ({ momentId, formData }) => async (dispatch) => 
     }
 }
 
+export const likeMomentsThunk = ({momentId, userId}) => async (dispatch) => {
+    const response = await fetch(`/api/likes/${momentId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ momentId, userId }),
+        
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        // console.log('data???', data)
+        dispatch(likeMomentsAction(data));
+    } else if (response.status < 500) {
+        // console.log('data???has error', data)
+        if (data.errors) {
+            return data;
+        }
+    }
+    else {
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
+}
+
 
 const initialState = {}
 export default function reducer(state = initialState, action) {
@@ -119,6 +151,20 @@ export default function reducer(state = initialState, action) {
             return updatedState
         case EDIT_MOMENTS:
             updatedState[action.payload.id] = action.payload
+            return updatedState
+        case LIKE_MOMENTS:
+            if (action.payload.like){
+                // add userId to likes array of the moment
+                updatedState[action.payload.like.momentId].likes.push(action.payload.like.userId)
+
+            } else{
+                // remove userId from likes array of the moment
+                const moment = updatedState[action.payload.unlike.momentId]
+                const likesArr = moment.likes
+                const userId = action.payload.unlike.userId
+                likesArr.splice(likesArr.indexOf(userId),1)
+            }
+            
             return updatedState
         default:
             return state;

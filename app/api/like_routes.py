@@ -21,7 +21,7 @@ def post_like(id):
     else:
         db.session.delete(liked)
         db.session.commit()
-        return {'unlike': liked.id}
+        return {'unlike': {'momentId': id, 'userId': current_user.id}}
 
 
 # @like_routes.route('/<int:id>/')

@@ -32,6 +32,6 @@ class Moment(db.Model):
             'userId': self.userId,
             "time_created": self.createdAt,
             "user": self.user.to_dict(),
-            "likes": [like.to_dict() for like in self.likes],
+            "likes": [like.userId for like in self.likes],
             "comments": [comment.to_dict() for comment in self.comments]
         }
