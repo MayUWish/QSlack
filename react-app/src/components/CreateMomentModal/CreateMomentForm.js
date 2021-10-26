@@ -24,11 +24,13 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
             setErrors(data.errors)
         } else {
             // show myMoments when a newMoments is created
-            setShowMyMoments(true)
+            setShowModal(false)
             setShowAllMoments(false)
             setGroupId(null)
+            setShowMyMoments(true)
+            
 
-            setShowModal(false)
+            
             
         }
     }

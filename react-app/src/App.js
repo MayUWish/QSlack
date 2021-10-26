@@ -32,12 +32,18 @@ function App() {
           <UsersList/>
         </ProtectedRoute> */}
 
-        <ProtectedRoute path='/clients/:clientName' exact={true} >
-          <LeftBar />          
-        </ProtectedRoute>
         <Route path='/' exact={true} >
           <HomePage />
         </Route>
+
+        <ProtectedRoute path='/clients/:clientName' exact={true} >
+          <LeftBar />          
+        </ProtectedRoute>
+        
+        <Route path="*">
+          <HomePage />
+        </Route>
+        
       </Switch>
     </BrowserRouter>
   );
