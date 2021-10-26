@@ -48,7 +48,7 @@ const LoginForm = ({ setShowModal}) => {
     < div className='formWrapper'>
       <CloseModalButton setShowModal={setShowModal}/>
       <form onSubmit={onLogin}>
-        <div style={{ color:'#f0a04b', marginLeft:'2%'}}>
+        <div className = 'errorDiv'>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
@@ -80,7 +80,9 @@ const LoginForm = ({ setShowModal}) => {
      
       <div className='formInputWrapper' >
         New to QSlack?
-        <button onClick={()=>{setShowSignupModal(true)}}        
+        <button onClick={() => {
+          setShowSignupModal(true)
+          }}        
           style={{
             marginLeft: '2%',
             borderRadius: '3px',
@@ -92,7 +94,7 @@ const LoginForm = ({ setShowModal}) => {
         </button>
         {showSignupModal && (
           <Modal onClose={() => setShowSignupModal(false)}>
-            <SignUpForm />
+            <SignUpForm setShowModal={setShowSignupModal}/>
           </Modal>
         )}
 		  </div>

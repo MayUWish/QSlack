@@ -97,3 +97,8 @@ html, body{
 label{
     display: block;
 }
+
+.errorDiv{
+    color: #f0a04b;
+    margin-left:2%;
+}

@@ -5,10 +5,11 @@ import { signUp } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import LoginForm from '../LoginFormModal/LoginForm.js'
+import CloseModalButton from '../../CloseModal'
 import { getChatGroupsThunk } from "../../../store/chatGroups";
 import { getDMChannelsThunk } from "../../../store/dmChannels";
 
-const SignUpForm = () => {
+const SignUpForm = ({ setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -75,8 +76,9 @@ const SignUpForm = () => {
 
   return (
     <div className='formWrapper'>
+      <CloseModalButton setShowModal={setShowModal} />
       <form onSubmit={onSignUp}>
-        <div style={{ color: '#f0a04b' }}>
+        <div className='errorDiv'>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
@@ -148,7 +150,9 @@ const SignUpForm = () => {
       
       <div className='formInputWrapper'>
         Have an account?
-        <button onClick={() => {setShowLoginModal(true)}}
+        <button onClick={() => {
+          setShowLoginModal(true)
+          }}
           style={{
             marginLeft:'2%',
             borderRadius: '3px',
@@ -160,7 +164,7 @@ const SignUpForm = () => {
         </button>
         {showLoginModal&& (
           <Modal onClose={() => setShowLoginModal(false)}>
-            <LoginForm />
+            <LoginForm setShowModal={setShowLoginModal}/>
           </Modal>
         )}
 		  </div>
