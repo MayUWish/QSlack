@@ -12,7 +12,7 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
 
     // const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
-
+    const myMomentOnLeftBar = document.getElementById("myMomentOnLeftBar")
 
     const onCreate = async (e) => {
         e.preventDefault();
@@ -23,15 +23,20 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
         if (data && data.errors) {
             setErrors(data.errors)
         } else {
-            // show myMoments when a newMoments is created
+            
             setShowModal(false)
             setShowAllMoments(false)
             setGroupId(null)
+            // show myMoments when a newMoments is created and highlight it on left side bar
             setShowMyMoments(true)
-            
-
-            
-            
+            const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");
+            const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");
+            const momentParentEl = document.getElementsByClassName("groupsWrapper")[2].querySelectorAll(".highlight");
+            dmParentEl.forEach(e => e.classList.remove("highlight"));
+            chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+            momentParentEl.forEach(e => e.classList.remove("highlight"));
+            myMomentOnLeftBar.classList.add('highlight');
+                       
         }
     }
 

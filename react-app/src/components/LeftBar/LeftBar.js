@@ -99,6 +99,7 @@ function LeftBar() {
         e.target.classList.add('highlight');
     }
 
+
     const removeFromStore = async(e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -160,7 +161,7 @@ function LeftBar() {
                             <i className={"fas fa-camera-retro"} > All moments </i>
                         </div>}
 
-                        {showMoments && <div style={{ marginLeft:'4%', marginTop:'5%' }} onClick={loadMyMoment}>
+                        {showMoments && <div id='myMomentOnLeftBar' style={{ marginLeft:'4%', marginTop:'5%' }} onClick={loadMyMoment}>
                             <i className={"fas fa-camera-retro"} > My moments </i>
                         </div>}
                 </div>
