@@ -1,9 +1,14 @@
-.tech{
+.tech, .tech2{
     color: #183a1d;
     display: block;
-    width: 30%;
-    margin-bottom: 5%;
+    width: 300px;
+    margin-bottom: 10%;
+    font-size: 40px;
 
+}
+
+.tech2{
+    width: 80px;
 }
 
 .chatIcon {
