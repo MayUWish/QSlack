@@ -56,10 +56,9 @@ def delete_comment(id):
 @comment_routes.route('/<int:id>', methods=['PATCH'])
 @login_required
 def edit_comment(id):
-    # print('request.form!!!', request.form)
     form = CreateCommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # print('!!!form before', form.data)
+    print('!!!form before', form.data)
     comment = Comment.query.get(id)
 
     if form.data['userId'] != comment.userId:

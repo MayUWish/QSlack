@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { useSelector, useDispatch} from "react-redux";
 import { createCommentsThunk } from "../../store/moments";
-import DeleteCommentModal from "../DeleteCommentModal"
-
+import DeleteCommentModal from "../DeleteCommentModal";
+import EditCommentModal from "../EditCommentModal";
 
 function Comments({ setCommentsShowModal, moment}) {
     const [errors, setErrors] = useState([]);
@@ -72,7 +72,7 @@ function Comments({ setCommentsShowModal, moment}) {
                         <img src={comment.user.profilePic ? comment.user.profilePic :   defaultProfilePic} alt='profilePic' className='commentProfilePic' />
                         {comment.user.username}: {comment.comment}
                         {+comment.userId === +currentUser.id && <div style={{ marginRight: '2%' }}>
-                        
+                            <EditCommentModal setCommentsShowModal={setCommentsShowModal} commentId={comment.id} comment={comment.comment} momentId={moment.id} />
                             <DeleteCommentModal setCommentsShowModal={setCommentsShowModal} commentId={comment.id} momentId={moment.id} />
                             
                         </div>}
