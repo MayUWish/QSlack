@@ -21,7 +21,7 @@ function AllMoments() {
     }
 
     const postLike = e =>{
-        
+
     }
 
     return (
@@ -44,7 +44,7 @@ function AllMoments() {
                     </div>
                     {moments[momentId].media && <img className='momentMedia' alt='momentPicture' src={moments[momentId].media} />}
                     <div className='likeCommentWrapper'>
-                        <i className="fas fa-heart like" onClick={postLike}> {moments[momentId].likes.length}</i>
+                        {currentUser.likedMomentId.includes(momentId) ? <i className="fas fa-heart like liked" onClick={postLike}> {moments[momentId].likes.length}</i> : <i className="fas fa-heart like" onClick={postLike}> {moments[momentId].likes.length}</i>}
                         <i className="fas fa-comment comment"> {moments[momentId].comments.length}</i>
                     </div>
                     <div className='commentWrapper'>

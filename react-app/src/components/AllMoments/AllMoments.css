@@ -32,6 +32,11 @@
     min-width: 50px;
 }
 
+/* liked when current user liked the moment */
+.liked{
+    color: #f0a04b
+}
+
 .commentWrapper{
     max-height: 300px;
     max-width: 400px;
