@@ -103,7 +103,6 @@ function LeftBar() {
     const removeFromStore = async(e) => {
         e.preventDefault()
         e.stopPropagation()
-        // button will need to have innerHTML to have e.target.value(e.g. close), otherwise undefined
         const id = e.target.value.split('_')[1]
         await dispatch(removeDMChannelsThunk(id))
     }

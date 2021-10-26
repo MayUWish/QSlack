@@ -5,11 +5,12 @@ import { login } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import SignUpForm from '../SignUpFormModal/SignUpForm.js'
+import CloseModalButton from '../../CloseModal'
 import { getChatGroupsThunk } from "../../../store/chatGroups";
 import { getDMChannelsThunk } from "../../../store/dmChannels";
 
 
-const LoginForm = () => {
+const LoginForm = ({ setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,8 +46,9 @@ const LoginForm = () => {
 
   return (
     < div className='formWrapper'>
+      <CloseModalButton setShowModal={setShowModal}/>
       <form onSubmit={onLogin}>
-        <div style={{ color:'#f0a04b'}}>
+        <div style={{ color:'#f0a04b', marginLeft:'2%'}}>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
