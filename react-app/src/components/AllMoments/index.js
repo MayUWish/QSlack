@@ -10,20 +10,12 @@ function AllMoments() {
     const currentUser = useSelector((state) => state.session?.user);
     const moments = useSelector((state) => state.moments);
     const dispatch = useDispatch();
-    // console.log('moments>>>', moments)
-    
-    // useEffect(() => {
-    //     (async () => {
-    //         await dispatch(getMomentsThunk())
-
-    //     })();
-    // }, [dispatch]);
-
-    
+   
 
     const postLike = async (e) => {       
         e.preventDefault()
-        await dispatch(likeMomentsThunk({ 'momentId': e.target.value , 'userId':currentUser.id}))
+        // use e.currentTarget so that clicking on icon or text will all have the value as momentId
+        await dispatch(likeMomentsThunk({ 'momentId': e.currentTarget.value , 'userId':currentUser.id}))
         // re-render session:user at redux store as user has likes array for calculating number of likes
         await dispatch(authenticate())
 
@@ -54,9 +46,9 @@ function AllMoments() {
                     {moments[momentId].media && <img className='momentMedia' alt='momentPicture' src={moments[momentId].media} />}
                     <div className='likeCommentWrapper'>
                        
-                        <button value={momentId} onClick={postLike}>
-                            {currentUser.likedMomentId.includes(momentId) ? <i className="fas fa-heart like liked" /> : <i className="fas fa-heart like"  /> }
-                            #{moments[momentId].likes.length ? moments[momentId].likes.length:'0'}
+                        <button value={momentId} onClick={postLike} style={{border:'none', backgroundColor:'white'}}>
+                            {currentUser.likedMomentId.includes(momentId) ? <i className="fas fa-heart fa-2x like liked"  /> : <i className="fas fa-heart fa-2x like" /> }
+                            {moments[momentId].likes.length ? moments[momentId].likes.length:'0'}
                         </button>
                         <i className="fas fa-comment comment"> {moments[momentId].comments.length}</i>
                     </div>
