@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { useSelector, useDispatch} from "react-redux";
+import { createCommentsThunk } from "../../store/moments";
 
 
 function Comments({ setShowModal, moment}) {
@@ -14,7 +15,7 @@ function Comments({ setShowModal, moment}) {
     const onAdd = async (e) => {
         e.preventDefault();
 
-        const data = await dispatch();
+        const data = await dispatch(createCommentsThunk({'momentId':moment.id, userId: currentUser.id, comment}));
         if (data && data.errors) {
             setErrors(data.errors)
         } 

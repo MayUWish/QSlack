@@ -5,6 +5,7 @@ const DELETE_MOMENTS = 'moments/DELETE';
 const EDIT_MOMENTS = 'moments/EDIT';
 
 const LIKE_MOMENTS = 'moments/LIKE';
+const CREATE_COMMENTS = 'comments/CREATE';
 
 
 
@@ -33,6 +34,10 @@ const likeMomentsAction = (like) => ({
     payload: like
 })
 
+const createCommentsAction = (moment) => ({
+    type: CREATE_COMMENTS ,
+    payload: moment
+});
 
 export const getMomentsThunk = () => async (dispatch) => {
     const response = await fetch(`/api/moments/`, {
@@ -134,6 +139,29 @@ export const likeMomentsThunk = ({momentId, userId}) => async (dispatch) => {
     }
 }
 
+export const createCommentsThunk = ({ momentId, userId, comment }) => async (dispatch) => {
+    const response = await fetch('/api/comments/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ momentId, userId, comment }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        // console.log('data???', data)
+        dispatch(createCommentsAction(data));
+    } else if (response.status < 500) {
+        // console.log('data???has error', data)
+        if (data.errors) {
+            return data;
+        }
+    }
+    else {
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
+}
 
 const initialState = {}
 export default function reducer(state = initialState, action) {
@@ -165,6 +193,9 @@ export default function reducer(state = initialState, action) {
                 likesArr.splice(likesArr.indexOf(userId),1)
             }
             
+            return updatedState
+        case CREATE_COMMENTS:
+            updatedState[action.payload.id] = action.payload
             return updatedState
         default:
             return state;
