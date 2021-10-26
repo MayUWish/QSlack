@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    biography = db.Column(db.Text, nullable=True)
+    biography = db.Column(db.String, nullable=True)
     profilePic = db.Column(db.String, nullable=True)
     createdAt = db.Column(db.DateTime, nullable=False,
                           default=datetime.now())
