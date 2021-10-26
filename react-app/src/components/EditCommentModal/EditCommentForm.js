@@ -42,6 +42,7 @@ const EditCommentForm = ({ setShowModal, commentId, momentId, setCommentsShowMod
                     <div key={ind}>{error}</div>
                 ))}
             </div>
+            <label>Comment:</label>
             <div style={{ display: 'inline' }}>
                 <input
                     type='text'
