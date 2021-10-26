@@ -3,6 +3,7 @@ import { useSelector, useDispatch} from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { likeMomentsThunk } from "../../store/moments"
 import { authenticate } from '../../store/session';
+import CommentsModal from '../CommentsModal';
 import './AllMoments.css';
 
 function AllMoments() {
@@ -50,7 +51,8 @@ function AllMoments() {
                             {currentUser.likedMomentId.includes(momentId) ? <i className="fas fa-heart fa-2x like liked"  /> : <i className="fas fa-heart fa-2x like" /> }
                             {moments[momentId].likes.length ? moments[momentId].likes.length:'0'}
                         </button>
-                        <i className="fas fa-comment comment"> {moments[momentId].comments.length}</i>
+
+                        <CommentsModal moment={moments[momentId]}/>
                     </div>
                     <div className='commentWrapper'>
                         {moments[momentId].comments.map((comment,i)=>(
