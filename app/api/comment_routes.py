@@ -51,3 +51,26 @@ def delete_comment(id):
         return moment.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@comment_routes.route('/<int:id>', methods=['PATCH'])
+@login_required
+def edit_comment(id):
+    # print('request.form!!!', request.form)
+    form = CreateCommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    # print('!!!form before', form.data)
+    comment = Comment.query.get(id)
+
+    if form.data['userId'] != comment.userId:
+        return {'errors': ['No authorization.']}, 403
+
+    if form.validate_on_submit():
+        # print('!!!form after', form.data)
+        comment.comment = form.data['comment']
+        db.session.add(comment)
+        db.session.commit()
+        # return moment with updated comments list to update redux store
+        moment = Moment.query.get(form.data['momentId'])
+        return moment.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
