@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteMomentsThunk } from "../../store/moments";
+import { useDispatch} from 'react-redux';
+import { deleteCommentsThunk } from "../../store/moments";
 
 
 
-
-const DeleteCommentForm = ({ setShowModal, commentId }) => {
+const DeleteCommentForm = ({ setShowModal, commentId, momentId, setCommentsShowModal}) => {
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
+ 
 
 
     const onDelete = async (e) => {
         e.preventDefault();
-
-        const data = await dispatch(deleteMomentsThunk(commentId));
+        const data = await dispatch(deleteCommentsThunk({commentId, momentId}));
         if (data && data.errors) {
             setErrors(data.errors)
+        } 
+        else{      
+           
+            setCommentsShowModal(false)
+           
         }
-        // do not use setShowModal(false), otherwise =>>>  Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-        // else {
-        //     setShowModal(false)          
-        // }
     }
 
     const onCancel = async (e) => {

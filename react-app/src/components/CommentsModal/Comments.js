@@ -5,7 +5,7 @@ import { createCommentsThunk } from "../../store/moments";
 import DeleteCommentModal from "../DeleteCommentModal"
 
 
-function Comments({ setShowModal, moment}) {
+function Comments({ setCommentsShowModal, moment}) {
     const [errors, setErrors] = useState([]);
     const [comment, setComment] = useState('');
     const currentUser = useSelector((state) => state.session?.user);
@@ -22,7 +22,8 @@ function Comments({ setShowModal, moment}) {
         } 
         else {
             setErrors([])
-            setShowModal(false)
+            setComment('')
+            // setCommentsShowModal(false)
         }
 
     };
@@ -40,6 +41,10 @@ function Comments({ setShowModal, moment}) {
         <div style={{ width: '500px', maxHeight: '500px',  minHeight: '300px',
             overflow: 'auto', borderRadius:'5px',
             fontSize:'smaller',color: 'rgb(24, 24, 24)'}}>
+            <button style={{ display: 'inline-block' }} 
+                    className='smallBtn'
+                    onClick={e=>setCommentsShowModal(false)}>
+            X</button>
             <form onSubmit={onAdd}>
                 <div style={{ color: '#f0a04b' }}>
                     {errors.map((error, ind) => (
@@ -57,6 +62,7 @@ function Comments({ setShowModal, moment}) {
                     ></input>
                 </div>
                 <button style={{ display: 'inline-block' }} className='btn' type='submit'>Post</button>
+                
             </form>
 
             <div>
@@ -67,7 +73,7 @@ function Comments({ setShowModal, moment}) {
                         {comment.user.username}: {comment.comment}
                         {+comment.userId === +currentUser.id && <div style={{ marginRight: '2%' }}>
                         
-                        <DeleteCommentModal commentId={comment.id} />
+                            <DeleteCommentModal setCommentsShowModal={setCommentsShowModal} commentId={comment.id} momentId={moment.id} />
                             
                         </div>}
 

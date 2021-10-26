@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import DeleteCommentForm from './DeleteCommentForm';
 
 
-function DeleteCommentModal({ commentId }) {
+function DeleteCommentModal({ commentId, momentId, setCommentsShowModal}) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -15,7 +15,7 @@ function DeleteCommentModal({ commentId }) {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteCommentForm setShowModal={setShowModal} commentId={commentId} />
+                    <DeleteCommentForm setCommentsShowModal={setCommentsShowModal} setShowModal={setShowModal} commentId={commentId} momentId={momentId} />
                 </Modal>
             )}
         </div>

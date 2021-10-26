@@ -4,18 +4,18 @@ import Comments from './Comments';
 
 
 function CommentsModal({moment}) {
-    const [showModal, setShowModal] = useState(false);
+    const [showCommentsModal, setCommentsShowModal] = useState(false);
 
     return (
         <div style={{ textAlign: 'end' }} >
-            <button className='smallBtn' onClick={() => setShowModal(true)} 
+            <button className='smallBtn' onClick={() => setCommentsShowModal(true)}
                 style={{ border: 'none', backgroundColor: 'white' }}>
                 <i className="fas fa-comment fa-2x comment"/>
                  {moment.comments.length}
             </button>
-            {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <Comments setShowModal={setShowModal} moment={moment}/>
+            {showCommentsModal && (
+                <Modal onClose={() => setCommentsShowModal(false)}>
+                    <Comments setCommentsShowModal={setCommentsShowModal} moment={moment}/>
                 </Modal>
             )}
         </div>

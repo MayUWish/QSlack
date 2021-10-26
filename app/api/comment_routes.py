@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from app.models import User, Comment, Moment,db
+from app.models import User, Comment, Moment, db
 from app.forms import CreateCommentForm
+from app.forms import DeleteCommentForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
 
@@ -26,6 +27,27 @@ def create_comment():
         db.session.add(comment)
         db.session.commit()
         # return moment with updated comments list to update redux store
-        moment = Moment.query.get(form.data['momentId'])  
+        moment = Moment.query.get(form.data['momentId'])
         return moment.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@comment_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_comment(id):
+    form = DeleteCommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    userId = current_user.id
+    comment = Comment.query.get(id)
+
+    if userId != comment.userId:
+        return {'errors': ['No authorization.']}, 403
+    if form.validate_on_submit():
+        db.session.delete(comment)
+        db.session.commit()
+        # return moment with updated comments list to update redux store
+        moment = Moment.query.get(form.data['momentId'])
+        return moment.to_dict()
+
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
