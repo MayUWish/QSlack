@@ -1,22 +1,27 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
+import { likeMomentsThunk } from "../../store/moments"
+import { authenticate } from '../../store/session';
 import './AllMoments.css';
 
 function AllMoments() {
  
     const currentUser = useSelector((state) => state.session?.user);
     const moments = useSelector((state) => state.moments);
-    // console.log('moments>>>', moments)
-    
-    // useEffect(() => {
-    //     (async () => {
-    //         await dispatch(getMomentsThunk())
+    const dispatch = useDispatch();
+   
 
-    //     })();
-    // }, [dispatch]);
+    const postLike = async (e) => {       
+        e.preventDefault()
+        // use e.currentTarget so that clicking on icon or text will all have the value as momentId
+        await dispatch(likeMomentsThunk({ 'momentId': e.currentTarget.value , 'userId':currentUser.id}))
+        // re-render session:user at redux store as user has likes array for calculating number of likes
+        await dispatch(authenticate())
 
-    if (!currentUser){
+    }
+
+    if (!currentUser) {
         return null;
     }
 
@@ -40,7 +45,11 @@ function AllMoments() {
                     </div>
                     {moments[momentId].media && <img className='momentMedia' alt='momentPicture' src={moments[momentId].media} />}
                     <div className='likeCommentWrapper'>
-                        <i className="fas fa-heart like"> {moments[momentId].likes.length}</i>
+                       
+                        <button value={momentId} onClick={postLike} style={{border:'none', backgroundColor:'white'}}>
+                            {currentUser.likedMomentId.includes(momentId) ? <i className="fas fa-heart fa-2x like liked"  /> : <i className="fas fa-heart fa-2x like" /> }
+                            {moments[momentId].likes.length ? moments[momentId].likes.length:'0'}
+                        </button>
                         <i className="fas fa-comment comment"> {moments[momentId].comments.length}</i>
                     </div>
                     <div className='commentWrapper'>

@@ -71,4 +71,5 @@ class User(db.Model, UserMixin):
             # "groupsOwned": [group.to_dict() for group in self.groupsOwned],
             # "groupsJoined": [group.to_dict() for group in self.groupsJoined],
             "messages": [m.to_dict() for m in self.messages],
+            "likedMomentId": [like.momentId for like in self.likes],
         }

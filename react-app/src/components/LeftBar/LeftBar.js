@@ -63,7 +63,7 @@ function LeftBar() {
     }
 
     const loadMoment = (e) => {
-
+        e.preventDefault()
         setShowMoments(showMoments => !showMoments)
 
     }
@@ -148,10 +148,10 @@ function LeftBar() {
                     )}
 
                 </div>
-                    <div className='groupsWrapper' onClick={loadMoment}>
+                    <div className='groupsWrapper'>
                         <div>
-                            <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"}/> 
-                            <h4 style={{ display: 'inline' }}>Moments</h4>
+                            <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={loadMoment}/>
+                            <h4 style={{ display: 'inline' }} onClick={loadMoment}>Moments</h4>
                         </div>
 
                         <CreateMomentFormModal setShowMyMoments={setShowMyMoments} setShowAllMoments={setShowAllMoments} setGroupId={setGroupId}/>
