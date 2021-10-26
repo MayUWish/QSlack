@@ -24,10 +24,11 @@
 }
 .like:hover, .comment:hover{
     color: #f0a04b ;
+    
 }
 
 .like, .comment{
-    color: gray;
+    color:gray;
     display: inline;
     min-width: 50px;
 }
@@ -40,13 +41,14 @@
 .commentWrapper{
     max-height: 300px;
     max-width: 400px;
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap:1%;
     border: 1px solid lightgray;
     border-radius: 5px;
     font-size: smaller;
+    color: rgb(24, 24, 24);
 }
 
 .commentProfilePic{

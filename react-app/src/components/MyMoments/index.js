@@ -5,6 +5,7 @@ import DeleteMomentModal from '../DeleteMomentModal';
 import EditMomentModal from '../EditMomentModal';
 import { likeMomentsThunk } from "../../store/moments"
 import { authenticate } from '../../store/session';
+import CommentsModal from '../CommentsModal';
 
 
 function MyMoments() {
@@ -51,7 +52,7 @@ function MyMoments() {
                                 {moments[momentId].likes.length ? moments[momentId].likes.length : '0'}
                             </button>
 
-                            <i className="fas fa-comment comment"> {moments[momentId].comments.length}</    i>        
+                            <CommentsModal moment={moments[momentId]} />
                         </div>
                         <div style={{ display: 'flex', gap:'3%' }}>
                             <EditMomentModal momentId={momentId} moment={moments[momentId]}/>

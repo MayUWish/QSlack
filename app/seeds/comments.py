@@ -29,7 +29,36 @@ def seed_comments():
         userId=9, comment='Bravo!')
     comment710 = Comment(
         momentId=4,
-        userId=7, comment='This is aaaaaaamazing. Wow! :D')
+        userId=7, comment="""This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D
+        This is aaaaaaamazing. Wow! :D""")
 
     comment711 = Comment(
         momentId=5,
@@ -37,7 +66,7 @@ def seed_comments():
     comment712 = Comment(
         momentId=5,
         userId=5, comment='Pretty~')
-  
+
     db.session.add(comment701)
     db.session.add(comment702)
     db.session.add(comment704)

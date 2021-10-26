@@ -6,6 +6,9 @@ const EDIT_MOMENTS = 'moments/EDIT';
 
 const LIKE_MOMENTS = 'moments/LIKE';
 
+const CREATE_COMMENTS = 'comments/CREATE';
+const DELETE_COMMENTS = 'comments/DELETE';
+const EDIT_COMMENTS = 'comments/EDIT';
 
 
 const getMomentsAction = (moments) => ({
@@ -33,6 +36,20 @@ const likeMomentsAction = (like) => ({
     payload: like
 })
 
+const createCommentsAction = (moment) => ({
+    type: CREATE_COMMENTS ,
+    payload: moment
+});
+
+const deleteCommentsAction = (moment) => ({
+    type: DELETE_COMMENTS,
+    payload: moment
+});
+
+const editCommentsAction = (moment) => ({
+    type: EDIT_COMMENTS,
+    payload: moment
+});
 
 export const getMomentsThunk = () => async (dispatch) => {
     const response = await fetch(`/api/moments/`, {
@@ -134,6 +151,73 @@ export const likeMomentsThunk = ({momentId, userId}) => async (dispatch) => {
     }
 }
 
+export const createCommentsThunk = ({ momentId, userId, comment }) => async (dispatch) => {
+    const response = await fetch('/api/comments/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ momentId, userId, comment }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        // console.log('data???', data)
+        dispatch(createCommentsAction(data));
+    } else if (response.status < 500) {
+        // console.log('data???has error', data)
+        if (data.errors) {
+            return data;
+        }
+    }
+    else {
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
+}
+
+export const deleteCommentsThunk = ({momentId, commentId}) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ momentId, commentId }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+        dispatch(deleteCommentsAction(data));
+    } else if (response.status < 500) {
+        if (data.errors) {
+            return data;
+        }
+    }
+    else {
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
+}
+
+export const editCommentsThunk = ({ momentId, userId, comment, commentId  }) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ momentId, userId, comment }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        dispatch(editCommentsAction(data));
+    } else if (response.status < 500) {
+        if (data.errors) {
+            return data;
+        }
+    }
+    else {
+        return { 'errors': ['An error occurred. Please try again.'] }
+    }
+}
+
 
 const initialState = {}
 export default function reducer(state = initialState, action) {
@@ -165,6 +249,15 @@ export default function reducer(state = initialState, action) {
                 likesArr.splice(likesArr.indexOf(userId),1)
             }
             
+            return updatedState
+        case CREATE_COMMENTS:
+            updatedState[action.payload.id] = action.payload
+            return updatedState
+        case DELETE_COMMENTS:
+            updatedState[action.payload.id] = action.payload
+            return updatedState
+        case EDIT_COMMENTS:
+            updatedState[action.payload.id] = action.payload
             return updatedState
         default:
             return state;
