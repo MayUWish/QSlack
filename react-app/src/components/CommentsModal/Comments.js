@@ -35,7 +35,9 @@ function Comments({ setShowModal, moment}) {
     }
 
     return (
-        <div style={{ width: '500px', height: '500px', overflow: 'auto', fontSize:'smaller',color: 'rgb(24, 24, 24)'}}>
+        <div style={{ width: '500px', maxHeight: '500px',  minHeight: '300px',
+            overflow: 'auto', borderRadius:'5px',
+            fontSize:'smaller',color: 'rgb(24, 24, 24)'}}>
             <form onSubmit={onAdd}>
                 <div style={{ color: '#f0a04b' }}>
                     {errors.map((error, ind) => (
