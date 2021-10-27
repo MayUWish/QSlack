@@ -47,9 +47,9 @@ def create_group():
             theOtherUser = User.query.filter(
                 User.username == form.data['name']).first()
             if not theOtherUser:
-                return {'errors': ['name: user cannot be found.']}, 401
+                return {'errors': ['name: user not found.']}, 401
             if theOtherUser.id == current_user.id:
-                return {'errors': ['name: choose an user but not yourself.']}, 401
+                return {'errors': ['name: invite an user by user name but not yourself.']}, 401
             # name the DM channel with name userId_userId to avoid duplication
             dmGroupName = f'{current_user.id}_{theOtherUser.id}_UniqueDM'
             dmGroupName2 = f'{theOtherUser.id}_{current_user.id}_UniqueDM'

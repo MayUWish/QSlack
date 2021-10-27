@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteChatGroupsThunk } from "../../store/chatGroups";
+import CloseModalButton from '../CloseModal'
 
 // import { useHistory } from 'react-router-dom';
 
@@ -32,8 +33,10 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
 
 
     return (
-        <form onSubmit={onDelete} className='formWrapper'>
-            <div style={{ color: '#f0a04b' }}>
+        <>
+        <CloseModalButton setShowModal={setShowModal} />
+        <form onSubmit={onDelete} className='formWrapper' style={{marginLeft:'3%'}}>
+            <div className='errorDiv'>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
@@ -47,6 +50,7 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
             </div>
             
         </form>
+        </>
     )
 
 };

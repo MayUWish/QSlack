@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createMomentsThunk } from "../../store/moments";
+import CloseModalButton from '../CloseModal';
 
 
 

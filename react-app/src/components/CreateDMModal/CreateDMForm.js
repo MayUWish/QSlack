@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { useSelector, useDispatch } from 'react-redux'
 import { createDMChannelsThunk } from "../../store/dmChannels";
+import CloseModalButton from '../CloseModal';
 
 
 
@@ -42,14 +43,15 @@ const CreateDMForm = ({ setShowModal, setGroupId }) => {
 
     return (
         <div className='formWrapper'>
-            <h3>Direct Messages With:</h3>
-            <form onSubmit={onAdd}>
+            <CloseModalButton setShowModal={setShowModal} />
+            <h3 style={{ paddingLeft: '2%' }}>Direct Messages With:</h3>
+            <form onSubmit={onAdd} style={{ paddingLeft: '2%' }}>
                 <div style={{ color: '#f0a04b' }}>
                     {errors.map((error, ind) => (
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <div style={{ display: 'inline' }}>
+                <div style={{ display: 'flex',gap:'1%', alignItems:'flex-end' }}>
                     <input
                         type='text'
                         name='username'
@@ -58,13 +60,14 @@ const CreateDMForm = ({ setShowModal, setGroupId }) => {
                         placeholder='By name'
                         className='formInput'
                     ></input>
+                    <button style={{ display: 'inline-block' }} className='btn' type='submit'>Invite</button>
+
                 </div>
-                <button style={{ display: 'inline-block'}} className='btn' type='submit'>Go</button>
             </form>
 
-            <div>
+            <div style={{ paddingLeft: '2%' }}>
                 {allUsers.map((member, i) => (
-                    <div className="eachChatWrapper" key={`message${i}`}>
+                    (member.username.toLowerCase().includes(username.toLowerCase()) || !username.replace(/ /g, '')) && <div className="eachChatWrapper" key={`message${i}`}>
                         <img style={{display:'inline'}} className='chatProfilePic' alt='profilePicture' src={member.profilePic ? member.profilePic : defaultProfilePic} /> {member.username}
                     </div>
                 ))}
