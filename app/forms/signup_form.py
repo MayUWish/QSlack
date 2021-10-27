@@ -25,8 +25,8 @@ def username_exists(form, field):
 
 def username_length(form, field):
     username = field.data
-    if len(username) > 40:
-        raise ValidationError('Username cannot be more than 40 characters.')
+    if len(username) > 25:
+        raise ValidationError('Username cannot be more than 25 characters.')
 
 
 def email_format(form, field):
