@@ -16,6 +16,9 @@ let socket;
 function MainContent({groupId}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.session?.user);
+    const allUsers = useSelector(state => state.session.allUsers);
+    const allUsersObject = {}
+    allUsers.forEach(user=>allUsersObject[user.id]=user)
     const chatGroups = useSelector((state) => state.chatGroups);
     const dmChannels = useSelector((state) => state.dmChannels);
     const currentGroup = chatGroups[groupId] ? chatGroups[groupId] : dmChannels[groupId]
@@ -131,10 +134,10 @@ function MainContent({groupId}) {
             {currentGroup && messagesArr.map((message,i)=>(
                 <div className="eachChatWrapperOutside" key={`message${i}`} >
                     <div className="eachChatWrapperInside">
-                        <img className='chatProfilePic' alt='profilePicture' src={membersObject[String  (message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>
+                        <img className='chatProfilePic' alt='profilePicture' src={allUsersObject[String(message.userId)]?.profilePic ? allUsersObject[String(message.userId)]?.profilePic : defaultProfilePic}/>
                         <div>
                             <div style={{marginBottom:'1%'}}>
-                                {membersObject[String(message.userId)].username}:
+                                {allUsersObject[String(message.userId)]?.username}:
                             </div>
                             <div>
                                 {message.message}
