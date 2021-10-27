@@ -53,11 +53,11 @@ function MainContent({groupId}) {
             
             if (chat.action === 'create') {
                 //console.log('create chat!!!', chat)
-                if (!chat.errors) {
+                // if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
                     // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
                     await dispatch(getDMChannelsThunk())
-                }
+                // }
             } 
             else if (chat.action === 'delete') {
                 //console.log('delete chat!!!', chat)
@@ -69,11 +69,11 @@ function MainContent({groupId}) {
 
             else if (chat.action === 'edit') {
                 //console.log('edit chat!!!', chat)
-                if (!chat.errors) {
+                // if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
                     // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
                     await dispatch(getDMChannelsThunk())
-                }
+                // }
             }
 
         })

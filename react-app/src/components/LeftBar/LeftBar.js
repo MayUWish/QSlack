@@ -99,13 +99,13 @@ function LeftBar() {
         e.target.classList.add('highlight');
     }
 
-
-    const removeFromStore = async(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        const id = e.target.value.split('_')[1]
-        await dispatch(removeDMChannelsThunk(id))
-    }
+    // do not do remove DM from redux, bc when other users invited current user to a group, in order current user is showed the newly group, certain actions such as click on group and dm will trigger getThunk to grab most updated chat groups and dm channels. Thus remove it from store will be added back, making this functionality no sense
+    // const removeFromStore = async(e) => {
+    //     e.preventDefault()
+    //     e.stopPropagation()
+    //     const id = e.target.value.split('_')[1]
+    //     await dispatch(removeDMChannelsThunk(id))
+    // }
 
     if (!userId) {
         return null;
@@ -147,11 +147,12 @@ function LeftBar() {
 
                                 {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}
                             </button>
-                            <div style={{ display: 'flex', justifyContent: 'center',     flexDirection:'column' }}>
-                                <button className='groupEl' key={`dmChannelRemoveButton${i}`} value={`DM_${groupId}`} onClick={removeFromStore} >
+                            {/* <div style={{ display: 'flex', justifyContent: 'center',     flexDirection:'column' }}>
+                                <button className='groupEl' key={`dmChannelRemoveButton${i}`} value={`DM_${groupId}`}     onClick={removeFromStore} 
+                                >
                                     close
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     )}
 

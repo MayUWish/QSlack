@@ -56,7 +56,7 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
 
     return (
         <form onSubmit={editMessage} className='formWrapper'>
-            <div style={{ color: '#f0a04b' }}>
+            <div className='errorDiv'>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}

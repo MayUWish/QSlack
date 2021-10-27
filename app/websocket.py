@@ -23,6 +23,11 @@ def handle_chat(data):
     # e.g. socket.emit("chat", { user: user.username, msg: chatInput });
     # print('!!!!!data>>>>>', data)
     # front-end seeding 'action' key/value pair to tell among create, delete, edit
+
+    # validation for sending messages: if not valid,
+    # will not show error message at front-end,
+    # the message is just simply not created/sent
+    # to indicate the failure for the user
     if data['action'] == 'create':
         currentGroup = Group.query.get(data['groupId'])
         if not currentGroup:
