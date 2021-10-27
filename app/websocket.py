@@ -24,19 +24,28 @@ def handle_chat(data):
     # print('!!!!!data>>>>>', data)
     # front-end seeding 'action' key/value pair to tell among create, delete, edit
     if data['action'] == 'create':
-        # Validation: message has to be not empty or all spaces
-        if not len(data['msg']) or data['msg'].isspace():
-            data['errors'] = ['Message cannot be empty.']
-        else:
-            message = Message(
-                groupId=data['groupId'],
-                userId=data['userId'],
-                message=data['msg'],
-            )
-            user = User.query.get(data['userId'])
-            data['profilePic'] = user.profilePic
-            db.session.add(message)
-            db.session.commit()
+        currentGroup = Group.query.get(data['groupId'])
+        if not currentGroup:
+            data['errors'] = ['No such group.']
+        elif currentGroup:
+            groupMembersId = list(
+                map(lambda member: member.id, currentGroup.members))
+            if data['userId'] not in groupMembersId:
+                # Validation: only if user is in the group, the user can send message to the group
+                data['errors'] = ['No authorization.']
+            elif not len(data['msg']) or data['msg'].isspace():
+                # Validation: message has to be not empty or all spaces
+                data['errors'] = ['Message cannot be empty.']
+            else:
+                message = Message(
+                    groupId=data['groupId'],
+                    userId=data['userId'],
+                    message=data['msg'],
+                )
+                user = User.query.get(data['userId'])
+                data['profilePic'] = user.profilePic
+                db.session.add(message)
+                db.session.commit()
         # emit first parameter would need to be same as socket.on first parameter to recieve the data
         emit(data['groupId'], data, broadcast=True)
     elif data['action'] == 'delete':
