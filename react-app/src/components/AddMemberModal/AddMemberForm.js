@@ -53,10 +53,10 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setSho
                     name='username'
                     onChange={updateUsername}
                     value={username}
-                    placeholder='Add a user by name'
+                    placeholder='Invite a user by name'
                     className='formInput'
                   ></input>
-                    <button className='btn' type='submit' >Add</button>
+                    <button className='btn' type='submit' >Invite</button>
                 </div>
                 
             </form>

@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import User, Group, db
 from app.forms import CreateGroupForm
 from app.api.auth_routes import validation_errors_to_error_messages
+from datetime import datetime
 
 
 group_routes = Blueprint('groups', __name__)
@@ -108,6 +109,7 @@ def edit_group(id):
             return {'errors': ['No authorization']}, 403
         group.name = form.data['name']
         group.description = form.data['description']
+        group.updatedAt = datetime.now()
         db.session.commit()
         return group.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
