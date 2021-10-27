@@ -2,6 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
+import re
+
+regexEmail = r'\b[A-Za-z0-9~`!#$%^&*-=+-/?]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,}\b'
 
 
 def user_exists(form, field):
@@ -20,9 +23,29 @@ def username_exists(form, field):
         raise ValidationError('Username is already in use.')
 
 
+def username_length(form, field):
+    username = field.data
+    if len(username) > 40:
+        raise ValidationError('Username cannot be more than 40 characters.')
+
+
+def email_format(form, field):
+    email = field.data
+    if not (re.fullmatch(regexEmail, email)):
+        raise ValidationError('Please provide an email in a valid format.')
+
+
+def email_length(form, field):
+    email = field.data
+    if len(email) > 255:
+        raise ValidationError('Email cannot be more than 255 characters.')
+
+
 class SignUpForm(FlaskForm):
     username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
+        'username', validators=[DataRequired(), username_exists,
+                                username_length])
+    email = StringField('email', validators=[
+                        DataRequired(), user_exists, email_length, email_format])
     password = StringField('password', validators=[DataRequired()])
     biography = TextAreaField('biography')
