@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
 import re
 
-regexEmail = r'\b[A-Za-z0-9~`!#$%^&*-=+-/?]+@[A-Za-z0-9.-]+\.[A-Za-z0-9]{2,}\b'
+regexEmail = r'[A-Za-z0-9!#$%&\'*+-/=?^_`{|}~]+@[A-Za-z0-9]+\.[A-Za-z0-9]+'
 
 
 def user_exists(form, field):

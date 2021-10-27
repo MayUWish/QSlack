@@ -115,7 +115,10 @@ function LeftBar() {
         <>
         <div className='Wrapper'>
             <div className='leftBarWrapper'>
-                    <h3 style={{ borderBottom: '1px solid #183a1d', paddingBlock:'2%'}}>Cheerful welcome, {currentUser.username}</h3>
+                    <h3 style={{ borderBottom: '1px solid #183a1d', padding: '2%', overflowWrap: 'break-word', color:'#183a1d'}}>
+                        <span style={{ color:'#f0a04b'}}>Cheerful Welcome, </span>
+                        {currentUser.username}
+                    </h3>
                 <div className='groupsWrapper'>
                     <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e=> setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
                     <h4 style={{ display:'inline', marginLeft:'1%' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>
