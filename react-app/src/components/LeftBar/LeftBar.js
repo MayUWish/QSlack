@@ -124,7 +124,12 @@ function LeftBar() {
                     <h4 style={{ display:'inline', marginLeft:'1%' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>
                     <CreateGroupFormModal />
                     {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
-                        <button className='groupEl' key={`chatGroups${i}`} value={`ChatGroups_${groupId}`} onClick={loadMain}># {chatGroups[groupId]?.name}</button>
+                        <button className='groupEl'
+                                key={`chatGroups${i}`} 
+                                value={`ChatGroups_${groupId}`} 
+                                onClick={loadMain}>
+                                # {chatGroups[groupId]?.name}
+                        </button>
                     )}
 
                 </div>

@@ -26,6 +26,9 @@
 .groupEl{
     margin:2% 0 2% 3%;
     display: block;
+    width: 100%;
+    text-align: start;
+    overflow-wrap:break-word;
     /* get rid of all default stylings of the buttons */
    	background: none;
 	color: inherit;
@@ -34,6 +37,7 @@
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+    
 
 }
 
