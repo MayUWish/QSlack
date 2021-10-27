@@ -8,6 +8,7 @@ import EditGroupModal from '../EditGroupModal';
 import { getChatGroupsThunk } from "../../store/chatGroups";
 import { getDMChannelsThunk } from "../../store/dmChannels";
 import EditMessageFormModal from '../EditMessageModal';
+import DeleteMessageFormModal from '../DeleteMessageModal';
 import './MainContent.css';
 
 import { io } from 'socket.io-client';
@@ -100,15 +101,15 @@ function MainContent({groupId}) {
         setMessageInput("")
     }
 
-    const deleteMessage = (e) => {
-        e.preventDefault()
-        socket.emit("chat", {
-            'messageId': e.target.value,
-            groupId,
-            userId: currentUser.id,
-            action: 'delete'
-        });
-    }
+    // const deleteMessage = (e) => {
+    //     e.preventDefault()
+    //     socket.emit("chat", {
+    //         'messageId': e.target.value,
+    //         groupId,
+    //         userId: currentUser.id,
+    //         action: 'delete'
+    //     });
+    // }
 
     return (
         <div>
@@ -147,7 +148,8 @@ function MainContent({groupId}) {
                     </div>
                     {+message.userId === +currentUser.id && <div style={{marginRight:'2%'}}>
                         <EditMessageFormModal message={message} groupId={groupId} />
-                        <button style={{ display: 'inlineBlock'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
+                        <DeleteMessageFormModal messageId={message.id} groupId={groupId} />
+                        {/* <button style={{ display: 'inlineBlock'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button> */}
                     </div>}
                 </div>
             ))}
