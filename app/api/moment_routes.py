@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 from app.models import User, Group, db, Moment, Like, Comment
 from app.forms import CreateMomentForm
 from app.api.auth_routes import validation_errors_to_error_messages
+from datetime import datetime
+
 # setup AWS
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
@@ -98,6 +100,7 @@ def edit_moment(id):
             media_url = upload_media["url"]
         moment.media = media_url
         moment.description = form.data['description']
+        moment.updatedAt = datetime.now()
         db.session.commit()
         return moment.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

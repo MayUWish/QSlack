@@ -1,6 +1,7 @@
 from flask_socketio import SocketIO, emit
 import os
 from app.models import User, Group, Message, db
+from datetime import datetime
 
 
 # configure cors_allowed_origins
@@ -76,5 +77,6 @@ def handle_chat(data):
 
         elif messageToEdit.userId == data['userId'] and len(data['msg']) and not data['msg'].isspace():
             messageToEdit.message = data['msg']
+            messageToEdit.updatedAt = datetime.now()
             db.session.commit()
         emit(data['groupId'], data, broadcast=True)
