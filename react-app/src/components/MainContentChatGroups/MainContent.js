@@ -114,7 +114,7 @@ function MainContent({groupId}) {
                     {currentGroupName}
                 </div>
 
-                <div style={{ display: 'flex', width: '95%', justifyContent: 'end' }}>
+                <div style={{ display: 'flex', width: '50%', justifyContent: 'end' }}>
                 
                     {currentGroup && <MembersModal membersObject={membersObject} currentGroupName={currentGroupName}/>}
                     
