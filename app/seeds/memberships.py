@@ -8,7 +8,7 @@ def seed_memberships():
         # user created/as admin should always be in the chat groups
         adminUser = User.query.filter(User.id == group.adminId).first()
         group.members.append(adminUser)
-        randomMessage = f'Hi, this is {adminUser.username} saying hello in # {group.id}'
+        randomMessage = f'Hi, this is {adminUser.username} saying hello in # {group.name}'
         group.messages.append(Message(
             userId=adminUser.id, groupId=group.id, message=randomMessage))
         # ramdom select nonAdminUsers to add to memberships
@@ -20,7 +20,7 @@ def seed_memberships():
 
         for randomUser in random.sample(nonAdminUsers, randomNum):
             group.members.append(randomUser)
-            randomMessage = f'Hi, this is {randomUser.username} saying hello in # {group.id}'
+            randomMessage = f'Hi, this is {randomUser.username} saying hello in # {group.name}'
             group.messages.append(Message(
                 userId=randomUser.id, groupId=group.id, message=randomMessage))
 
