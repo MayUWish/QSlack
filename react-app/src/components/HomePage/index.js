@@ -52,7 +52,7 @@ const HomePage = () => {
                         </div>
 
                         <div>
-                            <i className="devicon-html5-plain tech">Html</i>
+                            <i className="devicon-html5-plain tech">HTML</i>
                         </div >
 
                         <div>
@@ -64,11 +64,11 @@ const HomePage = () => {
                         </div >
 
                         <div>
-                            <i className="devicon-postgresql-plain tech" >Postgresql</i>
+                            <i className="devicon-postgresql-plain tech" >PostgreSQL</i>
                         </div >
 
                         <div>
-                            <i className="devicon-sqlalchemy-plain tech" >Sqlalchemy</i>
+                            <i className="devicon-sqlalchemy-plain tech" >SQLAlchemy</i>
                         </div >
 
                         <div>
