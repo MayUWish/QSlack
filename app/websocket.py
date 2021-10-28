@@ -2,6 +2,7 @@ from flask_socketio import SocketIO, emit
 import os
 from app.models import User, Group, Message, db
 from datetime import datetime
+from flask_login import current_user
 
 
 # configure cors_allowed_origins
@@ -25,33 +26,35 @@ def handle_chat(data):
     # print('!!!!!data>>>>>', data)
     # front-end seeding 'action' key/value pair to tell among create, delete, edit
 
-    # validation for sending messages: if not valid,
+    currentGroup = Group.query.get(data['groupId'])
+    if not currentGroup:
+        data['errors'] = ['The chat group is deleted by the host.']
+        emit(data['groupId'], data, broadcast=True)
+
+    # The following validation:
     # will not show error message at front-end,
-    # the message is just simply not created/sent
-    # to indicate the failure for the user
-    if data['action'] == 'create':
-        currentGroup = Group.query.get(data['groupId'])
-        if not currentGroup:
-            data['errors'] = ['No such group.']
-        elif currentGroup:
-            groupMembersId = list(
-                map(lambda member: member.id, currentGroup.members))
-            if data['userId'] not in groupMembersId:
-                # Validation: only if user is in the group, the user can send message to the group
-                data['errors'] = ['No authorization.']
-            elif not len(data['msg']) or data['msg'].isspace():
-                # Validation: message has to be not empty or all spaces
-                data['errors'] = ['Message cannot be empty.']
-            else:
-                message = Message(
-                    groupId=data['groupId'],
-                    userId=data['userId'],
-                    message=data['msg'],
-                )
-                user = User.query.get(data['userId'])
-                data['profilePic'] = user.profilePic
-                db.session.add(message)
-                db.session.commit()
+    # the message is just simply not created/edit/deleted
+    # to indicate the failure,
+    # bc all those validation is for fraud/hacker, instead of normal practice
+    elif data['action'] == 'create':
+        groupMembersId = list(
+            map(lambda member: member.id, currentGroup.members))
+        if data['userId'] not in groupMembersId or current_user.id not in groupMembersId:
+            # Validation: only if user is in the group, the user can send message to the group
+            data['errors'] = ['No authorization.']
+        elif not len(data['msg']) or data['msg'].isspace():
+            # Validation: message has to be not empty or all spaces
+            data['errors'] = ['Message cannot be empty.']
+        else:
+            message = Message(
+                groupId=data['groupId'],
+                userId=data['userId'],
+                message=data['msg'],
+            )
+            user = User.query.get(data['userId'])
+            data['profilePic'] = user.profilePic
+            db.session.add(message)
+            db.session.commit()
         # emit first parameter would need to be same as socket.on first parameter to recieve the data
         emit(data['groupId'], data, broadcast=True)
     elif data['action'] == 'delete':
@@ -61,7 +64,7 @@ def handle_chat(data):
         # No error message would need to be returned,
         # bc if cannot pass the validation,
         # the action just cannot be implemented
-        if messageToDelete.userId == data['userId']:
+        if messageToDelete.userId == data['userId'] and messageToDelete.userId == current_user.id:
             db.session.delete(messageToDelete)
             db.session.commit()
             emit(data['groupId'], data, broadcast=True)
@@ -70,7 +73,7 @@ def handle_chat(data):
         messageToEdit = Message.query.get(messageId)
         # validation: only message's owner can edit the message
         # and message has to be not empty or all spaces
-        if messageToEdit.userId != data['userId']:
+        if messageToEdit.userId != data['userId'] or messageToEdit.userId != current_user.id:
             data['errors'] = ['No Authorization.']
         elif not len(data['msg']) or data['msg'].isspace():
             data['errors'] = ['Message cannot be empty.']

@@ -19,6 +19,7 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
                 //console.log('edit chat!!!', chat)
                 if (chat.errors) {
                     setErrors(chat.errors)
+                    alert(chat.errors[0])
                 } else {
                     setShowModal(false)
                 }

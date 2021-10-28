@@ -7,7 +7,7 @@ import CloseModalButton from '../CloseModal'
 
 
 
-const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, currentGroup  }) => {
+const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, currentGroup, setGroupId  }) => {
     const [errors, setErrors] = useState([]);
     // const history = useHistory()
    
@@ -26,9 +26,9 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
             setErrors(data.errors)
         } 
         // do not use setShowModal(false), otherwise =>>>  Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-        // else {
-        //     setShowModal(false)          
-        // }
+        else {
+            setGroupId('')
+        }
     }
 
 

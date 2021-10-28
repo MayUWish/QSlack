@@ -27,7 +27,7 @@ function LeftBar() {
     const [showMoments, setShowMoments] = useState(true);
     const [showAllMoments, setShowAllMoments] = useState(false);
     const [showMyMoments, setShowMyMoments] = useState(false);
-    const [groupId, setGroupId] = useState(`ChatGroups_${ Object.keys(chatGroups)[0]}`);
+    const [groupId, setGroupId] = useState(Object.keys(chatGroups)[0]?`ChatGroups_${ Object.keys(chatGroups)[0]}`:'');
     
 
     
@@ -160,7 +160,7 @@ function LeftBar() {
                     <div className='groupsWrapper'>
                         <div>
                             <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={loadMoment}/>
-                            <h4 style={{ display: 'inline' }} onClick={loadMoment}>Moments</h4>
+                            <h4 style={{ display: 'inline' }} onClick={loadMoment}> Moments</h4>
                         </div>
 
                         <CreateMomentFormModal setShowMyMoments={setShowMyMoments} setShowAllMoments={setShowAllMoments} setGroupId={setGroupId}/>
@@ -176,7 +176,7 @@ function LeftBar() {
                     
             </div>
             <div className='mainContentWrapper'>
-                {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} />}
+                    {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} setGroupId={setGroupId}/>}
                 {groupId && groupId.startsWith('DM_') && <MainContentDM groupId={groupId.split('_')[1]} />}
                 {showAllMoments && <AllMoments/>}
                     {showMyMoments && <MyMoments/>}

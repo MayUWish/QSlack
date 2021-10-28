@@ -14,7 +14,7 @@ import './MainContent.css';
 import { io } from 'socket.io-client';
 let socket;
 
-function MainContent({groupId}) {
+function MainContent({ groupId, setGroupId}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.session?.user);
     const allUsers = useSelector(state => state.session.allUsers);
@@ -33,6 +33,7 @@ function MainContent({groupId}) {
     const membersObject = chatGroups[groupId] ? chatGroups[groupId]?.members : dmChannels[groupId]?.members
     
     const [messageInput, setMessageInput] = useState("");
+    // const [errors, setErrors] = useState([]);
 
     // everytime changing to a different group, will update redux store by putting groupId as dependency list
     useEffect(() => {
@@ -54,6 +55,11 @@ function MainContent({groupId}) {
             
             if (chat.action === 'create') {
                 //console.log('create chat!!!', chat)
+                if (chat.errors){
+                    // setErrors(chat.errors)
+                    alert(chat.errors[0])
+
+                }
                 // if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
                     // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
@@ -126,7 +132,7 @@ function MainContent({groupId}) {
                    
                     {currentGroup && <EditGroupModal currentGroup={currentGroup}/>}
 
-                    {currentGroup && <DeleteGroupModal currentGroupName={currentGroupName} currentGroupId={currentGroupId} currentGroup={currentGroup} />}
+                    {currentGroup && <DeleteGroupModal currentGroupName={currentGroupName} currentGroupId={currentGroupId} currentGroup={currentGroup} setGroupId={setGroupId}/>}
 
                 </div>
                 
@@ -156,9 +162,14 @@ function MainContent({groupId}) {
 
             </div>
            
-            {currentUser && (
+            {currentUser && currentGroup &&(
                 <div id='messageBox'>
                     <form onSubmit={sendChat}>
+                        {/* <div className='errorDiv'>
+                            {errors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div> */}
                         <textarea
                             className='messageInput'
                             value={messageInput}

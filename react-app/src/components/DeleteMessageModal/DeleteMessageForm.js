@@ -18,6 +18,7 @@ const DeleteMessageForm = ({ setShowModal, messageId, groupId }) => {
             if (chat.action === 'delete') {
                 if (chat.errors) {
                     setErrors(chat.errors)
+                    alert(chat.errors[0])
                 } else {
                     setShowModal(false)
                 }
