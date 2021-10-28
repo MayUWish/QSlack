@@ -36,7 +36,7 @@ const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
                     
                     
                 }}>
-                    Eidt
+                    Edit
                 </button>
                 {showEditModal && (
                     <Modal onClose={() => setShowEditModal(false)}>
