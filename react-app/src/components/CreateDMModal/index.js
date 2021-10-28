@@ -13,7 +13,7 @@ function CreateDMModal({ setGroupId}) {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <CreateDMForm setShowModal={setShowModal} setGroupId={setGroupId}/>
+                    <CreateDMForm setShowModal={setShowModal} setGroupId={setGroupId} />
                 </Modal>
             )}
         </div>

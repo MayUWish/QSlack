@@ -59,7 +59,8 @@ function LeftBar() {
         chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
         momentParentEl.forEach(e => e.classList.remove("highlight"));
 
-        e.target.classList.add('highlight');
+        document.getElementById(e.target.value).classList.add('highlight');
+        // e.target.classList.add('highlight');
     }
 
     const loadMoment = (e) => {
@@ -127,6 +128,7 @@ function LeftBar() {
                         <button className='groupEl'
                                 key={`chatGroups${i}`} 
                                 value={`ChatGroups_${groupId}`} 
+                                id={`ChatGroups_${groupId}`}
                                 onClick={loadMain}>
                                 # {chatGroups[groupId]?.name}
                         </button>
@@ -140,7 +142,12 @@ function LeftBar() {
                     <CreateDMFormModal setGroupId={setGroupId}/>
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>
                         <div key={`dmChannelWrapper${i}`} style={{ display: 'flex', justifyContent:'space-between' }}>
-                            <button className='groupEl' key={`dmChannelUserName${i}`} value={`DM_${groupId}`} onClick={loadMain} style={{ display: 'inline' }}>
+                            <button className='groupEl' 
+                                    key={`dmChannelUserName${i}`} 
+                                    value={`DM_${groupId}`} 
+                                    id={`DM_${groupId}`}
+                                    onClick={loadMain} 
+                                    style={{ display: 'inline' }}>
                             {/* dmChannel is array of dictionary, members of which is dictionary; dmChannel     will only have 2 members, currentUser vs the other user whose name is displayed */}
                                 <img src={dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].profilePic ? dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].profilePic : defaultProfilePic} alt='profilePicForDMChannel'
                                 style={{width:'36px', height:'36px',borderRadius:'5px', marginRight:'3px'}}/>
