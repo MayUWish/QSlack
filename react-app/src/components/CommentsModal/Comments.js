@@ -4,6 +4,7 @@ import { useSelector, useDispatch} from "react-redux";
 import { createCommentsThunk } from "../../store/moments";
 import DeleteCommentModal from "../DeleteCommentModal";
 import EditCommentModal from "../EditCommentModal";
+import CloseModalButton from '../CloseModal';
 
 function Comments({ setCommentsShowModal, moment}) {
     const [errors, setErrors] = useState([]);
@@ -41,10 +42,8 @@ function Comments({ setCommentsShowModal, moment}) {
         <div style={{ width: '500px', maxHeight: '500px',  minHeight: '300px',
             overflow: 'auto', borderRadius:'5px',
             fontSize:'smaller',color: 'rgb(24, 24, 24)'}}>
-            <button style={{ display: 'inline-block' }} 
-                    className='smallBtn'
-                    onClick={e=>setCommentsShowModal(false)}>
-            X</button>
+
+            <CloseModalButton setShowModal={setCommentsShowModal} />
             <form onSubmit={onAdd}>
                 <div style={{ color: '#f0a04b' }}>
                     {errors.map((error, ind) => (

@@ -58,6 +58,8 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
 
 
     return (
+        <>
+        <CloseModalButton setShowModal={setShowModal} />
         <form onSubmit={onCreate} className='formWrapper'>
             <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
@@ -89,6 +91,7 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
             <button className='formBtn' type='submit'>Create moment</button>
             <button className='formBtn' onClick={onCancel}>Cancel</button>
         </form>
+        </>
     )
 
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getChatGroupsThunk } from "../../store/chatGroups";
-import { getDMChannelsThunk, removeDMChannelsThunk } from "../../store/dmChannels";
+import { getDMChannelsThunk} from "../../store/dmChannels";
 import { getMomentsThunk } from "../../store/moments";
 import MainContent from '../MainContentChatGroups/MainContent';
 import MainContentDM from '../MainContentDM/MainContentDM';

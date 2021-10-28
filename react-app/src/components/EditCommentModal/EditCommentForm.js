@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editCommentsThunk } from "../../store/moments";
 
 
-
 const EditCommentForm = ({ setShowModal, commentId, momentId, setCommentsShowModal, comment }) => {
     const [errors, setErrors] = useState([]);
     const [newComment, setNewComment] = useState(comment);
@@ -36,6 +35,7 @@ const EditCommentForm = ({ setShowModal, commentId, momentId, setCommentsShowMod
 
 
     return (
+        
         <form onSubmit={onEdit} className='formWrapper'>
             <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
@@ -60,6 +60,7 @@ const EditCommentForm = ({ setShowModal, commentId, momentId, setCommentsShowMod
             </div>
 
         </form>
+       
     )
 
 };
