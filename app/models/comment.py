@@ -7,9 +7,9 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     createdAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
     updatedAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
 
     # many comments to one moment
     momentId = db.Column(db.Integer, db.ForeignKey(

@@ -50,6 +50,7 @@ def handle_chat(data):
                 groupId=data['groupId'],
                 userId=data['userId'],
                 message=data['msg'],
+                createdAt=datetime.utcnow()
             )
             user = User.query.get(data['userId'])
             data['profilePic'] = user.profilePic
@@ -80,6 +81,6 @@ def handle_chat(data):
 
         elif messageToEdit.userId == data['userId'] and len(data['msg']) and not data['msg'].isspace():
             messageToEdit.message = data['msg']
-            messageToEdit.updatedAt = datetime.now()
+            messageToEdit.updatedAt = datetime.utcnow()
             db.session.commit()
         emit(data['groupId'], data, broadcast=True)

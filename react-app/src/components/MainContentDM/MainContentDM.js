@@ -122,9 +122,11 @@ function MainContentDM({ groupId }) {
                         <div className="eachChatWrapperInside">
                             <img className='chatProfilePic' alt='profilePicture' src={membersObject[String(message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic} />
                             <div>
-                                <div style={{ marginBottom: '1%' }}>
-                                    {membersObject[String(message.userId)].username}: 
-
+                                <div style={{ marginBottom: '1%'}}>
+                                    {`${membersObject[String(message.userId)].username} `}
+                                    <span style={{
+                                        color: 'gray', fontSize: 'small'}}>
+                                    {new Date(message.createdAt).toLocaleString()}</span>
                                 </div>
                                 <div>
                                     {message.message}

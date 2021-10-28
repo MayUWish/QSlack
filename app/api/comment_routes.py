@@ -68,7 +68,7 @@ def edit_comment(id):
     if form.validate_on_submit():
         # print('!!!form after', form.data)
         comment.comment = form.data['comment']
-        comment.updatedAt = datetime.now()
+        comment.updatedAt = datetime.utcnow()
         db.session.commit()
         # return moment with updated comments list to update redux store
         moment = Moment.query.get(form.data['momentId'])

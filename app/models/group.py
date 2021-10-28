@@ -11,9 +11,9 @@ class Group(db.Model):
     name = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String)
     createdAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
     updatedAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
     # many to one user
     adminId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
