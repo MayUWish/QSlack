@@ -48,6 +48,7 @@ const CreateDMForm = ({ setShowModal, setGroupId }) => {
 
     const updateUsername = (e) => {
         setUsername(e.target.value);
+        setErrors([])
     };
 
     return (

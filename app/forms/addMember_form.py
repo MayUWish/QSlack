@@ -26,7 +26,9 @@ def dm_channel(form, field):
     # Checking if user exists
     id = field.data
     group = Group.query.filter(Group.id == int(id)).first()
-    if group.isDM:
+    if not group:
+        return ValidationError('The chat group is deleted by the host.')
+    elif group.isDM:
         raise ValidationError('Direct message channel can not have more than 2 members')
 
 

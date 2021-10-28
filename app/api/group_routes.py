@@ -40,16 +40,16 @@ def create_group():
             group.members.append(current_user)
             db.session.commit()
             return group.to_dict()
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
     else:
         if form.validate_on_submit():
             # username is unique in db
             theOtherUser = User.query.filter(
                 User.username == form.data['name']).first()
             if not theOtherUser:
-                return {'errors': ['name: user not found.']}, 401
+                return {'errors': ['name: user not found.']}, 400
             if theOtherUser.id == current_user.id:
-                return {'errors': ['name: invite an user by user name but not yourself.']}, 401
+                return {'errors': ['name: invite an user by user name but not yourself.']}, 400
             # name the DM channel with name userId_userId to avoid duplication
             dmGroupName = f'{current_user.id}_{theOtherUser.id}_UniqueDM'
             dmGroupName2 = f'{theOtherUser.id}_{current_user.id}_UniqueDM'
@@ -58,7 +58,7 @@ def create_group():
             isDMExisted2 = Group.query.filter(
                 Group.name == dmGroupName2).first()
             if (isDMExisted and isDMExisted.isDM) or (isDMExisted2 and isDMExisted2.isDM):
-                # return {'errors': ['Already exist!']}, 401
+                # return {'errors': ['Already exist!']}, 400
                 return {'dmChannelId': isDMExisted.id if isDMExisted else isDMExisted2.id, f'{isDMExisted.id if isDMExisted else isDMExisted2.id}': isDMExisted.to_dict() if isDMExisted else isDMExisted2.to_dict()}
             group = Group(name=dmGroupName,
                           adminId=current_user.id,
@@ -69,7 +69,7 @@ def create_group():
             group.members.append(theOtherUser)
             db.session.commit()
             return group.to_dict()
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @group_routes.route('/<int:id>', methods=['DELETE'])
@@ -77,9 +77,10 @@ def create_group():
 def delete_group(id):
     userId = current_user.id
     group = Group.query.get(id)
-    isAdmin = userId == group.adminId
 
-    if isAdmin:
+    if not group:
+        return {'errors': ['The chat group is deleted by the host.']}, 400
+    elif userId == group.adminId:
         deletedGroupID = group.id
         db.session.delete(group)
         db.session.commit()
@@ -93,7 +94,7 @@ def delete_group(id):
         db.session.commit()
         return {'deletedGroupId': int(id), 'userId': userId}
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @group_routes.route('/<int:id>', methods=['PATCH'])
@@ -106,10 +107,10 @@ def edit_group(id):
         # print('!!!form after', form.data)
         group = Group.query.get(id)
         if group.adminId != current_user.id:
-            return {'errors': ['No authorization']}, 403
+            return {'errors': ['No authorization']}, 401
         group.name = form.data['name']
         group.description = form.data['description']
         group.updatedAt = datetime.now()
         db.session.commit()
         return group.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
