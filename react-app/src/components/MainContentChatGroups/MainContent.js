@@ -159,8 +159,8 @@ function MainContent({ groupId, setGroupId}) {
                         <img className='chatProfilePic' alt='profilePicture' src={allUsersObject[String(message.userId)]?.profilePic ? allUsersObject[String(message.userId)]?.profilePic : defaultProfilePic}/>
                         <div>
                             <div style={{marginBottom:'1%'}}>
-                                {allUsersObject[String(message.userId)]?.username}
-                                <span style={{ color: 'gray', fontSize: 'small', display: 'inline-block', marginLeft: '2%' }}>
+                                {`${allUsersObject[String(message.userId)]?.username} `}
+                                <span style={{ color: 'gray', fontSize: 'small'}}>
                                 {new Date(message.createdAt).toLocaleString()}</span>
                             </div>
                             <div>
