@@ -28,6 +28,13 @@ const DeleteGroupForm = ({ setShowModal, currentGroupId, currentGroupName, curre
         // do not use setShowModal(false), otherwise =>>>  Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
         else {
             setGroupId('')
+            // clear highlight on left bar
+            const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");
+            const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");
+            const momentParentEl = document.getElementsByClassName("groupsWrapper")[2].querySelectorAll(".highlight");
+            dmParentEl.forEach(e => e.classList.remove("highlight"));
+            chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+            momentParentEl.forEach(e => e.classList.remove("highlight"));
         }
     }
 
