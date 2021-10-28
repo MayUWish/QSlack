@@ -33,7 +33,7 @@ function MainContent({ groupId, setGroupId}) {
     const membersObject = chatGroups[groupId] ? chatGroups[groupId]?.members : dmChannels[groupId]?.members
     
     const [messageInput, setMessageInput] = useState("");
-    // const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     // everytime changing to a different group, will update redux store by putting groupId as dependency list
     useEffect(() => {
@@ -46,6 +46,7 @@ function MainContent({ groupId, setGroupId}) {
     }, [dispatch, groupId]);
 
     useEffect(() => {
+        setErrors([])
         // open socket connection
         // create websocket
         socket = io();
@@ -59,6 +60,8 @@ function MainContent({ groupId, setGroupId}) {
                     // setErrors(chat.errors)
                     alert(chat.errorsNoGroup[0])
 
+                } else if (chat.errors){
+                    setErrors(chat.errors)
                 }
                 // if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
@@ -98,11 +101,14 @@ function MainContent({ groupId, setGroupId}) {
             socket.disconnect()
 
         })
+
+
     }, [groupId, dispatch])
 
 
     const updateMessageInput = (e) => {
         setMessageInput(e.target.value)
+        setErrors([])
     };
 
     const sendChat = (e) => {
@@ -176,11 +182,11 @@ function MainContent({ groupId, setGroupId}) {
             {currentUser && currentGroup &&(
                 <div id='messageBox'>
                     <form onSubmit={sendChat}>
-                        {/* <div className='errorDiv'>
+                        <div style={{ backgroundColor: '#e1eedd', color:'#f0a04b', width:'fit-content'}}>
                             {errors.map((error, ind) => (
                                 <div key={ind}>{error}</div>
                             ))}
-                        </div> */}
+                        </div>
                         <textarea
                             className='messageInput'
                             value={messageInput}

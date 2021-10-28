@@ -37,7 +37,7 @@ const NavBar = () => {
         {user && <div style={{display:'flex', gap:'5%'}}>
         <img alt='profilePic' 
           src={user.profilePic ? user.profilePic : defaultProfilePic } 
-          style={{width:'50px',height:'50px', borderRadius:'5px'}}
+          style={{ width: '50px', height: '50px', borderRadius: '5px', cursor: 'pointer'}}
           onClick={e=>setShow(show=>!show)}/>
           {show && 
           <div style={{ }}>

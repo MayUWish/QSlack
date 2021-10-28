@@ -121,7 +121,7 @@ const SignUpForm = ({ setShowModal}) => {
             accept="image/*"
             onChange={updateProfilePic}
             className="formInput"
-            style={{ border: '1px solid black'}}          
+            style={{ border: '1px solid black', cursor: 'pointer'}}
           ></input>
         </div>
         <div className='formInputWrapper'>
