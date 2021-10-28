@@ -18,6 +18,9 @@ def add_member():
         # print('!!!form after', form.data)
         group = Group.query.filter(Group.id == form.data['groupId']).first()
         # print('!!group', group)
+        if not group:
+            return {'errors': ['The chat group is deleted by the host.']}, 400
+
         user = User.query.filter(
             User.username == form.data['username']).first()
         # print('!!user', user)
@@ -28,4 +31,4 @@ def add_member():
 
         return {'members': {member.id: member.to_dict()
                 for member in group.members}, 'groupId': form.data['groupId']}
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400

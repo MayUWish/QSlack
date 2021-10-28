@@ -22,7 +22,7 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setSho
         const data = await dispatch(addMemberThunk({ 'groupId': currentGroupId, username}));
         if (data && data.errors) {
             setErrors(data.errors)
-        } else{
+        }else{
             setErrors([])
             setShowModal(false)
         }

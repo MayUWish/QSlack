@@ -55,7 +55,7 @@ def create_moment():
         db.session.add(moment)
         db.session.commit()
         return moment.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @moment_routes.route('/<int:id>', methods=['DELETE'])
@@ -68,7 +68,7 @@ def delete_moment(id):
         db.session.commit()
         return str(id)
 
-    return {'errors': ['No authorization.']}, 403
+    return {'errors': ['No authorization.']}, 401
 
 
 @moment_routes.route('/<int:id>', methods=['PATCH'])
@@ -80,7 +80,7 @@ def edit_moment(id):
     moment = Moment.query.get(id)
 
     if not moment or moment.userId != current_user.id:
-        return {"errors": ["No authorization"]}, 403
+        return {"errors": ["No authorization"]}, 401
 
     if form.validate_on_submit():
         if "media" not in request.files:
@@ -103,4 +103,4 @@ def edit_moment(id):
         moment.updatedAt = datetime.now()
         db.session.commit()
         return moment.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400

@@ -18,7 +18,7 @@ def create_comment():
     form['csrf_token'].data = request.cookies['csrf_token']
     # print('!!!form before', form.data)
     if form.data['userId'] != current_user.id:
-        return {'errors': ['No authorization.']}, 403
+        return {'errors': ['No authorization.']}, 401
 
     if form.validate_on_submit():
         # print('!!!form after', form.data)
@@ -30,7 +30,7 @@ def create_comment():
         # return moment with updated comments list to update redux store
         moment = Moment.query.get(form.data['momentId'])
         return moment.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @comment_routes.route('/<int:id>', methods=['DELETE'])
@@ -43,7 +43,7 @@ def delete_comment(id):
     comment = Comment.query.get(id)
 
     if userId != comment.userId:
-        return {'errors': ['No authorization.']}, 403
+        return {'errors': ['No authorization.']}, 401
     if form.validate_on_submit():
         db.session.delete(comment)
         db.session.commit()
@@ -51,7 +51,7 @@ def delete_comment(id):
         moment = Moment.query.get(form.data['momentId'])
         return moment.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @comment_routes.route('/<int:id>', methods=['PATCH'])
@@ -63,7 +63,7 @@ def edit_comment(id):
     comment = Comment.query.get(id)
 
     if form.data['userId'] != comment.userId:
-        return {'errors': ['No authorization.']}, 403
+        return {'errors': ['No authorization.']}, 401
 
     if form.validate_on_submit():
         # print('!!!form after', form.data)
@@ -73,4 +73,4 @@ def edit_comment(id):
         # return moment with updated comments list to update redux store
         moment = Moment.query.get(form.data['momentId'])
         return moment.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
