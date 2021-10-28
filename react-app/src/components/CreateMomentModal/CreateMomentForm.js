@@ -85,7 +85,7 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
                     accept="image/*"
                     onChange={updateMedia}
                     className="formInput"
-                    style={{ border: '1px solid black', width:'92%' }}
+                        style={{ border: '1px solid black', width: '92%', cursor: 'pointer'}}
                 ></input>
             </div>
             <button className='formBtn' type='submit'>Create moment</button>

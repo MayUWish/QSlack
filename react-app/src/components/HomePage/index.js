@@ -100,10 +100,10 @@ const HomePage = () => {
                 <h2 style={{  textAlign: 'center', color: '#f0a04b' }}> My other projects: </h2>
                 <div>
                     <a href='https://uniqueene.herokuapp.com/listings' target="_blank" rel='noreferrer' >
-                        <img src={UniqueEnE} alt='project_UniqueEnE' style={{width:'45%', height:'600px',   margin:'2% 2%'}}/>
+                        <img src={UniqueEnE} alt='project_UniqueEnE' style={{ width: '45%', height: '600px', margin: '2% 2%', cursor: 'pointer'}}/>
                     </a>
                     <a href='https://ingestibles-app.herokuapp.com/' target="_blank" rel='noreferrer'>
-                        <img src={Ingestibles} alt='project_Ingestibles' style={{ width: '45%', height: '600px', margin: '2% 2%' }} />
+                        <img src={Ingestibles} alt='project_Ingestibles' style={{ width: '45%', height: '600px', margin: '2% 2%', cursor: 'pointer' }} />
                     </a>
                 </div>
                 

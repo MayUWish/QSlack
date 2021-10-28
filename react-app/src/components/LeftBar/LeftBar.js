@@ -121,8 +121,8 @@ function LeftBar() {
                         {currentUser.username}
                     </h3>
                 <div className='groupsWrapper'>
-                    <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e=> setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
-                    <h4 style={{ display:'inline', marginLeft:'1%' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>
+                        <i style={{cursor: 'pointer'}} className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e=> setShowChatGroups(showChatGroups=>!showChatGroups)}/>
+                        <h4 style={{ display: 'inline', marginLeft: '1%', cursor: 'pointer' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>
                     <CreateGroupFormModal />
                     {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
                         <button className='groupEl'
@@ -136,8 +136,8 @@ function LeftBar() {
 
                 </div>
                 <div className='groupsWrapper'>
-                    <i className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e => setShowDM(showDM=>!showDM)} /> 
-                    <h4 style={{ display: 'inline', marginLeft: '1%' }} onClick={e => setShowDM(showDM => !showDM)}>Direct messages</h4>
+                    <i style={{ cursor: 'pointer', marginTop:'5%' }} className={showDM ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e => setShowDM(showDM=>!showDM)} />
+                    <h4 style={{ display: 'inline', marginLeft: '1%', cursor: 'pointer'  }} onClick={e => setShowDM(showDM => !showDM)}>Direct messages</h4>
                     {/* setGroupId is passed down and used to load the mainContent when DM is already at db but user try to create one more */} 
                     <CreateDMFormModal setGroupId={setGroupId}/>
                     {showDM && Object.keys(dmChannels).map((groupId, i) =>
@@ -166,18 +166,18 @@ function LeftBar() {
                 </div>
                     <div className='groupsWrapper'>
                         <div>
-                            <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={loadMoment}/>
-                            <h4 style={{ display: 'inline' }} onClick={loadMoment}> Moments</h4>
+                            <i style={{ cursor: 'pointer', marginTop: '5%' }} className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={loadMoment}/>
+                            <h4 style={{ display: 'inline', cursor: 'pointer'  }} onClick={loadMoment}> Moments</h4>
                         </div>
 
                         <CreateMomentFormModal setShowMyMoments={setShowMyMoments} setShowAllMoments={setShowAllMoments} setGroupId={setGroupId}/>
 
                         {showMoments && <div style={{ marginLeft:'4%' }} onClick={loadAllMoment}>
-                            <i className={"fas fa-camera-retro"} > All moments </i>
+                            <i className={"fas fa-camera-retro momentHover"} style={{ cursor: 'pointer' }} > All moments </i>
                         </div>}
 
                         {showMoments && <div id='myMomentOnLeftBar' style={{ marginLeft:'4%', marginTop:'5%' }} onClick={loadMyMoment}>
-                            <i className={"fas fa-camera-retro"} > My moments </i>
+                            <i className={"fas fa-camera-retro momentHover"} style={{ cursor: 'pointer' }} > My moments </i>
                         </div>}
                 </div>
                     

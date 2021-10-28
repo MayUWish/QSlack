@@ -101,3 +101,7 @@ label{
     color: #f0a04b;
     margin-left:2%;
 }
+
+button{
+    cursor: pointer;
+}
