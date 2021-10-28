@@ -22,6 +22,7 @@ function MainContentDM({ groupId }) {
     const membersObject =  dmChannels[groupId]?.members
     const theOtherUser = membersObject?membersObject[(Object.keys(membersObject)?.filter(memberId => +memberId !== +currentUser.id))[0]]:{}
     const [messageInput, setMessageInput] = useState("");
+    const [errors, setErrors] = useState([]);
 
 
     //everytime changing to a different group, will update redux store by putting groupId as dependency list
@@ -35,8 +36,9 @@ function MainContentDM({ groupId }) {
     }, [dispatch, groupId]);
 
     useEffect(() => {
+        setErrors([])
         // open socket connection
-        // create websocket
+        // create websocket       
         socket = io();
 
         socket.on(String(groupId), async (chat) => {
@@ -47,7 +49,9 @@ function MainContentDM({ groupId }) {
                     await dispatch(getDMChannelsThunk())
                     // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
                     await dispatch(getChatGroupsThunk())
-                } 
+                } else if (chat.errors) {
+                    setErrors(chat.errors)
+                }
             }
             else if (chat.action === 'delete') {
                 //console.log('delete chat!!!', chat)
@@ -64,6 +68,7 @@ function MainContentDM({ groupId }) {
                     await dispatch(getChatGroupsThunk())
                 }               
             }
+           
         })
         // when component unmounts, disconnect
         return (() => {
@@ -74,6 +79,7 @@ function MainContentDM({ groupId }) {
 
     const updateMessageInput = (e) => {
         setMessageInput(e.target.value)
+        setErrors([])
         
     };
 
@@ -137,6 +143,11 @@ function MainContentDM({ groupId }) {
             {currentUser && (
                 <div id='messageBox'>
                 <form onSubmit={createMessage}>
+                    <div style={{ backgroundColor: '#e1eedd', color: '#f0a04b', width: 'fit-content' }}>
+                        {errors.map((error, ind) => (
+                            <div key={ind}>{error}</div>
+                        ))}
+                    </div>
                     <textarea
                         className='messageInput'
                         value={messageInput}
