@@ -47,7 +47,7 @@ const EditMomentForm = ({ setShowModal, moment, momentId }) => {
         <>
         <CloseModalButton setShowModal={setShowModal} />
         <form onSubmit={onEdit} className='formWrapper'>
-            <div style={{ color: '#f0a04b' }}>
+            <div className='errorDiv'>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}

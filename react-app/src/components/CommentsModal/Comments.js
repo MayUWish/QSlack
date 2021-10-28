@@ -44,13 +44,13 @@ function Comments({ setCommentsShowModal, moment}) {
             fontSize:'smaller',color: 'rgb(24, 24, 24)'}}>
 
             <CloseModalButton setShowModal={setCommentsShowModal} />
-            <form onSubmit={onAdd}>
+            <form onSubmit={onAdd} style={{marginLeft:'2%', marginTop:'2%'}}>
                 <div style={{ color: '#f0a04b' }}>
                     {errors.map((error, ind) => (
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <div style={{ display: 'inline' }}>
+                <div style={{ display: 'flex',gap:'1%',alignItems:'flex-end' }}>
                     <input
                         type='text'
                         name='comment'
@@ -59,18 +59,19 @@ function Comments({ setCommentsShowModal, moment}) {
                         placeholder='Comments'
                         className='formInput'
                     ></input>
+                    <button style={{ display: 'inline-block' }} className='btn' type='submit'>Post</button>
                 </div>
-                <button style={{ display: 'inline-block' }} className='btn' type='submit'>Post</button>
+                
                 
             </form>
 
-            <div>
+            <div style={{ marginLeft: '3%', marginTop: '1%' }}>
                 {moment.comments.map((comment, i) => (
-                    <div key={`comment:${comment} ${i}`}>
+                    <div key={`comment:${comment} ${i}`} style={{marginTop: '2%' }}>
 
                         <img src={comment.user.profilePic ? comment.user.profilePic :   defaultProfilePic} alt='profilePic' className='commentProfilePic' />
                         {comment.user.username}: {comment.comment}
-                        {+comment.userId === +currentUser.id && <div style={{ marginRight: '2%' }}>
+                        {+comment.userId === +currentUser.id && <div >
                             <EditCommentModal setCommentsShowModal={setCommentsShowModal} commentId={comment.id} comment={comment.comment} momentId={moment.id} />
                             <DeleteCommentModal setCommentsShowModal={setCommentsShowModal} commentId={comment.id} momentId={moment.id} />
                             

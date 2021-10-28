@@ -36,13 +36,13 @@ const EditCommentForm = ({ setShowModal, commentId, momentId, setCommentsShowMod
 
     return (
         
-        <form onSubmit={onEdit} className='formWrapper'>
+        <form onSubmit={onEdit} className='formWrapper' style={{marginLeft:'2%'}}>
             <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <label>Comment:</label>
+            <label>Edit comment:</label>
             <div style={{ display: 'inline' }}>
                 <input
                     type='text'

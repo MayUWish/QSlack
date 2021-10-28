@@ -10,7 +10,7 @@ function CommentsModal({moment}) {
         <div style={{ textAlign: 'end' }} >
             <button className='smallBtn' onClick={() => setCommentsShowModal(true)}
                 style={{ border: 'none', backgroundColor: 'white' }}>
-                <i className="fas fa-comment fa-2x comment"/>
+                <i className="far fa-comment fa-2x comment"/>
                  {moment.comments.length}
             </button>
             {showCommentsModal && (

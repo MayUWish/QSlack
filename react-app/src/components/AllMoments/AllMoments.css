@@ -28,14 +28,16 @@
 }
 
 .like, .comment{
-    color:gray;
+    color:#183a1d;
     display: inline;
     min-width: 50px;
 }
 
 /* liked when current user liked the moment */
 .liked{
-    color: #f0a04b
+    color: #f0a04b;
+    /* background-color: #f0a04b; */
+    border-radius: 90%;
 }
 
 .commentWrapper{
