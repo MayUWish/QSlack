@@ -59,7 +59,7 @@ function LeftBar() {
         chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
         momentParentEl.forEach(e => e.classList.remove("highlight"));
 
-        document.getElementById(e.target.value).classList.add('highlight');
+        document.getElementById(e.target.value)?.classList.add('highlight');
         // e.target.classList.add('highlight');
     }
 

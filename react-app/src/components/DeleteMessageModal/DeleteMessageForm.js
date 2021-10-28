@@ -16,10 +16,11 @@ const DeleteMessageForm = ({ setShowModal, messageId, groupId }) => {
 
         socket.on(String(groupId), async (chat) => {
             if (chat.action === 'delete') {
-                if (chat.errors) {
+                if (chat.errorsNoGroup) {                   
+                    alert(chat.errorsNoGroup[0])
+                } else if (chat.errors){
                     setErrors(chat.errors)
-                    alert(chat.errors[0])
-                } else {
+                }else {
                     setShowModal(false)
                 }
 

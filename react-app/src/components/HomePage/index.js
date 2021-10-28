@@ -17,7 +17,7 @@ const HomePage = () => {
                 <div style={{ width:'40%', textAlign:'center'}}>
            
                     <h2 style={{ color: '#183a1d', margin: '50% 10% 1%  10%' }}>
-                        <span style={{ color: '#f0a04b'}}>Join</span> us to send direct message, chat in groups, and share moments.
+                        <span style={{ color: '#f0a04b'}}>Join</span> us to send direct messages, chat in groups, and share moments.
 
                     </h2>
                     <DemoButton info={'TRY A FREE DEMO'} style={{width:'150px'}}/>
