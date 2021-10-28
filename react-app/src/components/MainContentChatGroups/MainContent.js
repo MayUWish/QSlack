@@ -82,6 +82,15 @@ function MainContent({ groupId, setGroupId}) {
                     await dispatch(getDMChannelsThunk())
                 // }
             }
+            
+            // remove other highlighted and set the current group highlighted on left bar
+            const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");;
+            const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");
+            const momentParentEl = document.getElementsByClassName("groupsWrapper")[2].querySelectorAll(".highlight");
+            dmParentEl.forEach(e => e.classList.remove("highlight"));
+            chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+            momentParentEl.forEach(e => e.classList.remove("highlight"));
+            document.getElementById(`ChatGroups_${ groupId }`).classList.add('highlight');
 
         })
         // when component unmounts, disconnect
