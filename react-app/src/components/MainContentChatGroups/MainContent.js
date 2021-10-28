@@ -145,6 +145,8 @@ function MainContent({ groupId, setGroupId}) {
                         <div>
                             <div style={{marginBottom:'1%'}}>
                                 {allUsersObject[String(message.userId)]?.username}:
+                                {/* <span style={{ color: 'gray', fontSize: 'small' }}>
+                                {new Date(message.createdAt).toLocaleString("en-US")}</span> */}
                             </div>
                             <div>
                                 {message.message}

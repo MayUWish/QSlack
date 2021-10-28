@@ -29,6 +29,14 @@ const CreateDMForm = ({ setShowModal, setGroupId }) => {
             setGroupId(`DM_${data.dmChannelId}`)
             setErrors([])
             setShowModal(false)
+            
+            //remove highlighted on left bar
+            const dmParentEl = document.getElementsByClassName("groupsWrapper")[0].querySelectorAll(".highlight");;
+            const chatGroupsParentEl = document.getElementsByClassName("groupsWrapper")[1].querySelectorAll(".highlight");
+            const momentParentEl = document.getElementsByClassName("groupsWrapper")[2].querySelectorAll(".highlight");
+            dmParentEl.forEach(e => e.classList.remove("highlight"));
+            chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
+            momentParentEl.forEach(e => e.classList.remove("highlight"));
         }
         else {
             setErrors([])
