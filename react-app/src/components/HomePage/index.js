@@ -1,6 +1,7 @@
 import React from 'react';
 import DemoButton from '../auth/DemoButton'
 import welcome from '../../static/images/welcome.png';
+import app from '../../static/images/app.jpg';
 import UniqueEnE from '../../static/images/UniqueEnE.jpg'; 
 import Ingestibles from '../../static/images/Ingestibles.jpg';
 import './HomePage.css';
@@ -32,55 +33,62 @@ const HomePage = () => {
                     
                 </div>
                 
+                <div style={{ display: 'flex'}}>
+                    <div style={{ display: 'flex', gap: '5%', flexWrap: 'wrap', width: '50%', marginLeft:   '1%'}}>
+                        <div>
+                            <i className="devicon-python-plain tech">Python</i>
+                        </div>
 
-                <div style={{ display: 'flex', gap: '5%', flexWrap: 'wrap', width: '50%', marginLeft: '3%'}}>
-                    <div>
-                        <i className="devicon-python-plain tech">Python</i>
+                        <div>
+                            <i className="devicon-javascript-plain tech">JavaScript</i>
+                        </div>
+
+                        <div>
+                            <i className="devicon-react-original tech">React</i>
+                        </div>
+
+                        <div>
+                            <i className="devicon-redux-original tech" >Redux</i>
+                        </div>
+
+                        <div>
+                            <i className="devicon-html5-plain tech">Html</i>
+                        </div >
+
+                        <div>
+                            <i className="devicon-css3-plain tech">CSS</i>
+                        </div >
+
+                        <div>
+                            <i className="devicon-flask-original tech" >Flask</i>
+                        </div >
+
+                        <div>
+                            <i className="devicon-postgresql-plain tech" >Postgresql</i>
+                        </div >
+
+                        <div>
+                            <i className="devicon-sqlalchemy-plain tech" >Sqlalchemy</i>
+                        </div >
+
+                        <div>
+                            <i className="devicon-socketio-original tech" >WebSocket</i>
+                        </div >
+
+                        <div>
+                            <i className="devicon-docker-plain tech">Docker</i>
+                        </div >
+
+                        <div>
+                            <i className="fab fa-aws fa-2x tech" >AWS</i>
+                        </div >
+
                     </div>
 
-                    <div>
-                        <i className="devicon-javascript-plain tech">JavaScript</i>
+                    <div style={{display:'flex', alignItems:'center'}}>
+                        <img src={app} alt='qslack' style={{ width: '100%'}} />
                     </div>
-
-                    <div>
-                        <i className="devicon-react-original tech">React</i>
-                    </div>
-
-                    <div>
-                        <i className="devicon-redux-original tech" >Redux</i>
-                    </div>
-
-                    <div>
-                        <i className="devicon-html5-plain tech">Html</i>
-                    </div >
-
-                    <div>
-                        <i className="devicon-css3-plain tech">CSS</i>
-                    </div >
-
-                    <div>
-                        <i className="devicon-flask-original tech" >Flask</i>
-                    </div >
-
-                    <div>
-                        <i className="devicon-postgresql-plain tech" >Postgresql</i>
-                    </div >
-
-                    <div>
-                        <i className="devicon-sqlalchemy-plain tech" >Sqlalchemy</i>
-                    </div >
-
-                    <div>
-                        <i className="devicon-socketio-original tech" >WebSocket</i>
-                    </div >
-
-                    <div>
-                        <i className="devicon-docker-plain tech">Docker</i>
-                    </div >
-
-                    <div>
-                        <i className="fab fa-aws fa-2x tech" >AWS</i>
-                    </div >
+                    
 
                 </div>
                 
