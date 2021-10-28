@@ -5,11 +5,12 @@ import { login } from '../../../store/session';
 import DemoButton from '../DemoButton'
 import { Modal } from '../../../context/Modal';
 import SignUpForm from '../SignUpFormModal/SignUpForm.js'
+import CloseModalButton from '../../CloseModal'
 import { getChatGroupsThunk } from "../../../store/chatGroups";
 import { getDMChannelsThunk } from "../../../store/dmChannels";
 
 
-const LoginForm = () => {
+const LoginForm = ({ setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,8 +46,9 @@ const LoginForm = () => {
 
   return (
     < div className='formWrapper'>
+      <CloseModalButton setShowModal={setShowModal}/>
       <form onSubmit={onLogin}>
-        <div style={{ color:'#f0a04b'}}>
+        <div className = 'errorDiv'>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
@@ -78,7 +80,9 @@ const LoginForm = () => {
      
       <div className='formInputWrapper' >
         New to QSlack?
-        <button onClick={()=>{setShowSignupModal(true)}}        
+        <button onClick={() => {
+          setShowSignupModal(true)
+          }}        
           style={{
             marginLeft: '2%',
             borderRadius: '3px',
@@ -90,7 +94,7 @@ const LoginForm = () => {
         </button>
         {showSignupModal && (
           <Modal onClose={() => setShowSignupModal(false)}>
-            <SignUpForm />
+            <SignUpForm setShowModal={setShowSignupModal}/>
           </Modal>
         )}
 		  </div>

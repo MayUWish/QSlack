@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector} from "react-redux";
 import { Modal } from '../../context/Modal';
 import EditGroupForm from './EditGroupForm';
+import CloseModalButton from '../CloseModal'
 
 
 
@@ -9,16 +10,22 @@ import EditGroupForm from './EditGroupForm';
 const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const currentUser = useSelector((state) => state.session?.user);
+    const allUsers = useSelector((state) => state.session?.allUsers);
+    const adminUser = allUsers.filter(user => +user.id === +currentGroup.adminId)[0]
     const isAdmin = +currentUser.id === +currentGroup.adminId
  
     return (
         <div>
+            <CloseModalButton setShowModal={setShowModal} />
             <div style={{padding:'5%'}}>
                 Name: {currentGroup.name}
             </div>
             <div style={{ padding: '5%' }}>
                 Description: {currentGroup.description ? currentGroup.description : 'None'}
             </div>
+            <div style={{ padding: '5%' }}>
+                Created by {adminUser.username}
+            </div >
             <div style={{ padding: '5%' }}>
                 Created on {new Date(currentGroup.createdAt).toLocaleDateString()}
             </div >

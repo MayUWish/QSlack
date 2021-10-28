@@ -8,7 +8,7 @@ class Group(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     isDM = db.Column(db.Boolean, nullable=False, default=False)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String)
     createdAt = db.Column(db.DateTime, nullable=False,
                           default=datetime.now())

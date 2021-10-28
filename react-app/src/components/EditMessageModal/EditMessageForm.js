@@ -19,6 +19,7 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
                 //console.log('edit chat!!!', chat)
                 if (chat.errors) {
                     setErrors(chat.errors)
+                    alert(chat.errors[0])
                 } else {
                     setShowModal(false)
                 }
@@ -56,7 +57,7 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
 
     return (
         <form onSubmit={editMessage} className='formWrapper'>
-            <div style={{ color: '#f0a04b' }}>
+            <div className='errorDiv'>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}

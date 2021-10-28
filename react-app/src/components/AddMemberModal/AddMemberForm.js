@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png';
 import { useSelector, useDispatch } from 'react-redux'
 import { addMemberThunk } from "../../store/chatGroups";
+import CloseModalButton from '../CloseModal'
 
 
 
@@ -28,38 +29,44 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setSho
 
     };
 
+
     const updateUsername = (e) => {
+        
         setUsername(e.target.value);
+
     };
 
     return (
         <div className='formWrapper'>
-            <h3>{currentGroupName}</h3>
-            <form onSubmit={onAdd}>
+            <CloseModalButton setShowModal={setShowModal} />
+            <h3 style={{ paddingLeft: '2%' }}>{currentGroupName}</h3>
+            <form onSubmit={onAdd} style={{ paddingLeft: '2%' }}>
                 <div style={{ color: '#f0a04b' }}>
                   {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                   ))}
                 </div>
-                <div>
+                <div style={{display:'flex', alignItems:'flex-end',gap:'1%'}}>
                   {/* <label>User Name</label> */}
                   <input
                     type='text'
                     name='username'
                     onChange={updateUsername}
                     value={username}
-                    placeholder='Add a user by name'
+                    placeholder='Invite a user by name'
                     className='formInput'
                   ></input>
-                    <button className='btn' type='submit' >Add</button>
+                    <button className='btn' type='submit' >Invite</button>
                 </div>
                 
             </form>
             
             
             {allUsers.map((member, i) => (
-                <div className="eachChatWrapper" key={`message${i}`}>
-                    <img className='chatProfilePic' alt='profilePicture' src={member.profilePic ? member.profilePic : defaultProfilePic} /> {currentMemberNames.includes(member.username) ? <>{member.username} <div style={{display:'inline-block'}}>(present)</div> </> : <span>{member.username}</span> }
+                (member.username.toLowerCase().includes(username.toLowerCase()) || !username.replace(/ /g, '')) && <div className="eachChatWrapper" key={`message${i}`} style={{ paddingLeft: '2%' }}>
+                    <img className='chatProfilePic' alt='profilePicture' src={member.profilePic ? member.profilePic : defaultProfilePic} /> 
+                    
+                    {currentMemberNames.includes(member.username) ? <>{member.username} <div style={{display:'inline-block'}}>(present)</div> </> : <span>{member.username}</span> }
                 </div>
             ))}
 

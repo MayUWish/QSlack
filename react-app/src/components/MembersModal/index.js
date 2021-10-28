@@ -9,14 +9,14 @@ function MembersModal({ membersObject, currentGroupName}) {
     return (
     
         <div>
-            <button className='middleBtn2' onClick={() => setShowModal(true)}>
+            <button className='middleBtn2' style={{borderRadius:'0', border:'none'}} onClick={() => setShowModal(true)}>
                 <i className="fas fa-users fa-2x chatIcon"  />
-                    <div style={{fontWeight:'bolder', fontSize:'larger', display:'inline-block', marginLeft:'5px'}}>{Object.keys(membersObject).length}</div>
+                    <div style={{fontWeight:'bolder', fontSize:'larger', display:'inline-block'}}> {Object.keys(membersObject).length}</div>
                 </button>              
 
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <Members currentGroupName={currentGroupName} membersObject={membersObject}/>
+                    <Members currentGroupName={currentGroupName} membersObject={membersObject} setShowModal={setShowModal}/>
                 </Modal>
             )}
         </div>

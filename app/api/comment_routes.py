@@ -4,6 +4,7 @@ from app.models import User, Comment, Moment, db
 from app.forms import CreateCommentForm
 from app.forms import DeleteCommentForm
 from app.api.auth_routes import validation_errors_to_error_messages
+from datetime import datetime
 
 
 comment_routes = Blueprint('comments', __name__)
@@ -67,7 +68,7 @@ def edit_comment(id):
     if form.validate_on_submit():
         # print('!!!form after', form.data)
         comment.comment = form.data['comment']
-        db.session.add(comment)
+        comment.updatedAt = datetime.now()
         db.session.commit()
         # return moment with updated comments list to update redux store
         moment = Moment.query.get(form.data['momentId'])

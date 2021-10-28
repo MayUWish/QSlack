@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import DeleteGroupForm from './DeleteGroupForm';
 
 
-function DeleteGroupFormModal({ currentGroupId, currentGroupName, currentGroup } ) {
+function DeleteGroupFormModal({ currentGroupId, currentGroupName, currentGroup, setGroupId } ) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -13,7 +13,7 @@ function DeleteGroupFormModal({ currentGroupId, currentGroupName, currentGroup }
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteGroupForm setShowModal={setShowModal} currentGroupId={currentGroupId} currentGroupName={currentGroupName} currentGroup={currentGroup}/>
+                    <DeleteGroupForm setShowModal={setShowModal} currentGroupId={currentGroupId} currentGroupName={currentGroupName} currentGroup={currentGroup} setGroupId={setGroupId}/>
                 </Modal>
             )}
         </div>

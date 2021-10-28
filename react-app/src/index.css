@@ -37,7 +37,6 @@ html, body{
     border:none;
     height:35px;
     width: 42px;
-
 }
 
 .middleBtn2{
@@ -96,4 +95,9 @@ html, body{
 
 label{
     display: block;
+}
+
+.errorDiv{
+    color: #f0a04b;
+    margin-left:2%;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createMomentsThunk } from "../../store/moments";
+import CloseModalButton from '../CloseModal';
 
 
 
@@ -57,8 +58,10 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
 
 
     return (
+        <>
+        <CloseModalButton setShowModal={setShowModal} />
         <form onSubmit={onCreate} className='formWrapper'>
-            <div style={{ color: '#f0a04b' }}>
+            <div className='errorDiv'>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
@@ -88,6 +91,7 @@ const CreateMomentForm = ({ setShowModal, setShowMyMoments, setShowAllMoments, s
             <button className='formBtn' type='submit'>Create moment</button>
             <button className='formBtn' onClick={onCancel}>Cancel</button>
         </form>
+        </>
     )
 
 };

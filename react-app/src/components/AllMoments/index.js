@@ -48,7 +48,7 @@ function AllMoments() {
                     <div className='likeCommentWrapper'>
                        
                         <button value={momentId} onClick={postLike} style={{border:'none', backgroundColor:'white'}}>
-                            {currentUser.likedMomentId.includes(momentId) ? <i className="fas fa-heart fa-2x like liked"  /> : <i className="fas fa-heart fa-2x like" /> }
+                            {currentUser.likedMomentId.includes(momentId) ? <i className="fas fa-heart fa-2x like liked"  /> : <i className="far fa-heart fa-2x like" /> }
                             {moments[momentId].likes.length ? moments[momentId].likes.length:'0'}
                         </button>
 

@@ -4,7 +4,6 @@ import { deleteMomentsThunk} from "../../store/moments";
 
 
 
-
 const DeleteMomentForm = ({ setShowModal, momentId }) => {
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
@@ -31,6 +30,7 @@ const DeleteMomentForm = ({ setShowModal, momentId }) => {
 
 
     return (
+      
         <form onSubmit={onDelete} className='formWrapper'>
             <div style={{ color: '#f0a04b' }}>
                 {errors.map((error, ind) => (
@@ -47,6 +47,7 @@ const DeleteMomentForm = ({ setShowModal, momentId }) => {
             </div>
 
         </form>
+        
     )
 
 };

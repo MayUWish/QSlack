@@ -8,14 +8,18 @@ import EditGroupModal from '../EditGroupModal';
 import { getChatGroupsThunk } from "../../store/chatGroups";
 import { getDMChannelsThunk } from "../../store/dmChannels";
 import EditMessageFormModal from '../EditMessageModal';
+import DeleteMessageFormModal from '../DeleteMessageModal';
 import './MainContent.css';
 
 import { io } from 'socket.io-client';
 let socket;
 
-function MainContent({groupId}) {
+function MainContent({ groupId, setGroupId}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.session?.user);
+    const allUsers = useSelector(state => state.session.allUsers);
+    const allUsersObject = {}
+    allUsers.forEach(user=>allUsersObject[user.id]=user)
     const chatGroups = useSelector((state) => state.chatGroups);
     const dmChannels = useSelector((state) => state.dmChannels);
     const currentGroup = chatGroups[groupId] ? chatGroups[groupId] : dmChannels[groupId]
@@ -29,6 +33,7 @@ function MainContent({groupId}) {
     const membersObject = chatGroups[groupId] ? chatGroups[groupId]?.members : dmChannels[groupId]?.members
     
     const [messageInput, setMessageInput] = useState("");
+    // const [errors, setErrors] = useState([]);
 
     // everytime changing to a different group, will update redux store by putting groupId as dependency list
     useEffect(() => {
@@ -50,11 +55,16 @@ function MainContent({groupId}) {
             
             if (chat.action === 'create') {
                 //console.log('create chat!!!', chat)
-                if (!chat.errors) {
+                if (chat.errors){
+                    // setErrors(chat.errors)
+                    alert(chat.errors[0])
+
+                }
+                // if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
                     // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
                     await dispatch(getDMChannelsThunk())
-                }
+                // }
             } 
             else if (chat.action === 'delete') {
                 //console.log('delete chat!!!', chat)
@@ -66,11 +76,11 @@ function MainContent({groupId}) {
 
             else if (chat.action === 'edit') {
                 //console.log('edit chat!!!', chat)
-                if (!chat.errors) {
+                // if (!chat.errors) {
                     await dispatch(getChatGroupsThunk())
                     // when the other user add the current user into a DM channel or chat groups, and the current user sends a message, it will re-render to see the new chat groups or DM channel
                     await dispatch(getDMChannelsThunk())
-                }
+                // }
             }
 
         })
@@ -97,15 +107,15 @@ function MainContent({groupId}) {
         setMessageInput("")
     }
 
-    const deleteMessage = (e) => {
-        e.preventDefault()
-        socket.emit("chat", {
-            'messageId': e.target.value,
-            groupId,
-            userId: currentUser.id,
-            action: 'delete'
-        });
-    }
+    // const deleteMessage = (e) => {
+    //     e.preventDefault()
+    //     socket.emit("chat", {
+    //         'messageId': e.target.value,
+    //         groupId,
+    //         userId: currentUser.id,
+    //         action: 'delete'
+    //     });
+    // }
 
     return (
         <div>
@@ -114,7 +124,7 @@ function MainContent({groupId}) {
                     {currentGroupName}
                 </div>
 
-                <div style={{ display: 'flex', width: '95%', justifyContent: 'end' }}>
+                <div style={{ display: 'flex', width: '50%', justifyContent: 'end' }}>
                 
                     {currentGroup && <MembersModal membersObject={membersObject} currentGroupName={currentGroupName}/>}
                     
@@ -122,7 +132,7 @@ function MainContent({groupId}) {
                    
                     {currentGroup && <EditGroupModal currentGroup={currentGroup}/>}
 
-                    {currentGroup && <DeleteGroupModal currentGroupName={currentGroupName} currentGroupId={currentGroupId} currentGroup={currentGroup} />}
+                    {currentGroup && <DeleteGroupModal currentGroupName={currentGroupName} currentGroupId={currentGroupId} currentGroup={currentGroup} setGroupId={setGroupId}/>}
 
                 </div>
                 
@@ -131,10 +141,10 @@ function MainContent({groupId}) {
             {currentGroup && messagesArr.map((message,i)=>(
                 <div className="eachChatWrapperOutside" key={`message${i}`} >
                     <div className="eachChatWrapperInside">
-                        <img className='chatProfilePic' alt='profilePicture' src={membersObject[String  (message.userId)].profilePic ? membersObject[String(message.userId)].profilePic : defaultProfilePic}/>
+                        <img className='chatProfilePic' alt='profilePicture' src={allUsersObject[String(message.userId)]?.profilePic ? allUsersObject[String(message.userId)]?.profilePic : defaultProfilePic}/>
                         <div>
                             <div style={{marginBottom:'1%'}}>
-                                {membersObject[String(message.userId)].username}:
+                                {allUsersObject[String(message.userId)]?.username}:
                             </div>
                             <div>
                                 {message.message}
@@ -144,16 +154,22 @@ function MainContent({groupId}) {
                     </div>
                     {+message.userId === +currentUser.id && <div style={{marginRight:'2%'}}>
                         <EditMessageFormModal message={message} groupId={groupId} />
-                        <button style={{ display: 'inlineBlock'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button>
+                        <DeleteMessageFormModal messageId={message.id} groupId={groupId} />
+                        {/* <button style={{ display: 'inlineBlock'}} className='smallBtn' value={message.id} onClick={deleteMessage}>Delete</button> */}
                     </div>}
                 </div>
             ))}
 
             </div>
            
-            {currentUser && (
+            {currentUser && currentGroup &&(
                 <div id='messageBox'>
                     <form onSubmit={sendChat}>
+                        {/* <div className='errorDiv'>
+                            {errors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div> */}
                         <textarea
                             className='messageInput'
                             value={messageInput}

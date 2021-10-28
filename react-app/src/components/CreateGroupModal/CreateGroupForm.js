@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createChatGroupsThunk } from "../../store/chatGroups";
-
+import CloseModalButton from '../CloseModal';
 
 
 
@@ -43,8 +43,10 @@ const CreateGroupForm = ({ setShowModal }) => {
 
 
     return (
+        <>
+        <CloseModalButton setShowModal={setShowModal} />
         <form onSubmit={onCreate} className='formWrapper'>
-            <div style={{ color: '#f0a04b' }}>
+            <div className='errorDiv'>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
@@ -71,6 +73,7 @@ const CreateGroupForm = ({ setShowModal }) => {
             </div>
             <button className='formBtn' type='submit'>Create chat group</button>
         </form>
+        </>
     )
       
 };

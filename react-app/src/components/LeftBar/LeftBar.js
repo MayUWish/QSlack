@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getChatGroupsThunk } from "../../store/chatGroups";
-import { getDMChannelsThunk, removeDMChannelsThunk } from "../../store/dmChannels";
+import { getDMChannelsThunk} from "../../store/dmChannels";
 import { getMomentsThunk } from "../../store/moments";
 import MainContent from '../MainContentChatGroups/MainContent';
 import MainContentDM from '../MainContentDM/MainContentDM';
@@ -27,7 +27,7 @@ function LeftBar() {
     const [showMoments, setShowMoments] = useState(true);
     const [showAllMoments, setShowAllMoments] = useState(false);
     const [showMyMoments, setShowMyMoments] = useState(false);
-    const [groupId, setGroupId] = useState(`ChatGroups_${ Object.keys(chatGroups)[0]}`);
+    const [groupId, setGroupId] = useState(Object.keys(chatGroups)[0]?`ChatGroups_${ Object.keys(chatGroups)[0]}`:'');
     
 
     
@@ -99,14 +99,13 @@ function LeftBar() {
         e.target.classList.add('highlight');
     }
 
-
-    const removeFromStore = async(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        // button will need to have innerHTML to have e.target.value(e.g. close), otherwise undefined
-        const id = e.target.value.split('_')[1]
-        await dispatch(removeDMChannelsThunk(id))
-    }
+    // do not do remove DM from redux, bc when other users invited current user to a group, in order current user is showed the newly group, certain actions such as click on group and dm will trigger getThunk to grab most updated chat groups and dm channels. Thus remove it from store will be added back, making this functionality no sense
+    // const removeFromStore = async(e) => {
+    //     e.preventDefault()
+    //     e.stopPropagation()
+    //     const id = e.target.value.split('_')[1]
+    //     await dispatch(removeDMChannelsThunk(id))
+    // }
 
     if (!userId) {
         return null;
@@ -116,13 +115,21 @@ function LeftBar() {
         <>
         <div className='Wrapper'>
             <div className='leftBarWrapper'>
-                    <h3 style={{ borderBottom: '1px solid #183a1d', paddingBlock:'2%'}}>Cheerful welcome, {currentUser.username}</h3>
+                    <h3 style={{ borderBottom: '1px solid #183a1d', padding: '2%', overflowWrap: 'break-word', color:'#183a1d'}}>
+                        <span style={{ color:'#f0a04b'}}>Cheerful Welcome, </span>
+                        {currentUser.username}
+                    </h3>
                 <div className='groupsWrapper'>
                     <i className={showChatGroups ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={e=> setShowChatGroups(showChatGroups=>!showChatGroups)}/> 
                     <h4 style={{ display:'inline', marginLeft:'1%' }} onClick={e => setShowChatGroups(showChatGroups => !showChatGroups)}>Group chats</h4>
                     <CreateGroupFormModal />
                     {showChatGroups && Object.keys(chatGroups).map((groupId, i) =>
-                        <button className='groupEl' key={`chatGroups${i}`} value={`ChatGroups_${groupId}`} onClick={loadMain}># {chatGroups[groupId]?.name}</button>
+                        <button className='groupEl'
+                                key={`chatGroups${i}`} 
+                                value={`ChatGroups_${groupId}`} 
+                                onClick={loadMain}>
+                                # {chatGroups[groupId]?.name}
+                        </button>
                     )}
 
                 </div>
@@ -140,11 +147,12 @@ function LeftBar() {
 
                                 {dmChannels[groupId]?.members[(Object.keys(dmChannels[groupId]?.members).filter(memberId => +memberId !== +currentUser.id)[0])].username}
                             </button>
-                            <div style={{ display: 'flex', justifyContent: 'center',     flexDirection:'column' }}>
-                                <button className='groupEl' key={`dmChannelRemoveButton${i}`} value={`DM_${groupId}`} onClick={removeFromStore} >
+                            {/* <div style={{ display: 'flex', justifyContent: 'center',     flexDirection:'column' }}>
+                                <button className='groupEl' key={`dmChannelRemoveButton${i}`} value={`DM_${groupId}`}     onClick={removeFromStore} 
+                                >
                                     close
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     )}
 
@@ -152,7 +160,7 @@ function LeftBar() {
                     <div className='groupsWrapper'>
                         <div>
                             <i className={showMoments ? "fas fa-caret-down" : "fas fa-caret-right"} onClick={loadMoment}/>
-                            <h4 style={{ display: 'inline' }} onClick={loadMoment}>Moments</h4>
+                            <h4 style={{ display: 'inline' }} onClick={loadMoment}> Moments</h4>
                         </div>
 
                         <CreateMomentFormModal setShowMyMoments={setShowMyMoments} setShowAllMoments={setShowAllMoments} setGroupId={setGroupId}/>
@@ -168,7 +176,7 @@ function LeftBar() {
                     
             </div>
             <div className='mainContentWrapper'>
-                {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} />}
+                    {groupId && groupId.startsWith('ChatGroups_') && <MainContent groupId={groupId.split('_')[1]} setGroupId={setGroupId}/>}
                 {groupId && groupId.startsWith('DM_') && <MainContentDM groupId={groupId.split('_')[1]} />}
                 {showAllMoments && <AllMoments/>}
                     {showMyMoments && <MyMoments/>}

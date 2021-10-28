@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import User, Group, db
 from app.forms import CreateGroupForm
 from app.api.auth_routes import validation_errors_to_error_messages
+from datetime import datetime
 
 
 group_routes = Blueprint('groups', __name__)
@@ -46,9 +47,9 @@ def create_group():
             theOtherUser = User.query.filter(
                 User.username == form.data['name']).first()
             if not theOtherUser:
-                return {'errors': ['name: user cannot be found.']}, 401
+                return {'errors': ['name: user not found.']}, 401
             if theOtherUser.id == current_user.id:
-                return {'errors': ['name: choose an user but not yourself.']}, 401
+                return {'errors': ['name: invite an user by user name but not yourself.']}, 401
             # name the DM channel with name userId_userId to avoid duplication
             dmGroupName = f'{current_user.id}_{theOtherUser.id}_UniqueDM'
             dmGroupName2 = f'{theOtherUser.id}_{current_user.id}_UniqueDM'
@@ -108,6 +109,7 @@ def edit_group(id):
             return {'errors': ['No authorization']}, 403
         group.name = form.data['name']
         group.description = form.data['description']
+        group.updatedAt = datetime.now()
         db.session.commit()
         return group.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

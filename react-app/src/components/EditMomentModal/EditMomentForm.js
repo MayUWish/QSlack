@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { editMomentsThunk } from "../../store/moments";
-
+import CloseModalButton from '../CloseModal';
 
 
 const EditMomentForm = ({ setShowModal, moment, momentId }) => {
@@ -44,8 +44,10 @@ const EditMomentForm = ({ setShowModal, moment, momentId }) => {
 
 
     return (
+        <>
+        <CloseModalButton setShowModal={setShowModal} />
         <form onSubmit={onEdit} className='formWrapper'>
-            <div style={{ color: '#f0a04b' }}>
+            <div className='errorDiv'>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                 ))}
@@ -77,6 +79,7 @@ const EditMomentForm = ({ setShowModal, moment, momentId }) => {
             <button className='formBtn' type='submit'>Edit moment</button>
             <button className='formBtn' onClick={onCancel}>Cancel</button>
         </form>
+        </>
     )
 
 };
