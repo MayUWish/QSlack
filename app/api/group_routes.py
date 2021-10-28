@@ -108,8 +108,6 @@ def edit_group(id):
         group = Group.query.get(id)
         if group.adminId != current_user.id:
             return {'errors': ['No authorization']}, 401
-        if not group:
-            return {'errors': ['The chat group is deleted by the host.']}, 400
         group.name = form.data['name']
         group.description = form.data['description']
         group.updatedAt = datetime.now()

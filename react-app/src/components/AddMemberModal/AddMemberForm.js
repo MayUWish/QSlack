@@ -33,6 +33,7 @@ const AddMemberForm = ({ membersObject, currentGroupName, currentGroupId, setSho
     const updateUsername = (e) => {
         
         setUsername(e.target.value);
+        setErrors([])
 
     };
 
