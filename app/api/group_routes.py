@@ -110,7 +110,7 @@ def edit_group(id):
             return {'errors': ['No authorization']}, 401
         group.name = form.data['name']
         group.description = form.data['description']
-        group.updatedAt = datetime.now()
+        group.updatedAt = datetime.utcnow()
         db.session.commit()
         return group.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

@@ -10,8 +10,9 @@ memberships = db.Table(
     db.Column("groupId", db.Integer, db.ForeignKey(
         "groups.id"), primary_key=True),
     db.Column("createdAt", db.DateTime, nullable=False,
-              default=datetime.now()),
-    db.Column("updatedAt", db.DateTime, nullable=False, default=datetime.now())
+              default=datetime.utcnow()),
+    db.Column("updatedAt", db.DateTime, nullable=False,
+              default=datetime.utcnow())
 )
 
 
@@ -25,9 +26,9 @@ class User(db.Model, UserMixin):
     biography = db.Column(db.String, nullable=True)
     profilePic = db.Column(db.String, nullable=True)
     createdAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
     updatedAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
 
     # on to many groups created by the user
     groupsOwned = db.relationship(

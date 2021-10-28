@@ -100,7 +100,7 @@ def edit_moment(id):
             media_url = upload_media["url"]
         moment.media = media_url
         moment.description = form.data['description']
-        moment.updatedAt = datetime.now()
+        moment.updatedAt = datetime.utcnow()
         db.session.commit()
         return moment.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

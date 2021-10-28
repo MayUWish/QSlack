@@ -18,16 +18,16 @@ const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
         <div>
             <CloseModalButton setShowModal={setShowModal} />
             <div style={{padding:'5%'}}>
-                Name: {currentGroup.name}
+                Name:  {currentGroup.name}
             </div>
             <div style={{ padding: '5%' }}>
-                Description: {currentGroup.description ? currentGroup.description : 'None'}
+                Description:  {currentGroup.description ? currentGroup.description : 'None'}
             </div>
             <div style={{ padding: '5%' }}>
-                Created by {adminUser.username}
+                Created by:  {adminUser.username}
             </div >
             <div style={{ padding: '5%' }}>
-                Created on {new Date(currentGroup.createdAt).toLocaleDateString()}
+                Created on  {new Date(currentGroup.createdAt).toLocaleDateString()}
             </div >
             {isAdmin && <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%' }}>
                 <button className='btn' onClick={() => {

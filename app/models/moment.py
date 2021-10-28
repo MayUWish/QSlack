@@ -9,9 +9,9 @@ class Moment(db.Model):
     description = db.Column(db.String, nullable=False)
     media = db.Column(db.String, nullable=False)
     createdAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
     updatedAt = db.Column(db.DateTime, nullable=False,
-                          default=datetime.now())
+                          default=datetime.utcnow())
     # many to one user
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
