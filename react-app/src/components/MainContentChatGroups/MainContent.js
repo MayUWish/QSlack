@@ -55,9 +55,9 @@ function MainContent({ groupId, setGroupId}) {
             
             if (chat.action === 'create') {
                 //console.log('create chat!!!', chat)
-                if (chat.errors){
+                if (chat.errorsNoGroup){
                     // setErrors(chat.errors)
-                    alert(chat.errors[0])
+                    alert(chat.errorsNoGroup[0])
 
                 }
                 // if (!chat.errors) {
@@ -90,7 +90,7 @@ function MainContent({ groupId, setGroupId}) {
             dmParentEl.forEach(e => e.classList.remove("highlight"));
             chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
             momentParentEl.forEach(e => e.classList.remove("highlight"));
-            document.getElementById(`ChatGroups_${ groupId }`).classList.add('highlight');
+            document.getElementById(`ChatGroups_${ groupId }`)?.classList.add('highlight');
 
         })
         // when component unmounts, disconnect

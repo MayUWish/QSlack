@@ -28,7 +28,7 @@ def handle_chat(data):
 
     currentGroup = Group.query.get(data['groupId'])
     if not currentGroup:
-        data['errors'] = ['The chat group is deleted by the host.']
+        data['errorsNoGroup'] = ['The chat group is deleted by the host.']
         emit(data['groupId'], data, broadcast=True)
 
     # The following validation:

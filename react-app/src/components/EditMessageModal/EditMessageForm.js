@@ -17,10 +17,11 @@ const EditMessageForm = ({ setShowModal, message, groupId }) => {
         socket.on(String(groupId), async (chat) => {
             if (chat.action === 'edit') {
                 //console.log('edit chat!!!', chat)
-                if (chat.errors) {
+                if (chat.errorsNoGroup) {
+                    alert(chat.errorsNoGroup[0])
+                } else if (chat.errors) {
                     setErrors(chat.errors)
-                    alert(chat.errors[0])
-                } else {
+                }else {
                     setShowModal(false)
                 }
                 

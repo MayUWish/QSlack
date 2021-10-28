@@ -37,7 +37,7 @@ const CreateDMForm = ({ setShowModal, setGroupId }) => {
             dmParentEl.forEach(e => e.classList.remove("highlight"));
             chatGroupsParentEl.forEach(e => e.classList.remove("highlight"));
             momentParentEl.forEach(e => e.classList.remove("highlight"));
-            document.getElementById(`DM_${data.dmChannelId}`).classList.add('highlight');
+            document.getElementById(`DM_${data.dmChannelId}`)?.classList.add('highlight');
         }
         else {
             setErrors([])
