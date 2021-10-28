@@ -65,7 +65,7 @@ def seed_comments():
         userId=8, comment="Nice!")
     comment712 = Comment(
         momentId=5,
-        userId=5, comment='Pretty~')
+        userId=5, comment='PrettyPretty~')
 
     db.session.add(comment701)
     db.session.add(comment702)

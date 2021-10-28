@@ -7,6 +7,7 @@ from .likes import seed_likes, undo_likes
 from .comments import seed_comments, undo_comments
 
 
+
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
 seed_commands = AppGroup('seed')
@@ -21,6 +22,7 @@ def seed():
     seed_moments()
     seed_likes()
     seed_comments()
+
     # Add other seed functions here
 
 
