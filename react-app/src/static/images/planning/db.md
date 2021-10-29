@@ -25,9 +25,8 @@ Table Groups {
 
 
 Table Membership {
-  id int [pk, increment]
-  userId int
-  groupId int
+  userId int [pk, increment]
+  groupId int [pk, increment]
   createdAt timestamp
   updatedAt timestamp
 
@@ -67,6 +66,8 @@ Table Likes {
   id int [pk, increment] 
   momentId int
   userId int
+  createdAt timestamp
+  updatedAt timestamp
 }
 
 
@@ -91,4 +92,3 @@ Ref: Comments.momentId > Moments.id
 
 Ref: Likes.userId > Users.id
 Ref: Likes.momentId > Moments.id
-
