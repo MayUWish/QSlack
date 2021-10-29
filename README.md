@@ -2,7 +2,7 @@
 
 QSlack, inspired by Slack and Instagram, is an application that allows users to send direct messages, chat in groups, and share moments.
 
-Live link: [QSLACK](https://qslack-app.herokuapp.com/)
+Live Link: [QSLACK](https://qslack-app.herokuapp.com/)
 
 
 ## QSlack at a Glance
@@ -19,7 +19,8 @@ User can send live messages, edit and delete their own messages in a chat group 
 ### Moments
 User can create moments, edit and delete their own moments, likes and comments on all the moments.
 
-![Moments at a glance](/react-app/src/static/readMe/moments.gif)
+![Moments at a glance](/react-app/src/static/readMe/moments.gif) 
+![Liks & Comments at a glance](/react-app/src/static/readMe/likesAndComments.gif)
 
 ## Technologies & Frameworks used
 ### Backend
