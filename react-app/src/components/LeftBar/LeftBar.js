@@ -68,7 +68,7 @@ function LeftBar() {
         setShowMoments(showMoments => !showMoments)
 
     }
-    const loadAllMoment = (e) =>{
+    const loadAllMoment = async(e) =>{
         e.stopPropagation();
         setShowAllMoments(true)
         setShowMyMoments(false)
@@ -82,9 +82,11 @@ function LeftBar() {
         momentParentEl.forEach(e => e.classList.remove("highlight"));
 
         e.target.classList.add('highlight');
+
+        await dispatch(getMomentsThunk())
     }
 
-    const loadMyMoment = (e) => {
+    const loadMyMoment = async(e) => {
         e.stopPropagation();
         setShowMyMoments(true)
         setShowAllMoments(false)
@@ -98,6 +100,8 @@ function LeftBar() {
         momentParentEl.forEach(e => e.classList.remove("highlight"));
 
         e.target.classList.add('highlight');
+
+        await dispatch(getMomentsThunk())
     }
 
     // do not do remove DM from redux, bc when other users invited current user to a group, in order current user is showed the newly group, certain actions such as click on group and dm will trigger getThunk to grab most updated chat groups and dm channels. Thus remove it from store will be added back, making this functionality no sense
