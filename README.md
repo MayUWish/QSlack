@@ -29,7 +29,7 @@ User can create moments, edit and delete their own moments, likes and comments o
 * PostgreSQL
 * SQLAlchemy
 
-SQLAlchemy, as the Python SQL toolkit and Object Relational Mapper, was used to manage the tables and data seeding in PostgreSQL. The object model provides the flexibility and convenience to seed data randomly and dynamically. The following code was used to randomly populate the memberships and messages tables for chat groups. 
+SQLAlchemy, as the Python SQL toolkit and Object Relational Mapper, is used to manage the tables and data seeding in PostgreSQL. The object model provides the flexibility and convenience to seed data randomly and dynamically. The following code is used to randomly populate the memberships and messages tables for chat groups. 
 
 ##### Randomly data seeding of memberships and messages for chat groups
 ```jsx
@@ -65,8 +65,8 @@ def seed_memberships():
 * React
 * Redux
 
-React, as a JavaScript library, was used to build the user interfaces. The Virtual DOM together with the state management, allows dynamic and interactive components.
-The following code was used to dynamically displaying other users, per changes of input when adding users to chat groups. 
+React, as a JavaScript library, is used to build the user interfaces. The Virtual DOM together with the state management, allows dynamic and interactive components.
+The following code is used to dynamically display other users, per changes of input when adding users to chat groups. 
 
 ##### Dynamically displaying other users
 ```jsx
@@ -86,13 +86,13 @@ The following code was used to dynamically displaying other users, per changes o
 
 * AWS S3
 
-Amazon Web Services S3 was used to allow users to upload profile image when signing up and to upload moment image when creating and editing moments.
+Amazon Web Services S3 is used to allow users to upload profile image when signing up and to upload moment image when creating and editing moments.
 
 * WebSocket
 
-Socket.IO was used to manage creating, editing, deleting live messages and to distribute messages over sockets to the appropriate chat groups for instant messaging. 
+Socket.IO is used to manage creating, editing, deleting live messages and to distribute messages over sockets to the appropriate chat groups for instant messaging. 
 
-Key as 'action' of data dictionary sent to backend, together with value as 'create', 'edit' or 'delete' are used as identifiers to create, edit or delete messages in database. Validations such as empty input of message, authorization, are also implemented to display appropriate error message to users.
+Key as 'action' of data dictionary sent to backend, together with value as 'create', 'edit' or 'delete' are used as identifiers to create, edit or delete messages in database. Validations such as empty input of message and authorization, are also implemented to display appropriate error message to users.
 
 ##### Instant messaging
 ``` jsx
