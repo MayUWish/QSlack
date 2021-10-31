@@ -79,7 +79,7 @@ def handle_chat(data):
         elif not len(data['msg']) or data['msg'].isspace():
             data['errors'] = ['Message cannot be empty.']
 
-        elif messageToEdit.userId == data['userId'] and len(data['msg']) and not data['msg'].isspace():
+        else:
             messageToEdit.message = data['msg']
             messageToEdit.updatedAt = datetime.utcnow()
             db.session.commit()

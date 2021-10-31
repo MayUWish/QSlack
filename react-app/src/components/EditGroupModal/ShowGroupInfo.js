@@ -15,7 +15,7 @@ const ShowGroupInfo= ({ setShowModal, currentGroup }) => {
     const isAdmin = +currentUser.id === +currentGroup.adminId
  
     return (
-        <div>
+        <div style={{ width: '500px' }}>
             <CloseModalButton setShowModal={setShowModal} />
             <div style={{padding:'5%'}}>
                 Name:  {currentGroup.name}

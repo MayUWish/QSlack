@@ -5,3 +5,4 @@ from .createGroup_form import CreateGroupForm
 from .createMoment_form import CreateMomentForm
 from .createComment_form import CreateCommentForm
 from .deleteComment_form import DeleteCommentForm
+from .editProfile_form import EditProfileForm

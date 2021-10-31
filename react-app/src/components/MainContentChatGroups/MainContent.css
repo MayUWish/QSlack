@@ -40,12 +40,14 @@
 .eachChatWrapperInside, .eachChatWrapperOutside{
     display: flex;
     gap: 2%;
+    
  
 
 }
 
 .eachChatWrapperInside{
-    width:80%
+    width:80%;
+  
 }
 
 .eachChatWrapperOutside{
@@ -58,4 +60,8 @@
   background-color: #183a1d;
   color:whitesmoke;
   border-radius: 5px;
+}
+
+.eachChatMessageDiv{
+   word-break: break-all;
 }
