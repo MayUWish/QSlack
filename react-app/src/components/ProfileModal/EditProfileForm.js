@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { editChatGroupsThunk } from "../../store/chatGroups";
+import { editProfile } from "../../store/session";
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import CloseModalButton from '../CloseModal'
+import { getChatGroupsThunk } from "../../store/chatGroups";
+import { getDMChannelsThunk } from "../../store/dmChannels";
+import { getMomentsThunk } from "../../store/moments";
+
 
 
 
@@ -10,7 +14,7 @@ import CloseModalButton from '../CloseModal'
 const EditProfileForm = ({ setShowEditModal, setShowModal }) => {
     const [errors, setErrors] = useState([]);
     const currentUser = useSelector((state) => state.session?.user);
-    const [userName, setUserName] = useState(currentUser.username);
+    const [username, setUserName] = useState(currentUser.username);
     const [biography, setBiography] = useState(currentUser.biography);
     const [profilePic, setProfilePic] = useState(null);
 
@@ -20,19 +24,21 @@ const EditProfileForm = ({ setShowEditModal, setShowModal }) => {
 
     const onEdit = async (e) => {
         e.preventDefault();
-        const editProfile = {
-            userName,
-            biography,
-            'profilePic': profilePic ? profilePic: currentUser.profilePic
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("biography", biography);
+        formData.append("profilePic", profilePic);
+        formData.append('userId', currentUser.id)
 
-   
-        }
-        const data = await dispatch();
-        if (data && data.errors) {
-            setErrors(data.errors)
+        const data = await dispatch(editProfile(formData));
+        if (data) {
+            setErrors(data)
         } else {
             setShowEditModal(false)
             setShowModal(false)
+            await dispatch(getChatGroupsThunk())
+            await dispatch(getDMChannelsThunk())
+            await dispatch(getMomentsThunk())
         }
     }
 
@@ -66,7 +72,7 @@ const EditProfileForm = ({ setShowEditModal, setShowModal }) => {
                         type='text'
                         name='name'
                         onChange={updateName}
-                        value={userName}
+                        value={username}
                         className='formInput'
                     ></input>
                 </div>
