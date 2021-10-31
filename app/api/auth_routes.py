@@ -4,6 +4,7 @@ from app.forms import LoginForm
 from app.forms import SignUpForm
 from app.forms import EditProfileForm
 from flask_login import current_user, login_user, logout_user, login_required
+from datetime import datetime
 
 # setup AWS
 from app.s3_helpers import (
@@ -145,6 +146,7 @@ def editProfile():
 
         user.username = form.data['username']
         user.biography = form.data['biography']
+        user.updatedAt = datetime.utcnow()
         if profilePic_url:
             user.profilePic = profilePic_url
         db.session.commit()
