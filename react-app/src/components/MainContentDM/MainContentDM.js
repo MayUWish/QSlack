@@ -128,7 +128,7 @@ function MainContentDM({ groupId }) {
                                         color: 'gray', fontSize: 'small'}}>
                                     {new Date(message.createdAt).toLocaleString()}</span>
                                 </div>
-                                <div>
+                                <div className='eachChatMessageDiv'>
                                     {message.message}
                                 </div>
                             </div>
