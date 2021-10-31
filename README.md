@@ -65,8 +65,7 @@ def seed_memberships():
 * React
 * Redux
 
-
-React, as a JavaScript library, was used to build the user interfaces. The Virtual DOM provides the flexibility of state management, allowing each component dynamically and interactively.
+React, as a JavaScript library, was used to build the user interfaces. The Virtual DOM together with the state management, allows dynamic and interactive components.
 The following code was used to dynamically displaying other users, per changes of input when adding users to chat groups. 
 
 ##### Dynamically displaying other users
@@ -82,13 +81,16 @@ The following code was used to dynamically displaying other users, per changes o
                 </div>
             ))}
 ```
+
 ### API
 
 * AWS S3
+
 Amazon Web Services S3 was used to allow users to upload profile image when signing up and to upload moment image when creating and editing moments.
 
 * WebSocket
-Socket.io was used on the backend to manage creating, editing, deleting live messages and to distribute messages over sockets to the appropriate chat groups for instant messaging. 
+
+Socket.IO was used to manage creating, editing, deleting live messages and to distribute messages over sockets to the appropriate chat groups for instant messaging. 
 
 Key as 'action' of data dictionary sent to backend, together with value as 'create', 'edit' or 'delete' are used as identifiers to create, edit or delete messages in database. Validations such as empty input of message, authorization, are also implemented to display appropriate error message to users.
 
