@@ -12,7 +12,7 @@ import CreateGroupFormModal from '../CreateGroupModal';
 import CreateDMFormModal from '../CreateDMModal';
 import CreateMomentFormModal from '../CreateMomentModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
-// import footer from '../../static/images/footer.png'
+import { authenticate } from "../../store/session";
 import './LeftBar.css';
 
 function LeftBar() {
@@ -45,10 +45,11 @@ function LeftBar() {
         })();
     }, [dispatch, userId]);
 
-    const loadMain = (e) =>{
+    const loadMain = async(e) =>{
         setGroupId(e.target.value);
         setShowAllMoments(false)
         setShowMyMoments(false)
+        
 
         // onClick remove highlight class to all elements in groupsWapper and add highlight class to the target
         
@@ -61,6 +62,8 @@ function LeftBar() {
 
         document.getElementById(e.target.value)?.classList.add('highlight');
         // e.target.classList.add('highlight');
+        // when other user updates their profile including username
+        await dispatch(authenticate())
     }
 
     const loadMoment = (e) => {
@@ -84,6 +87,8 @@ function LeftBar() {
         e.target.classList.add('highlight');
 
         await dispatch(getMomentsThunk())
+        // when other user updates their profile including username
+        await dispatch(authenticate())
     }
 
     const loadMyMoment = async(e) => {
@@ -102,6 +107,8 @@ function LeftBar() {
         e.target.classList.add('highlight');
 
         await dispatch(getMomentsThunk())
+        // when other user updates their profile including username
+        await dispatch(authenticate())
     }
 
     // do not do remove DM from redux, bc when other users invited current user to a group, in order current user is showed the newly group, certain actions such as click on group and dm will trigger getThunk to grab most updated chat groups and dm channels. Thus remove it from store will be added back, making this functionality no sense

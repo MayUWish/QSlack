@@ -3,12 +3,15 @@ import { Modal } from '../../context/Modal';
 import CreateGroupForm from './CreateGroupForm';
 
 
+
 function CreateGroupFormModal() {
     const [showModal, setShowModal] = useState(false);
+   
 
     return (
         <div style={{textAlign:'end'}}>
-            <button className= 'smallBtn' onClick={() => setShowModal(true)}>
+            <button className= 'smallBtn' 
+                    onClick={() => setShowModal(true)}>
                 <i className="fas fa-plus" />
             </button>
             {showModal && (
