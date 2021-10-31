@@ -13,7 +13,7 @@ const LogoutButton = () => {
       style={{ border: 'none', 
                 color: '#183a1d',
                 fontWeight: 'bold',
-                height: '30px',
+                height: '25px',
                 width:'85px',
                 textAlign:'start'}}
       >Log Out</button>)

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editChatGroupsThunk } from "../../store/chatGroups";
+// import { editChatGroupsThunk } from "../../store/chatGroups";
+import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import CloseModalButton from '../CloseModal'
 
 
@@ -11,19 +12,22 @@ const EditProfileForm = ({ setShowEditModal, setShowModal }) => {
     const currentUser = useSelector((state) => state.session?.user);
     const [userName, setUserName] = useState(currentUser.username);
     const [biography, setBiography] = useState(currentUser.biography);
+    const [profilePic, setProfilePic] = useState(null);
 
     // const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
 
-    const onCreate = async (e) => {
+    const onEdit = async (e) => {
         e.preventDefault();
-        const editChatGroup = {
+        const editProfile = {
             userName,
             biography,
+            'profilePic': profilePic ? profilePic: currentUser.profilePic
+
    
         }
-        const data = await dispatch(editChatGroupsThunk(editChatGroup));
+        const data = await dispatch();
         if (data && data.errors) {
             setErrors(data.errors)
         } else {
@@ -38,16 +42,18 @@ const EditProfileForm = ({ setShowEditModal, setShowModal }) => {
         setUserName(e.target.value);
     };
 
-    const updateDescritption = (e) => {
+    const updateBiography = (e) => {
         setBiography(e.target.value);
     };
 
-
+    const updateProfilePic = (e) => {
+        setProfilePic(e.target.files[0]);
+    };
 
     return (
         <>
             <CloseModalButton setShowModal={setShowEditModal} />
-            <form onSubmit={onCreate} className='formWrapper'>
+            <form onSubmit={onEdit} className='formWrapper'>
 
                 <div className='errorDiv'>
                     {errors.map((error, ind) => (
@@ -66,12 +72,29 @@ const EditProfileForm = ({ setShowEditModal, setShowModal }) => {
                 </div>
                 <div className='formInputWrapper'>
                     <label>Biography</label>
-                    <input
-                        type='text'
-                        name='biography'
-                        onChange={updateDescritption}
+                    <textarea
+                        name='Biography'
+                        onChange={updateBiography}
                         value={biography}
+                        style={{ resize: 'none', height: '70px' }}
                         className='formInput'
+                    ></textarea>
+                </div>
+                <div style={{ paddingLeft: '40%' }}>
+                    <img alt='profilePic'
+                        src={currentUser.profilePic ? currentUser.profilePic : defaultProfilePic}
+                        style={{ width: '100px', height: '100px', borderRadius: '5px' }}
+                    />
+                </div>
+                <div className='formInputWrapper'>
+                    <label>Replace profile picture by</label>
+                    <input
+                        name='profilePic'
+                        type="file"
+                        accept="image/*"
+                        onChange={updateProfilePic}
+                        className="formInput"
+                        style={{ border: '1px solid black', cursor: 'pointer' }}
                     ></input>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%' }}>

@@ -12,10 +12,13 @@ function ProfileModal() {
                     style={{
                         border: 'none',
                         color: '#183a1d',
-                        fontWeight: 'bold',
+                        fontWeight: 'bolder',
                         height: '30px',
                         width: '85px',
-                        textAlign: 'start'
+                        textAlign: 'start',
+                        backgroundColor:'white',
+                        fontSize:'22px'
+    
                     }}
                     onClick={() => setShowModal(true)}>
                 Profile
