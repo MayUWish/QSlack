@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import LogoutButton from '../auth/LogoutButton';
 import LoginFormModal from '../auth/LoginFormModal';
 import SignUpFormModal from '../auth/SignUpFormModal';
+import ProfileModal from '../ProfileModal';
 import defaultProfilePic from '../../static/images/defaultProfilePic.png'
 import DemoButton from '../auth/DemoButton'
 
 import './NavBar.css';
 
-const NavBar = () => {
+const NavBar = ({ page}) => {
   const user = useSelector((state) => state.session?.user);
   const [show, setShow] = useState(false)
   return (
@@ -42,10 +43,12 @@ const NavBar = () => {
           {show && 
           <div style={{ }}>
               
-              <NavLink to={`/clients/${user.username}`} exact={true}    
+              {page==='home' && <NavLink to={`/clients/${user.username}`} exact={true}
                   style={{ textDecoration: 'none', color: '#183a1d', fontWeight: 'bold'}}>
                   Launch 
-              </NavLink>
+              </NavLink>}
+
+              {page === 'app' && <ProfileModal />}
             
               <LogoutButton />
             </div>         

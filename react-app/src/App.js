@@ -26,21 +26,24 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      
       <Switch>
         {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute> */}
 
         <Route path='/' exact={true} >
+          <NavBar page={'home'}/>
           <HomePage />
         </Route>
 
         <ProtectedRoute path='/clients/:clientName' exact={true} >
+          <NavBar page={'app'}/>
           <LeftBar />          
         </ProtectedRoute>
         
         <Route path="*">
+          <NavBar page={'home'}/>
           <HomePage />
         </Route>
         
