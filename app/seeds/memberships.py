@@ -5,13 +5,13 @@ import random
 def seed_memberships():
     groups = Group.query.all()
     for group in groups:
-        # user created/as admin should always be in the chat groups
+        # user creating the group/as admin should always be in the chat groups
         adminUser = User.query.filter(User.id == group.adminId).first()
         group.members.append(adminUser)
         randomMessage = f'Hi, this is {adminUser.username} saying hello in # {group.name}'
         group.messages.append(Message(
             userId=adminUser.id, groupId=group.id, message=randomMessage))
-        # ramdom select nonAdminUsers to add to memberships
+        # ramdomly select non-Admin users to be added to the group
         nonAdminUsers = User.query.filter(User.id != group.adminId).all()
         if group.isDM:
             randomNum = 1
