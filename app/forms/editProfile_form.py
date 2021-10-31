@@ -25,4 +25,4 @@ class EditProfileForm(FlaskForm):
         'username', validators=[DataRequired(), username_exists,
                                 username_length])
     biography = TextAreaField('biography')
-    userId = IntegerField('userId', DataRequired())
+    userId = IntegerField('userId', validators=[DataRequired()])
