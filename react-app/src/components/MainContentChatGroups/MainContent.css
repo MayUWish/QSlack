@@ -25,11 +25,11 @@
 
 #messageBox{
     position: fixed;
-    bottom:16px; 
-    width: 74%;
+    bottom:1.5%; 
+    width: 70%;
     margin-top: 10%;
-    margin-left: -2%;
-   
+    margin-right: 1%;
+    margin-left: -0.5%;
 
 }
 
