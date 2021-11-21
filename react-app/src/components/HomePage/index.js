@@ -1,6 +1,14 @@
 import React from 'react';
 import DemoButton from '../auth/DemoButton'
-import welcome from '../../static/images/welcome.png';
+import Carousel from "react-responsive-carousel/lib/js/components/Carousel/index";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import homeImg0 from '../../static/images/homeImg0.jpeg';
+import homeImg1 from '../../static/images/homeImg1.jpeg';
+import homeImg2 from '../../static/images/homeImg2.jpeg';
+import homeImg3 from '../../static/images/homeImg3.jpeg';
+import homeImg4 from '../../static/images/homeImg4.jpeg';
+import homeImg5 from '../../static/images/homeImg5.jpeg';
+import homeImg6 from '../../static/images/homeImg6.jpeg';
 import app from '../../static/images/app.jpg';
 import UniqueEnE from '../../static/images/UniqueEnE.jpg'; 
 import Ingestibles from '../../static/images/Ingestibles.jpg';
@@ -12,8 +20,33 @@ const HomePage = () => {
     return (
         <>
             <div style={{display:'flex', marginTop:'3%'}}>  
-                <img src={welcome} alt='homepageImages' style={{width:'60%', borderRadius:'5px' }}></img>
 
+                <div style={{ width: '60%'}}>
+                    <Carousel infiniteLoop={true} autoPlay={true} interval={2800} showArrows={false}   showIndicators={true} showStatus={false} showThumbs={false}>
+                        <div>
+                            <img className="homeImage" alt="homeImage1" src={homeImg0} />
+                        </div>
+                        <div>
+                            <img className="homeImage" alt="homeImage2" src={homeImg1} />
+                        </div>
+                        <div>
+                            <img className="homeImage" alt="homeImage3" src={homeImg2} />
+                        </div>
+                        <div>
+                            <img className="homeImage" alt="homeImage4" src={homeImg3} />
+                        </div>
+                        <div>
+                            <img className="homeImage" alt="homeImage5" src={homeImg4} />
+                        </div>
+                        <div>
+                            <img className="homeImage" alt="homeImage6" src={homeImg5} />
+                        </div>
+                        <div>
+                            <img className="homeImage" alt="homeImage6" src={homeImg6} />
+                        </div>
+
+                    </Carousel>
+                </div>
                 <div style={{ width:'40%', textAlign:'center'}}>
            
                     <h2 style={{ color: '#183a1d', margin: '50% 10% 1%  10%' }}>
@@ -100,11 +133,12 @@ const HomePage = () => {
                 <h2 style={{  textAlign: 'center', color: '#f0a04b' }}> My other projects: </h2>
                 <div>
                     <a href='https://uniqueene.herokuapp.com/listings' target="_blank" rel='noreferrer' >
-                        <img src={UniqueEnE} alt='project_UniqueEnE' style={{ width: '45%', height: '600px', margin: '2% 2%', cursor: 'pointer'}}/>
+                        <img src={UniqueEnE} alt='project_UniqueEnE' style={{ width: '40%', height: '350px', margin: '2% 5%', cursor: 'pointer', borderRadius:'5px'}}/>
                     </a>
                     <a href='https://ingestibles-app.herokuapp.com/' target="_blank" rel='noreferrer'>
-                        <img src={Ingestibles} alt='project_Ingestibles' style={{ width: '45%', height: '600px', margin: '2% 2%', cursor: 'pointer' }} />
+                        <img src={Ingestibles} alt='project_Ingestibles' style={{ width: '40%', height: '350px', margin: '2% 5%', cursor: 'pointer', borderRadius: '5px'}} />
                     </a>
+                    
                 </div>
                 
             </div>
@@ -122,6 +156,10 @@ const HomePage = () => {
 
                             <a href='https://www.linkedin.com/in/meitongqu/' target="_blank" rel='noreferrer' style={{  textDecoration: 'none' }}>
                              <i className="fab fa-linkedin fa-1x tech2" ></i>
+                            </a>
+
+                            <a href="https://mayuwish.github.io/" rel="noreferrer" target="_blank" style={{ textDecoration: 'none' }}>
+                                <i className="fas fa-address-card tech2" ></i>
                             </a>
                         </div>
                     </div>
