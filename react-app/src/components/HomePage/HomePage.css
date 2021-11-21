@@ -18,3 +18,9 @@
     width: 30%;
 
 }
+
+.homeImage{
+    width:100%; 
+    border-radius:5px;
+    height:600px;
+}
