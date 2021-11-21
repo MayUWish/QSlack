@@ -2,13 +2,16 @@
     display: flex;
     border: 1px solid #183a1d;
     border-radius: 5px;
-    min-height: 90%;
+    /* min-height: 90%; */
+    height: 88vh;
     
 }
 .leftBarWrapper{
     width: 25%;
     border: 1px solid #183a1d;
     background-color: #e1eedd;
+    height: 88vh;
+    overflow: auto;
     /* color:whitesmoke; */
     
 }
@@ -16,6 +19,7 @@
     width: 75%;
     border: 1px solid #183a1d;
     padding-left: 2%;
+
 
 }
 

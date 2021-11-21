@@ -59,7 +59,7 @@ function Comments({ setCommentsShowModal, moment}) {
                         placeholder='Comments'
                         className='formInput'
                     ></input>
-                    <button style={{ display: 'inline-block' }} className='btn' type='submit'>Post</button>
+                    <button style={{ display: 'inline-block', marginRight:'2%' }} className='btn' type='submit'>Post</button>
                 </div>
                 
                 
