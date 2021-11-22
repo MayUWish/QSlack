@@ -17,9 +17,12 @@ User can send live messages, edit and delete their own messages in a chat group 
 ![Live messages at a glance](/react-app/src/static/readMe/messages.gif)
 
 ### Moments
-User can create moments, edit and delete their own moments, likes and comments on all the moments.
+User can create moments, edit and delete their own moments.
 
-![Moments at a glance](/react-app/src/static/readMe/moments.gif) 
+![Moments at a glance](/react-app/src/static/readMe/moments.gif)
+
+### likes and comments
+User can like and comment on all the moments.
 ![Liks & Comments at a glance](/react-app/src/static/readMe/likesAndComments.gif)
 
 ## Technologies & Frameworks used

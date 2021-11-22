@@ -41,7 +41,7 @@ const NavBar = ({ page}) => {
           style={{ width: '50px', height: '50px', borderRadius: '5px', cursor: 'pointer'}}
           onClick={e=>setShow(show=>!show)}/>
           {show && 
-          <div style={{ }}>
+          <div style={{textAlign:'end', width:'100px' }}>
               
               {page==='home' && <NavLink to={`/clients/${user.username}`} exact={true}
                   style={{ textDecoration: 'none', color: '#183a1d', fontWeight: 'bold'}}>
