@@ -9,21 +9,22 @@ Live Link: [QSLACK](https://qslack-app.herokuapp.com/)
 ### Chat groups
 User can create a chat group, invite other users to join the chat group, edit the information of chat group, and delete the chat group created by the user, or leave the chat group created by other users.
 
-![Chat groups at a glance](/react-app/src/static/readMe/groups.gif)
+![Chat groups at a glance](/react-app/src/static/readMe/group.gif)
 
 ### Live messages
 User can send live messages, edit and delete their own messages in a chat group or directly with the other user.
 
-![Live messages at a glance](/react-app/src/static/readMe/messages.gif)
+![Live messages at a glance](/react-app/src/static/readMe/message.gif)
 
 ### Moments
 User can create moments, edit and delete their own moments.
 
-![Moments at a glance](/react-app/src/static/readMe/moments.gif)
+![Moments at a glance](/react-app/src/static/readMe/moment.gif)
 
 ### likes and comments
 User can like and comment on all the moments.
-![Liks & Comments at a glance](/react-app/src/static/readMe/likesAndComments.gif)
+
+![Liks & Comments at a glance](/react-app/src/static/readMe/likesNComments.gif)
 
 ## Technologies & Frameworks used
 ### Backend
